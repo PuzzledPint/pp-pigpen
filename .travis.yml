@@ -20,8 +20,7 @@ branches:
 
 before_script:
   - npm install -g @angular/cli
-  - cd functions
-  - npm install
+  - npm --prefix ./functions install
 
 script:
   - npm --prefix ./functions run lint
