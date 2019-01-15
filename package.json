@@ -47,3 +47,7 @@
     "typescript": "~3.2.2"
   }
 }
+"devDependencies": {
+  "tslint": "~5.8.0",
+  "typescript": "~2.8.3"
+},
