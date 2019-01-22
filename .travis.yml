@@ -28,7 +28,7 @@ script:
   - ng lint
   - npm run test -- --watch=false --progress=false --browsers=ChromeHeadlessCI
   - ng build pp-pigpen --configuration=production --aot
-  - npm start & wait-on http://localhost:8080
+  - npm start
   - cypress run
 
 notifications:
