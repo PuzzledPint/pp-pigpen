@@ -8,6 +8,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { FooterComponent } from './footer.component';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -20,7 +21,7 @@ const config = {
 };
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FooterComponent],
   imports: [BrowserModule,
     // AngularFire
     AngularFireModule.initializeApp(config),
