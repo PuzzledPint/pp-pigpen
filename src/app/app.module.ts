@@ -10,6 +10,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FooterComponent } from '../components/footer.component';
 import { HeaderComponent } from '../components/header.component';
+import { VariablesPipe } from '../pipes/variables.pipe';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -22,7 +23,7 @@ const config = {
 };
 
 @NgModule({
-  declarations: [AppComponent, FooterComponent, HeaderComponent],
+  declarations: [AppComponent, FooterComponent, HeaderComponent, VariablesPipe],
   imports: [BrowserModule,
     // AngularFire
     AngularFireModule.initializeApp(config),

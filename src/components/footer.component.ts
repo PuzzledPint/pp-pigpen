@@ -2,19 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { InfoService } from 'src/services/info.service';
 import { Observable } from 'rxjs';
 import { Info } from 'src/models/info.model';
+import { variables } from 'src/pipes/variables.pipe';
 
 @Component({
   selector: 'app-footer',
   template: `
     <p>
-      © {{ year }} {{ (footer | async).fulltext }}
+      {{ (footer | async).fulltext | variables }}
     </p>
   `,
   styles: []
 })
 
 export class FooterComponent implements OnInit {
-  readonly year = new Date().getFullYear();
   footer: Observable<Info>;
   private infoService: InfoService;
 
