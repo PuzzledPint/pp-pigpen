@@ -1,25 +1,8 @@
-// {
-//   "compilerOptions": {
-//     "strict": true,
-//     "baseUrl": "../node_modules",
-//     "target": "es5",
-//     "lib": ["es5", "dom"],
-//     "types": ["cypress"]
-//   },
-//   "include": [
-//     "**/*.ts"
-//   ]
-// }
-
 {
   "compilerOptions": {
-    "allowJs": true,
-    "baseUrl": "../node_modules",
-    "types": [
-      "cypress"
-    ]
+    "types": ["cypress"]
   },
   "include": [
-    "**/*.*"
+    "**/*.spec.ts"
   ]
 }

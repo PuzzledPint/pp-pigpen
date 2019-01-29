@@ -26,7 +26,6 @@ script:
   - npm run build
   - cd ..
   - ng lint
-  - npm run test -- --watch=false --progress=false --browsers=ChromeHeadlessCI
   - ng build pp-pigpen --configuration=production --aot
   - npm start & cypress run
 

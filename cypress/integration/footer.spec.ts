@@ -1,5 +1,3 @@
-/// <reference types="Cypress" />
-
 const dt = new Date();
 
 describe('Footer Contains Copyright', function() {
