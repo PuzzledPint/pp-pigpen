@@ -6,7 +6,7 @@ import { Info } from 'src/models/info.model';
 @Component({
   selector: 'app-footer',
   template: `
-    <p>
+    <p data-cy="app-footer">
       {{ (footer | async).fulltext | variables }}
     </p>
   `,
