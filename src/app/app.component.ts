@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'view-root',
   template: `
 <app-header title='Welcome'></app-header>
 <app-footer></app-footer>

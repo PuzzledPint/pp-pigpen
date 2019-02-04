@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'view-test-all',
+  selector: 'view-playtesting',
   template: `
     <p>
-      test-all works!
+      playtesting works!
     </p>
   `,
   styles: []
 })
-export class TestAllComponent implements OnInit {
+export class PlaytestingComponent implements OnInit {
 
   constructor() { }
 

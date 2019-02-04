@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase.service';
-import { AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Info } from 'src/models/info.model';
 
 
@@ -14,7 +14,7 @@ export class InfoService {
       this.infoCollection = fb.getCollection<Info>('info');
    }
 
-   getInfo(slug: string) {
+   getInfo(slug: string) : AngularFirestoreDocument<Info> {
       return this.infoCollection.doc<Info>(slug);
    }
 }
