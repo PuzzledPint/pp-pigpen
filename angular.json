@@ -10,8 +10,8 @@
       "prefix": "",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "scss"
-        } 
+          "styleext": "css"
+        }
       },
       "architect": {
         "build": {
@@ -28,7 +28,7 @@
               "src/manifest.json"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.css"
             ],
             "scripts": []
           },
