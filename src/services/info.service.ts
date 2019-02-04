@@ -14,7 +14,7 @@ export class InfoService {
       this.infoCollection = fb.getCollection<Info>('info');
    }
 
-   getInfo(slug: string) : AngularFirestoreDocument<Info> {
+   getInfo(slug: string): AngularFirestoreDocument<Info> {
       return this.infoCollection.doc<Info>(slug);
    }
 }
