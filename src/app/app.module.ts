@@ -20,6 +20,9 @@ import { HomeComponent } from '../components/home.component';
 import { EditorsComponent } from './editors/editors.component';
 import { PlaytestingComponent } from './playtesting/playtesting.component';
 
+// PrimeNG
+import { CardModule } from 'primeng/card';
+
 // Firebase credentials (okay to be public)
 const config = {
   apiKey: 'AIzaSyAjhlNnJzXejhVD_sJIP7q0nMNd84y9vnM',
@@ -51,7 +54,11 @@ const config = {
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }), // storage
-    AppRoutingModule
+    // PrimeNG
+    CardModule,
+    // Our app
+    AppRoutingModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
