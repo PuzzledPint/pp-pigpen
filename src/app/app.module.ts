@@ -22,6 +22,7 @@ import { PlaytestingComponent } from './playtesting/playtesting.component';
 
 // PrimeNG
 import { CardModule } from 'primeng/card';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -56,6 +57,7 @@ const config = {
     }), // storage
     // PrimeNG
     CardModule,
+    ScrollPanelModule,
     // Our app
     AppRoutingModule,
 
