@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-home',
   template: `
-    <div *ngFor="let i of Arr(50).fill(1)" style="padding: 1em">
+    <div *ngFor="let i of Arr(50).fill(1)" style="padding: 10px">
   <p-card>
       home works!
     </p-card>

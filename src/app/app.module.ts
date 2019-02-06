@@ -24,6 +24,7 @@ import { UserAuthComponent } from '../components/user-auth.component';
 // PrimeNG
 import { CardModule } from 'primeng/card';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { ButtonModule } from 'primeng/button';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -58,9 +59,12 @@ const config = {
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }), // storage
+
     // PrimeNG
     CardModule,
     ScrollPanelModule,
+    ButtonModule,
+
     // Our app
     AppRoutingModule,
 

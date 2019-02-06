@@ -4,7 +4,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
   selector: 'view-root',
   template: `
     <div class="p-grid" style="background-color:#FAFAFA">
-    <div class="p-col-12" [ngStyle]="{'height':'10vh', 'background-color':'#FAFAFA'}">
+    <div class="p-col-12" [ngStyle]="{'height':'7vh', 'background-color':'#FAFAFA','margin-bottom':'0px'}">
     <app-header title="Welcome"></app-header>
       </div>
       <div class="p-col-12">
