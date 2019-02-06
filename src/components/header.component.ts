@@ -7,26 +7,15 @@ import { Component, OnInit, Input } from '@angular/core';
       <div class="p-col-fixed" style="width:100px">
         <picture>
           <source
-            media="(min-width: 901px)"
-            srcset="
-              ../assets/images/pp-logo-lg.webp  2x,
-              ../assets/images/pp-logo-sm.webp  1x
-            "
+            media="(min-width: 900px)"
+            srcset="../assets/images/pp-logo-lg.webp"
             type="image/webp"
           />
           <source
-            media="(max-width: 900px)"
-            srcset="../assets/images/pp-logo-sm.webp"
+            srcset="/assets/images/pp-logo-sm.webp"
             type="image/webp"
           />
-          <!-- img
-            srcset="
-              ../assets/images/pp-logo-lg.png 900w
-            "
-            src="../assets/images/pp-logo-sm.png"
-            type="image/png"
-            alt="Puzzled Pint Logo"
-          /!-->
+          <img src="/assets/images/pp-logo-sm.png" alt="Puzzled Pint Logo" />
         </picture>
       </div>
       <div class="p-col">

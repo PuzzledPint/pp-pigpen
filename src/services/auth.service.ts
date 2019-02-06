@@ -27,9 +27,9 @@ export class AuthService {
   }
 
   hasRole(role: Roles, fail: () => any) {
-    return this._user.roles.pipe(
+    return this._user.loggedIn.pipe(
       take(1),
-      map(roles => roles.includes(role)),
+      map(loggedIn => this._user.roles.includes(role)),
       tap(hr => {
         if (!hr) {
           console.log('access denied');
