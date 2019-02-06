@@ -19,6 +19,7 @@ branches:
 
 before_script:
   - npm install -g @angular/cli
+  - npm install -g wait-on
   - cd functions && npm install
 
 script:
@@ -27,7 +28,8 @@ script:
   - cd ..
   - ng lint
   - ng build pp-pigpen --configuration=production --aot
-  - npm start & cypress run
+  - npm start & wait-on http://localhost:4200
+  - cypress run
 
 notifications:
   email:
