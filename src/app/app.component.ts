@@ -34,7 +34,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 }
 
 .custombar2:hover .ui-scrollpanel-bar {
-  background-color: #2222ff;
+  background-color: #007AD9;
 }
 `], encapsulation: ViewEncapsulation.None
 })

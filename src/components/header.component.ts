@@ -19,20 +19,37 @@ import { Component, OnInit, Input } from '@angular/core';
         </picture>
       </div>
       <div class="p-col-6">
-        <h1
-          data-cy="Title"
-          style="text-align:center; font-family: 'Indie Flower', cursive; margin-top:0; margin-bottom:0; font-size:60px"
-        >
-          {{ title }}
-        </h1>
+        <h1 data-cy="Title">{{ title }}</h1>
       </div>
       <div class="p-col-3">
         <app-user-auth></app-user-auth>
       </div>
     </div>
   `,
-  styles: []
+  styles: [`
+@media screen and (min-width: 769px) {
+  h1 {
+    font-size: 60px;
+    text-align:center;
+    font-family: 'Indie Flower', cursive;
+    margin-top:0;
+    margin-bottom:0;
+    }
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 8vw;
+    text-align:center;
+     font-family: 'Indie Flower', cursive;
+      margin-top:0;
+       margin-bottom:0;
+    }
+}
+  `]
 })
+
 export class HeaderComponent implements OnInit {
   @Input() title = 'Unbound';
 
