@@ -21,7 +21,7 @@ import { Component, OnInit, Input } from '@angular/core';
       <div class="p-col-6">
         <h1
           data-cy="Title"
-          style="text-align:center; font-family: 'Indie Flower', cursive; margin-top:0; margin-bottom:0; font-size:40px"
+          style="text-align:center; font-family: 'Indie Flower', cursive; margin-top:0; margin-bottom:0; font-size:60px"
         >
           {{ title }}
         </h1>

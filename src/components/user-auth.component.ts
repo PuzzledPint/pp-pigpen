@@ -16,12 +16,19 @@ import { PPUser } from "src/models/ppuser.model";
         </p>
       </div>
       <div class="p-col-11">
-        <p-button (click)="logout()" label="Sign Out" style="float:right"></p-button>
+        <p-button (click)="signOut()" label="Sign Out" style="float:right"></p-button>
       </div>
     </div>
     <ng-template #showLogin>
-      <p>Not Signed In</p>
-      <p-button (click)="login()" label="Sign In"></p-button>
+    <div class="p-col-11" style="margin-bottom:0; margin-top:0; font-size:16px; text-align:right">
+    <p style="margin-top:0; margin-bottom:0"
+    >
+      Not Signed In
+    </p>
+  </div>
+  <div class="p-col-11">
+    <p-button (click)="signIn()" label="Sign In" style="float:right"></p-button>
+  </div>
     </ng-template>
   `,
   styles: []
@@ -35,10 +42,10 @@ export class UserAuthComponent implements OnInit {
 
   ngOnInit() {}
 
-  login() {
+  signIn() {
     this.authService.login();
   }
-  logout() {
+  signOut() {
     this.authService.logout();
   }
 }
