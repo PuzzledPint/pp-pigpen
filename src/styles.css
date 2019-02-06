@@ -1,8 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+@import url('assets/theme.css');
+
+@import url('../node_modules/primeng/resources/primeng.min.css');
+@import url('../node_modules/primeicons/primeicons.css');
+@import url('../node_modules/primeflex/primeflex.css');
+
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+
 @font-face {
   font-family: 'Deutsch-Gothic';
+  font-display: 'swap';
   src:url('assets/fonts/Deutsch-Gothic.ttf.woff') format('woff'),
       url('assets/fonts/Deutsch-Gothic.ttf.svg#Deutsch-Gothic') format('svg'),
       url('assets/fonts/Deutsch-Gothic.ttf.eot'),
@@ -10,4 +20,3 @@
   font-weight: normal;
   font-style: normal;
 }
-p { font-family: 'Roboto'; }

@@ -17,28 +17,9 @@ import { Component, ViewEncapsulation } from '@angular/core';
       </div>
     </div>
   `,
-  styles: [`
-  .custombar2 .ui-scrollpanel-wrapper {
-    background-color: #F7F7F7;
-    border-radius: 0;
-  }
-
-.custombar2 .ui-scrollpanel-content {
-  border-radius: 0;
-}
-
-.custombar2 .ui-scrollpanel-bar {
-  border-radius: 0;
-  opacity: 1;
-    transition: background-color .3s;
-}
-
-.custombar2:hover .ui-scrollpanel-bar {
-  background-color: #007AD9;
-}
-`], encapsulation: ViewEncapsulation.None
+  styles: []
 })
 
 export class AppComponent {
-  title = 'pp-pigpen';
+  title = 'Puzzled Pint';
 }
