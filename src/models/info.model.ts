@@ -1,3 +1,3 @@
 export class Info {
-  fulltext: String;
+  fulltext: String = '';
 }

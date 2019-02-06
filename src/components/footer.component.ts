@@ -7,22 +7,22 @@ import { Info } from 'src/models/info.model';
   selector: 'app-footer',
   template: `
     <p data-cy="app-footer" style="text-align:center; color:grey">
-      {{ (footer | async).fulltext | variables }}
+      {{ (footer | async)?.fulltext | variables }}
     </p>
   `,
   styles: []
 })
 
 export class FooterComponent implements OnInit {
-  footer: Observable<Info>;
-  private infoService: InfoService;
+  footer: Observable<Info | undefined>;
 
   constructor(infoService: InfoService) {
-    this.infoService = infoService;
+    this.footer = infoService.getInfo('footer').valueChanges();
   }
 
   ngOnInit() {
-    this.footer = this.infoService.getInfo('footer').valueChanges();
   }
+
+
 
 }

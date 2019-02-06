@@ -1,16 +1,53 @@
 import { Injectable } from '@angular/core';
-import { User } from 'src/models/user.model';
-import { Observable, Subject } from 'rxjs';
+import { PPUser } from 'src/models/ppuser.model';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
+import { take, tap, map } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
-  public $user: Subject<User>;
-  private _user: User;
+  private _user: PPUser;
 
-  error(arg0: string): any {
-    throw new Error('Method not implemented.');
+  get user(): PPUser {
+    return this._user;
   }
 
-  get user(): User { return this._user; }
-  set user(u: User) { this._user = u; this.$user.next(u);  }
+  constructor(public afAuth: AngularFireAuth) {
+    this._user = new PPUser(afAuth.user);
+  }
+
+  login() {
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+  }
+
+  logout() {
+    this.afAuth.auth.signOut();
+  }
+
+  hasRole(role: Roles, fail: () => any) {
+    return this._user.roles.pipe(
+      take(1),
+      map(roles => roles.includes(role)),
+      tap(hr => {
+        if (!hr) {
+          console.log('access denied');
+          fail();
+        }
+      })
+    );
+  }
+
+  isLoggedIn(fail: () => any) {
+    return this._user.loggedIn.pipe(
+      take(1),
+      tap(loginStatus => {
+        if (!loginStatus) {
+          console.log('access denied');
+          fail();
+        }
+      })
+    );
+  }
 }

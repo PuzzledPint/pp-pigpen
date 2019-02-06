@@ -10,6 +10,7 @@
     "moduleResolution": "node",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
+    "strict": true,
     "target": "ESNext",
     "types": ["cypress"],
     "typeRoots": [

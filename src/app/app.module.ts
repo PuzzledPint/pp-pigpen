@@ -5,8 +5,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 // Angular Fire Libs
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+// import { AngularFireStorageModule } from '@angular/fire/storage';
 
 // Our Modules
 import { AppComponent } from './app.component';
@@ -19,6 +19,7 @@ import { environment } from '../environments/environment';
 import { HomeComponent } from '../components/home.component';
 import { EditorsComponent } from './editors/editors.component';
 import { PlaytestingComponent } from './playtesting/playtesting.component';
+import { UserAuthComponent } from '../components/user-auth.component';
 
 // PrimeNG
 import { CardModule } from 'primeng/card';
@@ -39,6 +40,7 @@ const config = {
     AppComponent,
     FooterComponent,
     HeaderComponent,
+    UserAuthComponent,
     VariablesPipe,
     TestAllComponent,
     HomeComponent,
@@ -49,9 +51,10 @@ const config = {
     BrowserModule,
     // AngularFire
     AngularFireModule.initializeApp(config),
-    AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
-    AngularFireStorageModule,
+    AngularFirestoreModule, // firestore
+    // AngularFireStorageModule,
+
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }), // storage
