@@ -21,6 +21,34 @@
         "source": "**",
         "destination": "/index.html"
       }
-    ]
+    ],
+    "redirects": [ {
+      "source": "/info/cities",
+      "destination": "/cities",
+      "type": 301
+    }, {
+      "source": "/index.php/download_file/1348/",
+      "destination": "/resources/codesheet",
+      "type": 301
+    } ],
+    "headers": [ {
+      "source": "**/*.@(eot|otf|ttf|ttc|woff|woff2|font.css)",
+      "headers": [ {
+        "key": "Access-Control-Allow-Origin",
+        "value": "*"
+      } ]
+    }, {
+      "source": "**/*.@(jpg|jpeg|gif|png|webp)",
+      "headers": [ {
+        "key": "Cache-Control",
+        "value": "max-age=86400"
+      } ]
+    }, {
+      "source": "**/css?family=*",
+      "headers": [ {
+        "key": "Cache-Control",
+        "value": "max-age=8640000"
+      } ]
+    }]
   }
 }
