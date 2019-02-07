@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InfoService } from 'src/services/info.service';
 import { Observable } from 'rxjs';
-import { Info } from 'src/models/info.model';
+import { FSInfo } from 'src/models/fsinfo.model';
 
 @Component({
   selector: 'app-footer',
@@ -14,7 +14,7 @@ import { Info } from 'src/models/info.model';
 })
 
 export class FooterComponent implements OnInit {
-  footer: Observable<Info | undefined>;
+  footer: Observable<FSInfo | undefined>;
 
   constructor(infoService: InfoService) {
     this.footer = infoService.getInfo('footer').valueChanges();

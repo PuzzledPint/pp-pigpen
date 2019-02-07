@@ -1,3 +1,3 @@
-export class Info {
+export class FSInfo {
   fulltext: String = '';
 }

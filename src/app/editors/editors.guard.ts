@@ -25,7 +25,7 @@ export class EditorsGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.auth.hasRole(Roles.EDITORS, () => {
+    return this.auth.hasRole('Editor', () => {
         this.notify.error('Denied', 'You must be logged in to access that page!');
         this.router.navigate(['/']);
     });
