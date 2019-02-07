@@ -33,6 +33,7 @@ import { MenuModule } from 'primeng/menu';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from "primeng/api";
+import { ToastModule } from 'primeng/toast';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -79,6 +80,7 @@ const config = {
     MenuModule,
     MessagesModule,
     MessageModule,
+    ToastModule,
 
     // Our app
     AppRoutingModule,

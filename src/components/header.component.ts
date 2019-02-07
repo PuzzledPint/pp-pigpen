@@ -19,6 +19,7 @@ import { Component, OnInit, Input } from '@angular/core';
         </picture>
       </div>
       <div class="p-col-6">
+        <p-toast></p-toast>
         <h1 data-cy="Title">{{ title }}</h1>
       </div>
       <div class="p-col-3">
