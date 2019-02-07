@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'testAll', component: TestAllComponent },
   { path: 'editors', component: EditorsComponent,  canActivate: [EditorsGuard] },
-  { path: 'playtesting',  component: PlaytestingComponent,  canActivate: [AuthGuard] },
+  { path: 'playtesting',  component: PlaytestingComponent},
 ];
 
 @NgModule({

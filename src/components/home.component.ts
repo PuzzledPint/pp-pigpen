@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NotifyService } from "src/services/notify.service";
 
 @Component({
   selector: 'app-home',
@@ -13,9 +14,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   Arr = Array;
-  constructor() { }
+
+  constructor(private ns: NotifyService) { }
 
   ngOnInit() {
+    this.ns.setTitle("Welcome");
   }
 
 }

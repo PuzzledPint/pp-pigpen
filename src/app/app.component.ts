@@ -5,7 +5,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
   template: `
     <div class="p-grid" style="background-color:#FAFAFA">
     <div class="p-col-12" [ngStyle]="{'height':'100px', 'background-color':'#FAFAFA','margin-bottom':'0px'}">
-    <app-header title="Welcome"></app-header>
+    <app-header></app-header>
       </div>
       <div class="p-col-12">
         <p-scrollPanel [style]="{height:'80vh'}" styleClass="custombar2" >
@@ -21,5 +21,4 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 
 export class AppComponent {
-  title = 'Puzzled Pint';
 }

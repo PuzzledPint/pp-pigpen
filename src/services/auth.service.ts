@@ -10,7 +10,7 @@ import { HQTeams } from "src/models/roles.model";
   providedIn: 'root'
 })
 export class AuthService {
-  private _user: PPUser = PPUser.none();
+  private readonly _user: PPUser = PPUser.none();
 
   get user(): PPUser {
     return this._user;
@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   login() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(this.afterAuth);
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(credential => this.afterAuth(credential));
   }
 
   logout() {
@@ -60,7 +60,11 @@ export class AuthService {
     );
   }
 
-  isLoggedIn(fail: () => any) {
+  get isSignedIn(): boolean {
+    return this._user.loggedIn.value;
+  }
+
+  isSignedInGuardPipe(fail: () => any) {
     return this._user.loggedIn.pipe(
       take(1),
       tap(loginStatus => {

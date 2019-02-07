@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { NotifyService } from "src/services/notify.service";
+import { BehaviorSubject } from "rxjs";
 
 @Component({
   selector: 'app-header',
@@ -20,7 +22,7 @@ import { Component, OnInit, Input } from '@angular/core';
       </div>
       <div class="p-col-6">
         <p-toast></p-toast>
-        <h1 data-cy="Title">{{ title }}</h1>
+        <h1 data-cy="Title">{{ title | async }}</h1>
       </div>
       <div class="p-col-3">
         <app-user-auth></app-user-auth>
@@ -52,9 +54,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 
 export class HeaderComponent implements OnInit {
-  @Input() title = 'Unbound';
+  public title: BehaviorSubject<string>;
 
-  constructor() {}
+  constructor(private ns: NotifyService) {
+    this.title = ns.title;
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 }

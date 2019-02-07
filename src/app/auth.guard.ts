@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.auth.isLoggedIn(() => {
+    return this.auth.isSignedInGuardPipe(() => {
         this.notify.error('Denied', 'You must be logged in to access that page!');
         this.router.navigate(['/']);
     });
