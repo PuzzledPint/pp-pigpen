@@ -5,7 +5,7 @@ import { NotifyService } from "src/services/notify.service";
 @Component({
   selector: "view-playtesting",
   template: `
-    <div *ngIf="!auth.isSignedIn">
+    <div *ngIf="!(auth.isSignedIn | async)">
     <p-card>Thank you for your interest in playtesting!</p-card>
     <p-card>
         In order to playtest you now need to log in. Certain fields will be
@@ -24,7 +24,7 @@ import { NotifyService } from "src/services/notify.service";
       >
     </div>
 
-    <div *ngIf="auth.isSignedIn">
+    <div *ngIf="auth.isSignedIn | async">
 
     <p-card>Thank you for your interest in playtesting!</p-card>
 

@@ -5,7 +5,7 @@ import { User, auth } from 'firebase/app';
 import { take, tap, map } from 'rxjs/operators';
 import { FirebaseService } from "./firebase.service";
 import { AnyRole } from "src/models/roles.model";
-import { Subscription } from "rxjs";
+import { Subscription, Subject } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -82,9 +82,9 @@ export class AuthService {
     );
   }
 
-  // get isSignedIn(): boolean {
-  //   return this._user.loggedIn.value;
-  // }
+   get isSignedIn(): Subject<boolean>  {
+     return this._user.isSignedIn;
+   }
 
   isSignedInGuardPipe(fail: () => any) {
     return this._user.isSignedIn.pipe(
