@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { PPUser } from 'src/models/ppuser.model';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
+import { User, auth } from 'firebase/app';
 import { take, tap, map } from 'rxjs/operators';
 import { FirebaseService } from "./firebase.service";
-import { HQTeams } from "src/models/roles.model";
+import { AnyRole } from "src/models/roles.model";
+import { Subscription } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly _user: PPUser = PPUser.none();
+  private rolesSub: Subscription | undefined = undefined;
 
   get user(): PPUser {
     return this._user;
@@ -18,13 +20,13 @@ export class AuthService {
 
   constructor(public afAuth: AngularFireAuth, public fs: FirebaseService) {
     afAuth.user.subscribe(
-      newFbUser => this._user.updateFbUser(newFbUser),
+      newFbUser => this.updateFbUser(newFbUser),
       err => {
-        this._user.updateFbUser(undefined);
+        this.updateFbUser(null);
         console.log('fbUser error: ' + err);
       },
       () => {
-        this._user.updateFbUser(undefined);
+        this.updateFbUser(null);
         console.log('fbUser closed');
       }
       );
@@ -40,17 +42,37 @@ export class AuthService {
 
   afterAuth(uc: auth.UserCredential) {
     this._user.updateFbCredential(uc);
+    this.initLinkedDocs();
+  }
+
+  updateFbUser(newUser: User | null) {
+    this._user.updateFbUser(newUser);
+    if (newUser) {
+      this.initLinkedDocs();
+    } else {
+      if (this.rolesSub) { this.rolesSub.unsubscribe(); }
+    }
+
+  }
+  initLinkedDocs() {
     this._user.docRef = this.fs.getUserDocRef(this._user.id);
-    this.fs.getRolesDocRef(this._user.id).valueChanges().subscribe(
+    const rolesDoc = this.fs.getRolesDocRef(this._user.id);
+    if (rolesDoc) {
+      rolesDoc.valueChanges().subscribe(
       newRoles => this._user.updateRoles(newRoles),
       err => { this._user.updateRoles(undefined); console.error(err); },
       () => { this._user.updateRoles(undefined); console.log(closed); });
+    }
   }
 
-  hasRole<T extends keyof HQTeams>(role: T, fail: () => any) {
-    return this._user.loggedIn.pipe(
+  hasRole(role: AnyRole, fail: () => any) {
+    return this._user.rolesSubject.pipe(
       take(1),
-      map(loggedIn => this._user.roles.has(role)),
+      map(
+        roles => {
+          return roles.has(role);
+        }
+      ),
       tap(hr => {
         if (!hr) {
           console.log('access denied');
@@ -60,12 +82,12 @@ export class AuthService {
     );
   }
 
-  get isSignedIn(): boolean {
-    return this._user.loggedIn.value;
-  }
+  // get isSignedIn(): boolean {
+  //   return this._user.loggedIn.value;
+  // }
 
   isSignedInGuardPipe(fail: () => any) {
-    return this._user.loggedIn.pipe(
+    return this._user.isSignedIn.pipe(
       take(1),
       tap(loginStatus => {
         if (!loginStatus) {

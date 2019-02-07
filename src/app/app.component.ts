@@ -1,4 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { AuthService } from "src/services/auth.service";
 
 @Component({
   selector: 'view-root',
@@ -20,5 +21,10 @@ import { Component, ViewEncapsulation } from '@angular/core';
   styles: []
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+  constructor(private auth: AuthService) {
+  }
+  ngOnInit(): void {
+    // this.auth.initLinkedDocs();
+  }
 }

@@ -1,4 +1,3 @@
-import { Dictionary } from "lodash";
 
 export interface HQTeams {
   Editor: boolean;
@@ -8,7 +7,7 @@ export interface HQTeams {
   Showrunner: boolean;
 }
 
-type AnyRole = keyof HQTeams | 'GC';
+export type AnyRole = keyof HQTeams;
 
 export class FSRoles {
 
@@ -36,7 +35,7 @@ export class FSRoles {
     return new FSRoles();
   }
 
-  has<T extends keyof HQTeams>(role: T): boolean {
+  has(role: AnyRole): boolean {
     return this.hqTeams[role];
   }
 }

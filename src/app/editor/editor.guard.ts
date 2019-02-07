@@ -14,7 +14,7 @@ import { NotifyService } from '../../services/notify.service';
   providedIn: 'root'
 })
 
-export class EditorsGuard implements CanActivate {
+export class EditorGuard implements CanActivate {
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -26,7 +26,7 @@ export class EditorsGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     return this.auth.hasRole('Editor', () => {
-        this.notify.error('Denied', 'You must be logged in to access that page!');
+        this.notify.error('Denied', 'You must be an editor to access that page!');
         this.router.navigate(['/']);
     });
   }

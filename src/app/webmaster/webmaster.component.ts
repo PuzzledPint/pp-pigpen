@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'view-editors',
+  selector: 'view-webmaster',
   template: `
     <p>
       editors works!
@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   `,
   styles: []
 })
-export class EditorsComponent implements OnInit {
+export class WebmasterComponent implements OnInit {
 
   constructor() { }
 

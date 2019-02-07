@@ -22,8 +22,8 @@ export class FirebaseService {
     return this.afs.doc(`users/${id}`);
   }
 
-  getRolesDocRef(id: string): AngularFirestoreDocument<FSRoles> {
-    return this.afs.doc(`roles/${id}`);
+  getRolesDocRef(id: string): AngularFirestoreDocument<FSRoles> | undefined {
+    if (id) { return this.afs.doc(`roles/${id}`); } else { return undefined; }
   }
 
 }

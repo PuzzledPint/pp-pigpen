@@ -10,7 +10,7 @@ import { NotifyService } from "src/services/notify.service";
   template: `
   <p-toolbar>
     <div class="ui-toolbar-group-right">
-      <div *ngIf="(user.loggedIn | async); else showLogin">
+      <div *ngIf="(user.isSignedIn | async); else showLogin">
         <p-splitButton icon="pi pi-lock" (onClick)="signOut()" [model]="items"></p-splitButton>
       </div>
       <ng-template #showLogin>

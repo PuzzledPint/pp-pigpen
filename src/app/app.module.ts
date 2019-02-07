@@ -19,7 +19,8 @@ import { VariablesPipe } from '../pipes/variables.pipe';
 import { TestAllComponent } from './test-all/test-all.component';
 import { environment } from '../environments/environment';
 import { HomeComponent } from '../components/home.component';
-import { EditorsComponent } from './editors/editors.component';
+import { EditorComponent } from './editor/editor.component';
+import { WebmasterComponent } from './webmaster/webmaster.component';
 import { PlaytestingComponent } from './playtesting/playtesting.component';
 import { UserAuthComponent } from '../components/user-auth.component';
 
@@ -54,7 +55,8 @@ const config = {
     VariablesPipe,
     TestAllComponent,
     HomeComponent,
-    EditorsComponent,
+    EditorComponent,
+    WebmasterComponent,
     PlaytestingComponent
   ],
   imports: [
