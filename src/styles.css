@@ -89,9 +89,6 @@ body .pi {
   font-size: 1.25em;
 }
 
-body {
-  /* Validations */
-}
 body .ui-inputtext {
   font-size: 14px;
   color: #333333;
@@ -1657,9 +1654,9 @@ body .ui-tabview .ui-tabview-panels .ui-tabview-panel {
   padding: 0;
 }
 body .ui-toolbar {
-  background-color: #f4f4f4;
+  /* background-color: #f4f4f4;
   border: 1px solid #c8c8c8;
-  padding: 0.571em 1em;
+  padding: 0.571em 1em; */
 }
 body .ui-toolbar button {
   vertical-align: middle;

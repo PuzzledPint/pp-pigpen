@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotifyService {
-  error(arg0: string): any {
-    throw new Error('Method not implemented.');
-  }
 
-// Add in PrimeNG Toast to header.
+  constructor(private messageService: MessageService) { }
+
+  error(title: string, desc: string) {
+      this.messageService.add({severity: 'error', summary: title, detail: desc});
+  }
 }

@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 // Angular Fire Libs
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -25,6 +27,12 @@ import { UserAuthComponent } from '../components/user-auth.component';
 import { CardModule } from 'primeng/card';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ButtonModule } from 'primeng/button';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { ToolbarModule } from 'primeng/toolbar';
+import { MenuModule } from 'primeng/menu';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { MessageService } from "primeng/api";
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -50,6 +58,8 @@ const config = {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+
     // AngularFire
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule, // auth
@@ -64,12 +74,17 @@ const config = {
     CardModule,
     ScrollPanelModule,
     ButtonModule,
+    SplitButtonModule,
+    ToolbarModule,
+    MenuModule,
+    MessagesModule,
+    MessageModule,
 
     // Our app
     AppRoutingModule,
 
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
