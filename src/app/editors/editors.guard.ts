@@ -3,11 +3,9 @@ import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  Router,
-  UrlTree
+  Router
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
 
 import { AuthService } from '../../services/auth.service';
 import { NotifyService } from '../../services/notify.service';
