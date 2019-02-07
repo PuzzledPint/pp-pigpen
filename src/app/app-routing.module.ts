@@ -10,6 +10,7 @@ import { WebmasterComponent } from './webmaster/webmaster.component';
 import { WebmasterGuard } from './webmaster/webmaster.guard';
 import { PlaytestingComponent } from './playtesting/playtesting.component';
 import { HomeComponent } from 'src/components/home.component';
+import { NotFoundResolver } from './not-found.resolver';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'testAll', component: TestAllComponent },
   { path: 'editor', component: EditorComponent,  canActivate: [EditorGuard] },
   { path: 'webmaster', component: WebmasterComponent,  canActivate: [WebmasterGuard] },
-  { path: 'playtesting',  component: PlaytestingComponent},
+  { path: 'playtesting', component: PlaytestingComponent },
+  { path: '**', component: HomeComponent, resolve: {void: NotFoundResolver}}
 ];
 
 @NgModule({
