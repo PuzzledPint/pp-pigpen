@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { AuthService } from "src/services/auth.service";
+import { UserService } from "src/services/auth.service";
 import { NotifyService } from "src/services/notify.service";
 
 @Component({
@@ -35,7 +35,7 @@ import { NotifyService } from "src/services/notify.service";
   styles: []
 })
 export class PlaytestingComponent implements OnInit {
-  constructor(public auth: AuthService, private ns: NotifyService) {}
+  constructor(public auth: UserService, private ns: NotifyService) {}
 
   ngOnInit() {
     this.ns.setTitle("Playtesting");

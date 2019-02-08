@@ -1,3 +1,3 @@
-export class FSUserDoc {
-  bio = '';
+export interface FSUserDoc {
+  bio: string;
 }

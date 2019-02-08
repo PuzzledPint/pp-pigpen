@@ -1,3 +1,3 @@
-export class FSInfo {
-  fulltext: String = '';
+export interface FSInfo {
+  fulltext: string;
 }

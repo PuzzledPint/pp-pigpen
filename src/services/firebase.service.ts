@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { FSUserDoc } from "src/models/fsuserdoc.model";
-import { FSRoles } from "src/models/roles.model";
+import { FSRoles } from "src/models/fsroles.model";
 
 @Injectable({
   providedIn: 'root'
