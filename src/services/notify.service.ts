@@ -7,7 +7,7 @@ import { BehaviorSubject } from "rxjs";
   providedIn: 'root'
 })
 export class NotifyService {
-  public title: BehaviorSubject<string> = new BehaviorSubject("Undefined");
+  public title: BehaviorSubject<string> = new BehaviorSubject("");
 
   constructor(private messageService: MessageService, private titleService: Title) { }
 
