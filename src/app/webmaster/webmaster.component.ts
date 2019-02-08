@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'view-webmaster',
   template: `
     <p>
-      editors works!
+      webmasters works!
     </p>
   `,
   styles: []

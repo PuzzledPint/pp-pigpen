@@ -93,11 +93,11 @@ export class UserService {
     }
   }
 
-  signin() {
+  signIn() {
     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(credential => { });  // need this?
   }
 
-  signout() {
+  signOut() {
     this.afAuth.auth.signOut();
   }
 

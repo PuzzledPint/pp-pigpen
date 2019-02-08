@@ -8,11 +8,11 @@ import { NotifyService } from "src/services/notify.service";
   template: `
   <p-toolbar>
     <div class="ui-toolbar-group-right">
-      <div *ngIf="(user.isSignedIn | async); else showLogin">
-        <p-splitButton icon="pi pi-lock" (onClick)="signOut()" [model]="items"></p-splitButton>
+      <div *ngIf="(us.isSignedIn | async); else showLogin">
+        <p-splitButton icon="pi pi-lock" (onClick)="us.signOut()" [model]="items"></p-splitButton>
       </div>
       <ng-template #showLogin>
-        <p-button (click)="signIn()" label="Sign In"></p-button>
+        <p-button (click)="us.signIn()" label="Sign In"></p-button>
       </ng-template>
     </div>
   </p-toolbar>
@@ -30,7 +30,7 @@ export class UserAuthComponent implements OnInit {
       label: "Sign Out",
       icon: "pi pi-unlock",
       command: () => {
-        this.signOut();
+        this.us.signOut();
       }
     },
     {
@@ -46,11 +46,5 @@ export class UserAuthComponent implements OnInit {
 
   profile() {
     this.notify.error("Not Implemented", "Sorry, user profiles are not yet implemented");
-  }
-  signIn() {
-    this.us.signin();
-  }
-  signOut() {
-    this.us.signout();
   }
 }
