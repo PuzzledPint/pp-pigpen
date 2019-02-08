@@ -21,13 +21,13 @@ export class WebmasterGuard implements CanActivate {
     private notify: NotifyService
   ) {}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.auth.hasRole('Webmaster', () => {
-        this.notify.error('Denied', 'You must be a webmaster to access that page!');
-        this.router.navigate(['/']);
-    });
-  }
+canActivate(
+  next: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+): Observable<boolean> | Promise<boolean> | boolean {
+  return this.auth.hasRole(this.auth.isWebmaster, () => {
+    this.notify.error('Denied', 'You must be a webmaster to access that page!');
+    this.router.navigate(['/']);
+  });
+}
 }

@@ -6,35 +6,46 @@ import { AngularFirestoreDocument } from "@angular/fire/firestore";
 import { FirebaseService } from "./firebase.service";
 
 import { User, auth } from 'firebase/app';
-import { take, tap, map } from 'rxjs/operators';
 
-import { Subscription, Subject } from "rxjs";
+import { Subject } from "rxjs";
 
-import { FSRoles, HQTeams } from '../models/fsroles.model';
 import { FSUserDoc } from "../models/fsuserdoc.model";
+import { take, tap } from "rxjs/operators";
 
 export type AnyRole = keyof HQTeams;
+
+export interface HQTeams {
+  Editor: boolean;
+  CityOps: boolean;
+  Comms: boolean;
+  Webmaster: boolean;
+  Showrunner: boolean;
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
-  public id = '';
-  private rolesSub: Subscription | undefined = undefined;
-  public roles: FSRoles = FSRoles.none();
-  public userSubject: Subject<void> = new Subject<void>();
   public isSignedIn: Subject<boolean> = new Subject<boolean>();
-  public email = '';
-  public name = 'Not Signed In';
-  public photo = '';
-  public docRef: AngularFirestoreDocument<FSUserDoc> | undefined;
-  fbUser: User | undefined;
+  public id: Subject<string> = new Subject<string>();
+  public name: Subject<string> = new Subject<string>();
+  public email: Subject<string> = new Subject<string>();
+  public photo: Subject<string> = new Subject<string>();
+  public isEditor: Subject<boolean> = new Subject<boolean>();
+  public isCityOps: Subject<boolean> = new Subject<boolean>();
+  public isComms: Subject<boolean> = new Subject<boolean>();
+  public isWebmaster: Subject<boolean> = new Subject<boolean>();
+  public isShowrunner: Subject<boolean> = new Subject<boolean>();
 
+  public GCCity: Subject<string> = new Subject<string>();
+  public docRef: AngularFirestoreDocument<FSUserDoc> | undefined = undefined;
 
-  // A user consists of three pieces of data:
-  // Auth from firebase, roles, and user profile.  All of these need to exist for the user to be fully 'realized'
+  // A user consists of two places:
+  // Auth from firebase, and user profile.
 
   constructor(public afAuth: AngularFireAuth, public fs: FirebaseService) {
+    // get user updates
     afAuth.user.subscribe(
       newFbUser => this.updateFbUser(newFbUser),
       err => {
@@ -45,102 +56,54 @@ export class UserService {
         this.updateFbUser(null);
         console.log('fbUser closed');
       }
-      );
-  }
-
-  get isGC(): boolean { return this.gcCity.length > 0; }
-
-  get isEditor(): boolean { return this.hqTeams.Editor; }
-  get isCityOps(): boolean { return this.hqTeams.CityOps; }
-  get isComms(): boolean { return this.hqTeams.Comms; }
-  get isWebmaster(): boolean { return this.hqTeams.Webmaster; }
-  get isShowrunner(): boolean { return this.hqTeams.Showrunner; }
-
-  get GCCity(): string {
-    return this.gcCity;
+    );
   }
 
   updateFbUser(newFbUser: User | null) {
-    this.fbUser = newFbUser ? newFbUser : undefined;
+    this.isSignedIn.next(!!newFbUser);
+    this.id.next(newFbUser ? newFbUser.uid : undefined);
+    this.name.next(newFbUser ? newFbUser.displayName || '' : undefined);
+    this.email.next(newFbUser ? newFbUser.email || '' : undefined);
+    this.photo.next(newFbUser ? newFbUser.photoURL || '' : undefined);
 
     if (newFbUser) {
-      this.isSignedIn.next(true);
-      this.email = newFbUser.email || 'No Email';
-      this.name = newFbUser.displayName || 'No Name';
-      this.id = newFbUser.uid;
-      this.photo = newFbUser.photoURL || '';
+      newFbUser.getIdTokenResult().then(
+        newToken => {
+          const claims = newToken.claims;
+          this.isEditor.next(claims.Editor);
+          this.isCityOps.next(claims.CityOps);
+          this.isComms.next(claims.Comms);
+          this.isWebmaster.next(claims.Webmaster);
+          this.isShowrunner.next(claims.Showrunner);
+
+          this.GCCity.next(claims.GCCity);
+        });
+
+      this.docRef = this.fs.getUserDocRef(newFbUser.uid);
     } else {
-      this.isSignedIn.next(false);
-      this.email = '';
-      this.name = 'Not Signed In';
-      this.id = '';
-      this.roles = FSRoles.none();
+      this.isEditor.next(false);
+      this.isCityOps.next(false);
+      this.isComms.next(false);
+      this.isWebmaster.next(false);
+      this.isShowrunner.next(false);
+
+      this.GCCity.next(undefined);
+
       this.docRef = undefined;
     }
   }
 
-  updateFbUser(newUser: User | null) {
-    this._user.updateFbUser(newUser);
-    if (newUser) {
-      this.initLinkedDocs();
-    } else {
-      if (this.rolesSub) { this.rolesSub.unsubscribe(); }
-    }
-
-  }
-
-
-  afterAuth(uc: auth.UserCredential) {
-    this._user.updateFbCredential(uc);
-    this.initLinkedDocs();
-  }
-
-  initLinkedDocs() {
-    this._user.docRef = this.fs.getUserDocRef(this._user.id);
-    const rolesDoc = this.fs.getRolesDocRef(this._user.id);
-    if (rolesDoc) {
-      rolesDoc.valueChanges().subscribe(
-      newRoles => this._user.updateRoles(newRoles),
-      err => { this._user.updateRoles(undefined); console.error(err); },
-      () => { this._user.updateRoles(undefined); console.log(closed); });
-    }
-  }
-
-  updateFbCredential(uc: auth.UserCredential | undefined) {
-    //   additionalUserInfo ?: firebase.auth.AdditionalUserInfo | null;
-    // credential: firebase.auth.AuthCredential | null;
-    // operationType?: string | null;
-    this.updateFbUser(uc ? uc.user : null);
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
   signin() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(credential => this.afterAuth(credential));
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(credential => { });  // need this?
   }
 
   signout() {
     this.afAuth.auth.signOut();
   }
 
-  hasRole(role: AnyRole, fail: () => any) {
-    return this._user.rolesSubject.pipe(
+  hasRole(role: Subject<boolean>, fail: () => any) {
+    return role.pipe(
       take(1),
-      map(
-        roles => {
-          return roles.has(role);
-        }
-      ),
       tap(hr => {
         if (!hr) {
           console.log('access denied');
@@ -149,47 +112,4 @@ export class UserService {
       })
     );
   }
-
-   get isSignedIn(): Subject<boolean>  {
-     return this._user.isSignedIn;
-   }
-
-  isSignedInGuardPipe(fail: () => any) {
-    return this._user.isSignedIn.pipe(
-      take(1),
-      tap(loginStatus => {
-        if (!loginStatus) {
-          console.log('access denied');
-          fail();
-        }
-      })
-    );
-  }
-
-
-  get allHQTeams(): Array<string> {
-    return Object.keys(this.hqTeams);
-  }
-
-
-    static none(): FSRoles {
-      return new FSRoles();
-    }
-
-    has(role: AnyRole): boolean {
-      return this.hqTeams[role];
-    }
-  }
-
-
-  updateRoles(newRoles: FSRoles | undefined) {
-    if (newRoles) {
-      Object.assign(this.roles, newRoles);
-    } else {
-      this.roles = FSRoles.none();
-    }
-    this.rolesSubject.next(this.roles);
-  }
-}
-
 }

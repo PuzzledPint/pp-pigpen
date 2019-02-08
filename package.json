@@ -23,6 +23,7 @@
     "@angular/pwa": "^0.12.4",
     "@angular/router": "^7.2.4",
     "@angular/service-worker": "^7.2.4",
+    "@firebase/testing": "^0.7.1",
     "core-js": "^2.6.3",
     "firebase": "^5.8.2",
     "primeflex": "^1.0.0-rc.1",

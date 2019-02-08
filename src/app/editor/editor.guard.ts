@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { take, tap, map } from 'rxjs/operators';
+
 import {
   CanActivate,
   ActivatedRouteSnapshot,
@@ -25,9 +27,9 @@ export class EditorGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.auth.hasRole('Editor', () => {
-        this.notify.error('Denied', 'You must be an editor to access that page!');
-        this.router.navigate(['/']);
+    return this.auth.hasRole(this.auth.isEditor, () => {
+      this.notify.error('Denied', 'You must be an editor to access that page!');
+      this.router.navigate(['/']);
     });
   }
 }

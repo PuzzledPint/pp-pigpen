@@ -1,8 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/services/auth.service";
-import { PPUser } from "src/models/ppuser.model";
 import { MenuItem } from "primeng/api";
-import { NotificationKind } from "rxjs/internal/Notification";
 import { NotifyService } from "src/services/notify.service";
 
 @Component({
@@ -22,11 +20,9 @@ import { NotifyService } from "src/services/notify.service";
   styles: []
 })
 export class UserAuthComponent implements OnInit {
-  user: PPUser;
   items: MenuItem[] = [];
 
-  constructor(public UserService: UserService, public notify: NotifyService) {
-    this.user = UserService.user;
+  constructor(public us: UserService, public notify: NotifyService) {
   }
 
   ngOnInit(): void {
@@ -52,9 +48,9 @@ export class UserAuthComponent implements OnInit {
     this.notify.error("Not Implemented", "Sorry, user profiles are not yet implemented");
   }
   signIn() {
-    this.UserService.login();
+    this.us.signin();
   }
   signOut() {
-    this.UserService.logout();
+    this.us.signout();
   }
 }

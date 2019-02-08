@@ -21,13 +21,15 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private notify: NotifyService
   ) {}
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.auth.isSignedInGuardPipe(() => {
-        this.notify.error('Denied', 'You must be logged in to access that page!');
-        this.router.navigate(['/']);
-    });
-  }
+
+canActivate(
+  next: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+): Observable<boolean> | Promise<boolean> | boolean {
+  return this.auth.hasRole(this.auth.isSignedIn, () => {
+    this.notify.error('Denied', 'You must be logged in to access that page!');
+    this.router.navigate(['/']);
+  });
 }
+}
+
