@@ -1,7 +1,63 @@
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {
-      allow read, write;
+      allow read, write: if isWebmaster();
     }
+
+    match /user/{docId} {
+      allow read, write: if uidMatches(docId);
+    }
+
+    match /editor/{document=**} {
+      allow read, write: if isEditor();
+    }
+
+    match /info/{document=**} {
+      allow read: if true;
+      allow write: if isComms();
+    }
+
+    match /cityops/{document=**} {
+      allow read, write: if isCityOps();
+    }
+
+    match /city/{docId} {
+      allow read: if true;
+      allow write: if GCCityMatches(docId);
+    }
+
+
+    function auth() {
+      return request.auth != null;
+    }
+
+    function token() {
+      return auth() && request.auth.token != null;
+    }
+
+    function isWebmaster() {
+      return token() && request.auth.token.Webmaster;
+    }
+
+    function isEditor() {
+      return token() && request.auth.token.Editor;
+    }
+
+    function isComms() {
+      return token() && request.auth.token.Comms;
+    }
+
+    function isCityOps() {
+      return token() && request.auth.token.CityOps;
+    }
+
+    function uidMatches(uid) {
+      return auth() && request.auth.uid == uid;
+    }
+
+    function CGCityMatches(city) {
+      return token() && request.auth.token.GCCity == city;
+    }
+
   }
 }
