@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestoreDocument } from "@angular/fire/firestore";
-
-import { FirebaseService } from "./firebase.service";
+import { AngularFirestoreDocument, AngularFirestore } from "@angular/fire/firestore";
 
 import { User, auth } from 'firebase/app';
 
 import { Subject } from "rxjs";
 
-import { FSUserDoc } from "../models/fsuserdoc.model";
+import { FSUserDoc } from "../models/fs-user-doc.model";
 import { take, tap } from "rxjs/operators";
 
 export type AnyRole = keyof HQTeams;
@@ -44,7 +42,7 @@ export class UserService {
   // A user consists of two places:
   // Auth from firebase, and user profile.
 
-  constructor(public afAuth: AngularFireAuth, public fs: FirebaseService) {
+  constructor(public afAuth: AngularFireAuth, public af: AngularFirestore) {
     // get user updates
     afAuth.user.subscribe(
       newFbUser => this.updateFbUser(newFbUser),
@@ -79,7 +77,7 @@ export class UserService {
           this.GCCity.next(claims.GCCity);
         });
 
-      this.docRef = this.fs.getUserDocRef(newFbUser.uid);
+      this.docRef = this.af.doc(`users/${newFbUser.uid}`);
     } else {
       this.isEditor.next(false);
       this.isCityOps.next(false);

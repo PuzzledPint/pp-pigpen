@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InfoService } from 'src/services/info.service';
 import { Observable } from 'rxjs';
-import { FSInfo } from 'src/models/fsinfo.model';
+import { FSInfo } from 'src/models/fs-info.model';
 
 @Component({
   selector: 'app-footer',

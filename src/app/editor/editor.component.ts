@@ -4,9 +4,9 @@ import { NotifyService } from "src/services/notify.service";
 @Component({
   selector: 'view-editor',
   template: `
-    <p>
-      editor works!
-    </p>
+    <app-puzzle-sets></app-puzzle-sets>
+    <app-add-puzzle-set></app-add-puzzle-set>
+    <app-edit-puzzle-set *ngIf="selectedPuzzleSet"></app-edit-puzzle-set>
   `,
   styles: []
 })

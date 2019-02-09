@@ -1,8 +1,9 @@
+// Angular Libs
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
-
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Angular Fire Libs
 import { AngularFireModule } from '@angular/fire';
@@ -35,6 +36,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from "primeng/api";
 import { ToastModule } from 'primeng/toast';
+import { AddPuzzleSetComponent } from '../components/add-puzzle-set.component';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -57,16 +59,18 @@ const config = {
     HomeComponent,
     EditorComponent,
     WebmasterComponent,
-    PlaytestingComponent
+    PlaytestingComponent,
+    AddPuzzleSetComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
 
     // AngularFire
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule, // auth
-    AngularFirestoreModule, // firestore
+    AngularFirestoreModule.enablePersistence(), // firestore
     // AngularFireStorageModule,
 
     ServiceWorkerModule.register('ngsw-worker.js', {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase.service';
 import { AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { FSInfo } from 'src/models/fsinfo.model';
+import { FSInfo } from 'src/models/fs-info.model';
 
 
 @Injectable({
