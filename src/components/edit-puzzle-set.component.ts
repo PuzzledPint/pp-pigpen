@@ -3,14 +3,12 @@ import {
   Validators,
   FormGroup,
   FormBuilder,
-  FormControl,
-  Validator,
-  ValidatorFn
+  FormControl
 } from "@angular/forms";
 import { PuzzleService } from "src/services/puzzle.service";
 
 @Component({
-  selector: "app-add-puzzle-set",
+  selector: "app-edit-puzzle-set",
   template: `
     <p-toast [style]="{ marginTop: '80px' }"></p-toast>
     <p-fieldset
@@ -34,7 +32,7 @@ import { PuzzleService } from "src/services/puzzle.service";
       ></p-button>
       <p-message
         severity="error"
-        text="{{ errorText(slug.errors) }}"
+        text="Please enter a valid slug"
         *ngIf="!form.controls['slug'].valid && form.controls['slug'].dirty"
       >
       </p-message>
@@ -44,39 +42,18 @@ import { PuzzleService } from "src/services/puzzle.service";
   `,
   styles: []
 })
-export class AddPuzzleSetComponent implements OnInit {
+export class EditPuzzleSetComponent implements OnInit {
   form: FormGroup;
+  slug = new FormControl("");
 
   constructor(private ps: PuzzleService, fb: FormBuilder) {
     this.form = fb.group({
       slug: [
         "",
-        Validators.compose([Validators.required, Validators.pattern("[a-z]+"), this.notUnique()])
+        Validators.compose([Validators.required, Validators.pattern("[a-z]+")])
       ]
     });
   }
 
-  get slug() { return this.form.get('slug'); }
-
-  ngOnInit() { }
-
-  onSubmit(f: any) {
-    this.ps.addPuzzleSet(f.slug);
-  }
-
-  errorText(errors: any): string {
-    if (errors["required"]) { return "You must provide a value"; }
-    if (errors["pattern"]) { return "A slug must only use the letters a-z.  Lower case with no spaces"; }
-    console.log(errors);
-    return "Unknown validation error";
-  }
-
-  notUnique(): ValidatorFn {
-    return control => {
-      if (this.ps.puzzleSets.includes(control.value)) {
-        return { notUnique: true };
-      }
-      return null;
-    };
-  }
+  ngOnInit() {}
 }

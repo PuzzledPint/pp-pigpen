@@ -24,6 +24,8 @@ import { EditorComponent } from './editor/editor.component';
 import { WebmasterComponent } from './webmaster/webmaster.component';
 import { PlaytestingComponent } from './playtesting/playtesting.component';
 import { UserAuthComponent } from '../components/user-auth.component';
+import { AddPuzzleSetComponent } from '../components/add-puzzle-set.component';
+import { EditPuzzleSetComponent } from '../components/edit-puzzle-set.component';
 
 // PrimeNG
 import { CardModule } from 'primeng/card';
@@ -36,7 +38,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from "primeng/api";
 import { ToastModule } from 'primeng/toast';
-import { AddPuzzleSetComponent } from '../components/add-puzzle-set.component';
+import { FieldsetModule } from 'primeng/fieldset';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -87,6 +89,7 @@ const config = {
     MessagesModule,
     MessageModule,
     ToastModule,
+    FieldsetModule,
 
     // Our app
     AppRoutingModule,
