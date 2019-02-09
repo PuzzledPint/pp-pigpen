@@ -38,5 +38,5 @@ export class PuzzleService {
     const check = await doc.get().toPromise();
 
     return check.exists;
+  }
 }
-
