@@ -66,14 +66,15 @@ export class AddPuzzleSetComponent implements OnInit {
 
   errorText(errors: any): string {
     if (errors["required"]) { return "You must provide a value"; }
-    if (errors["pattern"]) { return "A slug must only use the letters a-z.  Lower case with no spaces"; }
+    if (errors["pattern"]) { return "A slug must only use the letters a-z, be all in lower case, and have no spaces"; }
+    if (errors["notUnique"]) { return "slug already in use."; }
     console.log(errors);
     return "Unknown validation error";
   }
 
   notUnique(): ValidatorFn {
     return control => {
-      if (this.ps.puzzleSets.includes(control.value)) {
+      if (this.ps.puzzleSets.has(control.value)) {
         return { notUnique: true };
       }
       return null;
