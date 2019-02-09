@@ -62,7 +62,8 @@ const config = {
     EditorComponent,
     WebmasterComponent,
     PlaytestingComponent,
-    AddPuzzleSetComponent
+    AddPuzzleSetComponent,
+    EditPuzzleSetComponent
   ],
   imports: [
     BrowserModule,
