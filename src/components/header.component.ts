@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NotifyService } from "src/services/notify.service";
 import { BehaviorSubject } from "rxjs";
 import {
@@ -26,7 +26,7 @@ import {
       </div>
       <div class="p-col-6">
         <p-toast></p-toast>
-        <div [@titleBounce]="state">
+        <div [@titleBounce]="1">
           <h1 data-cy="Title">{{ title | async }}</h1>
         </div>
       </div>
@@ -61,9 +61,9 @@ import {
   ],
   animations: [
     trigger("titleBounce", [
-      state("0", style({ transform: "translateY(-300px)" })),
       state("1", style({ transform: "translateY(0px)" })),
-      transition("0 => 1", [
+      transition("* => 1", [
+        animate("0ms ease-in", style({ transform: "translateY(-300px)" })),
         animate("500ms ease-in", style({ transform: "translateY(0px)" })),
         animate("200ms ease-out", style({ transform: "translateY(-50px)" })),
         animate("200ms ease-in", style({ transform: "translateY(0px)" })),
@@ -73,17 +73,12 @@ import {
     ])
   ]
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements OnInit {
   public title: BehaviorSubject<string>;
-  state = "0";
 
   constructor(private ns: NotifyService) {
     this.title = ns.title;
   }
 
   ngOnInit() {}
-
-  ngAfterViewInit() {
-    this.state = "1";
-  }
 }
