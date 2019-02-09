@@ -92,5 +92,34 @@
       }
     }
   },
-  "defaultProject": "pp-pigpen"
+  "defaultProject": "pp-pigpen",
+  "schematics": {
+    "@schematics/angular": {
+      "component": {
+        "flat": true,
+        "spec": false,
+        "inlineStyle": true,
+        "inlineTemplate": true
+      },
+      "class": {
+        "spec": false
+      },
+      "directive": {
+        "flat": true,
+        "spec": false
+      },
+      "guard": {
+        "flat": true,
+        "spec": false
+      },
+      "pipe": {
+        "flat": true,
+        "spec": false
+      },
+      "service": {
+        "flat": true,
+        "spec": false
+      }
+    }
+  }
 }
