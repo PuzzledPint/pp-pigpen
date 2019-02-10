@@ -55,5 +55,9 @@ export class EditPuzzleSetComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  onSubmit(f: any) {
+  }
+
 }

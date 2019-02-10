@@ -18,4 +18,6 @@ export class EditorComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  setAdded(e: any) { }
 }
