@@ -56,12 +56,12 @@ export class PuzzleService {
   addPuzzleSet() {
     this.puzzleSetsCollection.add(
       {
-        name: "Name me!",
-        slug: "slug",
+        name: "",
+        slug: "",
         playtesting: false,
         archives: false,
         polaroid: "/assets/images/nopolaroid.png",
-        month: "Unscheduled",
+        month: new Date().getFullYear() + "-01",
         puzzleRefs: []
       }).then(docRef => this._selectedPuzzleSet.next(PuzzleService.fromFS<FSPuzzleSet, PuzzleSet>(this.af.doc(docRef))));
   }

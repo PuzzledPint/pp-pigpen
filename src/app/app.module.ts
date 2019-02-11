@@ -42,6 +42,7 @@ import { PuzzleSetsComponent } from '../components/puzzle-sets.component';
 import { CarouselModule } from 'primeng/carousel';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
+import { CalendarModule } from 'primeng/calendar';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -97,6 +98,7 @@ const config = {
     CarouselModule,
     InputTextModule,
     InputSwitchModule,
+    CalendarModule,
 
     // Our app
     AppRoutingModule,

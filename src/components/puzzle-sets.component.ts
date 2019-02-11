@@ -5,28 +5,21 @@ import { Observable } from "rxjs";
 @Component({
   selector: "app-puzzle-sets",
   template: `
-    <p-carousel [value]="puzzleSets | async" numVisible="5">
+    <p-carousel [value]="puzzleSets | async" numVisible="5"
+      headerText="Select Puzzle Set">
       <ng-template let-set pTemplate="set">
         <div
-          class="ui-grid ui-grid-responsive"
           (click)="ps.selectPuzzleSet(set)"
         >
-        <div class="ui-grid-row">
-        <div class="ui-grid-col-12">
               <img
                 alt="Set Polaroid"
                 src="{{ setImage(set.polaroid) }}"
                 height="100px"
                 width="100px"
+                style="margin-left: auto; margin-right: auto; display: block"
               />
-            </div>
-          </div>
-          <div class="ui-grid-row">
-          <span class="p-col-12">{{ set.month }}</span>
-          </div>
-          <div class="ui-grid-row">
-          <span class="p-col-12">{{ set.name }}</span>
-          </div>
+          <h3 style="text-align:center">{{ set.month }}</h3>
+          <h3 style="text-align:center">{{ set.name }}</h3>
         </div>
       </ng-template>
     </p-carousel>

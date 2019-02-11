@@ -56,10 +56,44 @@ import { NotifyService } from "src/services/notify.service";
               <span>In Playtesting</span>
             </div>
             <p-inputSwitch
-              class="p-col-2"
+              class="p-col-8"
               [(ngModel)]="selectedPuzzleSet.playtesting"
               name="playtesting"
             ></p-inputSwitch>
+            <div class="p-col-4">
+              <span>In Archives</span>
+            </div>
+            <p-inputSwitch
+              class="p-col-8"
+              [(ngModel)]="selectedPuzzleSet.archives"
+              name="archives"
+            ></p-inputSwitch>
+            <div class="ui-inputgroup p-col-12">
+              <span class="ui-inputgroup-addon">Polaroid URL</span>
+              <input
+                pInputText
+                type="text"
+                placeholder="/assets/foo.png"
+                [(ngModel)]="selectedPuzzleSet.polaroid"
+                name="polaroid"
+                size = "30"
+                #polaroid="ngModel"
+              />
+            </div>
+            <div class="ui-inputgroup p-col-12">
+              <span class="ui-inputgroup-addon">Month</span>
+              <p-calendar
+                [(ngModel)]="selectedPuzzleSet.month"
+                name="month"
+                view="month"
+                dateFormat="yy-mm"
+                [inline]="true"
+                [yearNavigator]="true"
+                dataType="string"
+                yearRange="2008:2035"
+              >
+              </p-calendar>
+            </div>
             <p-toolbar class="p-col-12">
               <div class="ui-toolbar-group-right">
                 <p-button
