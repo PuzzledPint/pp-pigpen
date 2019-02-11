@@ -39,9 +39,9 @@ export class PuzzleService {
   }
 
 
-  private static fromFS<T, K extends T>(doc: AngularFirestoreDocument<T>): Observable<K>  {
-    const obs: Observable<T | undefined> = doc.valueChanges();
-    return obs.pipe(map(fs => { return { doc, ...fs } as unknown as K; }));
+  private static fromFS<T, K extends T>(afDoc: AngularFirestoreDocument<T>): Observable<K>  {
+    const obs: Observable<T | undefined> = afDoc.valueChanges();
+    return obs.pipe(map(fs => { return { afDoc, ...fs } as unknown as K; }));
   }
 
 

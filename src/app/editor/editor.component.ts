@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
   template: `
     <app-puzzle-sets></app-puzzle-sets>
     <p-button label="Add New Puzzle Set" (onClick)="ps.addPuzzleSet()"></p-button>
-    <app-edit-puzzle-set *ngIf="ps.selectedPuzzleSet"></app-edit-puzzle-set>
+    <app-edit-puzzle-set></app-edit-puzzle-set>
   `,
   styles: []
 })

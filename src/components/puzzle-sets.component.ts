@@ -8,18 +8,25 @@ import { Observable } from "rxjs";
     <p-carousel [value]="puzzleSets | async" numVisible="5">
       <ng-template let-set pTemplate="set">
         <div
-          class="flex-container"
-          style="display:flex; flex-wrap: wrap; justify-content: center"
+          class="ui-grid ui-grid-responsive"
           (click)="ps.selectPuzzleSet(set)"
         >
-          <img
-            alt="Set Polaroid"
-            src="{{ setImage(set.polaroid) }}"
-            height="100px"
-            width="100px"
-          />
-          <span>{{ set.month }}</span>
-          <span>{{ set.name }}</span>
+        <div class="ui-grid-row">
+        <div class="ui-grid-col-12">
+              <img
+                alt="Set Polaroid"
+                src="{{ setImage(set.polaroid) }}"
+                height="100px"
+                width="100px"
+              />
+            </div>
+          </div>
+          <div class="ui-grid-row">
+          <span class="p-col-12">{{ set.month }}</span>
+          </div>
+          <div class="ui-grid-row">
+          <span class="p-col-12">{{ set.name }}</span>
+          </div>
         </div>
       </ng-template>
     </p-carousel>

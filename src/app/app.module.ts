@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 // Angular Fire Libs
 import { AngularFireModule } from '@angular/fire';
@@ -41,6 +41,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { PuzzleSetsComponent } from '../components/puzzle-sets.component';
 import { CarouselModule } from 'primeng/carousel';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputTextModule } from 'primeng/inputtext';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -70,7 +71,7 @@ const config = {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule,
+    FormsModule,
 
     // AngularFire
     AngularFireModule.initializeApp(config),
@@ -94,6 +95,7 @@ const config = {
     ToastModule,
     FieldsetModule,
     CarouselModule,
+    InputTextModule,
     InputSwitchModule,
 
     // Our app

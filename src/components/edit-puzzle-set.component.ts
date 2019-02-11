@@ -1,96 +1,113 @@
-import { Component, OnInit, Input } from "@angular/core";
-import {
-  Validators,
-  FormGroup,
-  FormBuilder,
-  AsyncValidatorFn,
-  AbstractControl
-} from "@angular/forms";
+import { Component, OnInit } from "@angular/core";
 import { PuzzleService, PuzzleSet } from "src/services/puzzle.service";
-import { Observable } from "rxjs";
+import { NotifyService } from "src/services/notify.service";
 
 @Component({
   selector: "app-edit-puzzle-set",
   template: `
-    {{ (selectedPuzzleSet | async)?.name }}
-    <p-fieldset
-      legend="Edit Puzzle Set"
-      [toggleable]="true"
-      [transitionOptions]="'200ms'"
-      [collapsed]="false"
-    >
-      <form [formGroup]="form">
-        <div class="ui-inputgroup">
-          <input
-            pInputText
-            type="text"
-            formControlName="name"
-            (change)="save()"
-            placeholder=" Name"
-          />
-          <p-message
-            severity="error"
-            text="{{ errorText(name.errors) }}"
-            *ngIf="!form.controls['name'].valid && form.controls['name'].dirty"
-          >
-          </p-message>
-
-          <input
-            pInputText
-            type="text"
-            formControlName="slug"
-            (change)="save()"
-            placeholder=" Slug (must be unique)"
-          />
-          <p-message
-            severity="error"
-            text="{{ errorText(slug.errors) }}"
-            *ngIf="!form.controls['slug'].valid && form.controls['slug'].dirty"
-          >
-          </p-message>
-
-          <p-inputSwitch
-          formControlName="playtesting"
-          (onChange)="save()"
-          ></p-inputSwitch>
+    <div *ngIf="selectedPuzzleSet">
+      <form (ngSubmit)="save()" #puzzleSetForm="ngForm">
+        <p-fieldset
+          legend="Edit Puzzle Set"
+          [toggleable]="true"
+          [transitionOptions]="'200ms'"
+          [collapsed]="false"
+        >
+          <div class="p-grid">
+            <div class="ui-inputgroup p-col-12">
+              <span class="ui-inputgroup-addon">Name</span>
+              <input
+                pInputText
+                type="text"
+                placeholder=" Full title of the puzzle set"
+                [(ngModel)]="selectedPuzzleSet.name"
+                name="name"
+                required
+                #name="ngModel"
+              />
+              <p-message
+                severity="error"
+                text="{{ errorText(name) }}"
+                *ngIf="!name.valid && name.dirty"
+              >
+                >
+              </p-message>
+            </div>
+            <div class="ui-inputgroup p-col-12">
+              <span class="ui-inputgroup-addon">Slug</span>
+              <input
+                pInputText
+                type="text"
+                placeholder=" must be only a-z"
+                required
+                pattern="[a-z]+"
+                [(ngModel)]="selectedPuzzleSet.slug"
+                name="slug"
+                #slug="ngModel"
+              />
+              <p-message
+                *ngIf="!slug.valid && slug.dirty"
+                severity="error"
+                text="{{ errorText(slug) }}"
+              >
+              </p-message>
+            </div>
+            <div class="p-col-4">
+              <span>In Playtesting</span>
+            </div>
+            <p-inputSwitch
+              class="p-col-2"
+              [(ngModel)]="selectedPuzzleSet.playtesting"
+              name="playtesting"
+            ></p-inputSwitch>
+            <p-toolbar class="p-col-12">
+              <div class="ui-toolbar-group-right">
+                <p-button
+                  type="submit"
+                  label="Save"
+                  [disabled]="!puzzleSetForm.valid"
+                ></p-button>
+              </div>
+            </p-toolbar>
           </div>
+        </p-fieldset>
       </form>
-    </p-fieldset>
+    </div>
   `,
   styles: []
 })
 export class EditPuzzleSetComponent implements OnInit {
-  form: FormGroup;
-  selectedPuzzleSet: Observable<PuzzleSet> | undefined = undefined;
+  selectedPuzzleSet: PuzzleSet | undefined;
 
-  constructor(private ps: PuzzleService, fb: FormBuilder) {
+  constructor(private ps: PuzzleService, private ns: NotifyService) {
     ps.selectedPuzzleSet.subscribe(newSPS => {
-      this.selectedPuzzleSet = newSPS;
-      if (this.selectedPuzzleSet) {
-        this.selectedPuzzleSet.subscribe(puzzleSet => this.form.patchValue(puzzleSet));
+      if (newSPS) {
+        newSPS.subscribe(newPS => {
+          this.selectedPuzzleSet = newPS;
+        });
       }
-    });
-
-    this.form = fb.group({
-      slug: ["",
-        Validators.compose([Validators.required, Validators.pattern("[a-z]+")]),
-        this.notUnique()
-      ],
-      name: ["", Validators.compose([Validators.required])],
-      playtesting: ["", null]
     });
   }
 
   save() {
-    this.form.va
-  }
-  get slug() {
-    return this.form.get("slug");
+    if (this.selectedPuzzleSet) {
+      if (this.ps.isSetSlugUnique(this.selectedPuzzleSet.slug)) {
+        this.ps.updatePuzzleSet(this.selectedPuzzleSet);
+      } else {
+        this.ns.error("Slug in use", "slugs must be unique");
+      }
+    } else {
+      console.error("Save Puzzle Set called with no selected set");
+    }
   }
 
   ngOnInit() {}
 
-  errorText(errors: any): string {
+  errorText(field: any): string {
+    if (!field) {
+      return "";
+    }
+    const errors = field.errors;
     if (errors["required"]) {
       return "You must provide a value";
     }
@@ -102,29 +119,5 @@ export class EditPuzzleSetComponent implements OnInit {
     }
     console.log(errors);
     return "Unknown validation error";
-  }
-
-  // notUnique(): AsyncValidatorFn {
-  //   return (control: AbstractControl) => {
-  //     return this.uniqueErrors(control.value);
-  //   };
-  // }
-
-  // async uniqueErrors(slug: string): Promise<{ [key: string]: any } | null> {
-  //   if (await this.ps.isSetSlugUnique(slug)) {
-  //     return null;
-  //   } else {
-  //     return { notUnique: true };
-  //   }
-  // }
-
-  notUnique(): AsyncValidatorFn {
-    return async (control: AbstractControl) => {
-      if (await this.ps.isSetSlugUnique(control.value)) {
-        return null;
-      } else {
-        return { notUnique: true };
-      }
-    };
   }
 }
