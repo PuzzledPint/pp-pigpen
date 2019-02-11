@@ -2,69 +2,81 @@ import { Injectable } from "@angular/core";
 import {
   AngularFirestoreCollection,
   AngularFirestore,
-  AngularFirestoreDocument
+  AngularFirestoreDocument,
+  DocumentReference
 } from "@angular/fire/firestore";
-import { FSPuzzleSet } from "src/models/fs-puzzle-set.model";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
-import { reject } from "bluebird";
+import { map } from "rxjs/operators";
+
+import { FSPuzzleSet } from "src/models/fs-puzzle-set.model";
+
+export interface PuzzleSet extends FSPuzzleSet { afDoc: AngularFirestoreDocument<FSPuzzleSet>; }
 
 @Injectable({
   providedIn: "root"
 })
 export class PuzzleService {
   private puzzleSetsCollection: AngularFirestoreCollection<FSPuzzleSet>;
-  puzzleSets: Set<string> = new Set();
-  puzzleSetAdded: Subject<string> = new Subject();
+  puzzleSets: Observable<PuzzleSet[]>;
+  private _selectedPuzzleSet: Subject<Observable<PuzzleSet> | undefined> = new Subject();
+  selectedPuzzleSet = this._selectedPuzzleSet.asObservable();
 
-
-  constructor(private af: AngularFirestore) {
+  constructor(private readonly af: AngularFirestore) {
     this.puzzleSetsCollection = af.collection<FSPuzzleSet>("puzzleSets");
-    this.puzzleSetsCollection.snapshotChanges().subscribe(dca =>
-      dca.map(action => {
-        const change = action.payload;
-        const set = change.doc.id;
-        switch (change.type) {
-          case 'added': {
-            this.puzzleSets.add(set); break;
-          }
-          case 'removed': { this.puzzleSets.delete(set); break; }
-        }
-      })
+    this.puzzleSets = this.puzzleSetsCollection.snapshotChanges().pipe(
+      map(actions => actions.map(
+        a => {
+          const afDoc: AngularFirestoreDocument<FSPuzzleSet> = af.doc(a.payload.doc.ref);
+          const data = a.payload.doc.data() as FSPuzzleSet;
+          return { afDoc, ...data };
+        })
+      )
     );
   }
 
-  getSet(slug: string): Observable<FSPuzzleSet | undefined> {
-    return this.puzzleSetsCollection.doc<FSPuzzleSet>(slug).valueChanges();
-  }
-
-  async addPuzzleSet(slug: string): Promise<void> {
-    if (this.improperSlug(slug)) {
-      return reject("PuzzleService: tried to add PuzzleSet with invalid slug.");
-    }
-
-    const doc = await this.puzzleSetsCollection.doc(slug);
-    if (await this.checkExists(this.puzzleSetsCollection, slug)) {
-      return reject(
-        "PuzzleService: tried to add PuzzleSet when slug already exists."
-      );
-    }
-
-    doc.set({});
-    this.puzzleSetAdded.next(slug);
-    return;
-  }
-
-  improperSlug(slug: string): boolean {
+  static improperSlug(slug: string): boolean {
     return /[^a-z]/.test(slug);
   }
 
-  async checkExists<T>(
-    collection: AngularFirestoreCollection<T>,
-    slug: string
-  ): Promise<boolean> {
-    const doc = collection.doc<T>(slug);
-    const check = await doc.get().toPromise();
 
-    return check.exists;
+  private static fromFS<T, K extends T>(doc: AngularFirestoreDocument<T>): Observable<K>  {
+    const obs: Observable<T | undefined> = doc.valueChanges();
+    return obs.pipe(map(fs => { return { doc, ...fs } as unknown as K; }));
+  }
+
+
+  // getPuzzleSet(id: string): Observable<PuzzleSet> {
+  //   const doc: AngularFirestoreDocument<FSPuzzleSet> = this.puzzleSetsCollection.doc(id);
+  //   return PuzzleService.fromFS<FSPuzzleSet, PuzzleSet>(doc);
+  // }
+
+
+  // Public interface
+
+  addPuzzleSet() {
+    this.puzzleSetsCollection.add(
+      {
+        name: "Name me!",
+        slug: "slug",
+        playtesting: false,
+        archives: false,
+        polaroid: "/assets/images/nopolaroid.png",
+        month: "Unscheduled",
+        puzzleRefs: []
+      }).then(docRef => this._selectedPuzzleSet.next(PuzzleService.fromFS<FSPuzzleSet, PuzzleSet>(this.af.doc(docRef))));
+  }
+
+  updatePuzzleSet(set: PuzzleSet) {
+    const { afDoc, ...fsPuzzleSet } = set;
+    afDoc.set(fsPuzzleSet);
+  }
+
+  selectPuzzleSet(set: PuzzleSet) {
+    this._selectedPuzzleSet.next(PuzzleService.fromFS(set.afDoc));
+  }
+
+  async isSetSlugUnique(slug: string): Promise<boolean> {
+    const sets: PuzzleSet[] = await this.puzzleSets.toPromise();
+    return sets.find(set => set.slug === slug) ? true : false;
   }
 }

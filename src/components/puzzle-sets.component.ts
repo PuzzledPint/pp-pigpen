@@ -1,21 +1,20 @@
-import { Component, OnInit } from "@angular/core";
-import { PuzzleService } from "src/services/puzzle.service";
-import { FSPuzzleSet } from "src/models/fs-puzzle-set.model";
+import { Component, OnInit, Output } from "@angular/core";
+import { PuzzleService, PuzzleSet } from "src/services/puzzle.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-puzzle-sets",
   template: `
-    <p-carousel [value]="ps.puzzleSets" numVisible="5">
-      <ng-template let-set pTemplate="ps.getSet(set)">
-        <span>{{ set }}</span>
+    <p-carousel [value]="puzzleSets | async" numVisible="5">
+      <ng-template let-set pTemplate="set">
         <div
           class="flex-container"
           style="display:flex; flex-wrap: wrap; justify-content: center"
-          (click)="selectSet(set)"
+          (click)="ps.selectPuzzleSet(set)"
         >
           <img
             alt="Set Polaroid"
-            src="{{ setImage(details.polaroid) }}"
+            src="{{ setImage(set.polaroid) }}"
             height="100px"
             width="100px"
           />
@@ -28,7 +27,11 @@ import { FSPuzzleSet } from "src/models/fs-puzzle-set.model";
   styles: []
 })
 export class PuzzleSetsComponent implements OnInit {
-  constructor(public ps: PuzzleService) {}
+  puzzleSets: Observable<PuzzleSet[]>;
+
+  constructor(public ps: PuzzleService) {
+    this.puzzleSets = ps.puzzleSets;
+  }
 
   ngOnInit() {}
 
@@ -38,6 +41,4 @@ export class PuzzleSetsComponent implements OnInit {
     }
     return "/assets/images/nopolaroid.png";
   }
-
-  selectSet(slug: string) {}
 }

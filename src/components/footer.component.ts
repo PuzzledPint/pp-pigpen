@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { InfoService } from 'src/services/info.service';
 import { Observable } from 'rxjs';
 import { FSInfo } from 'src/models/fs-info.model';
-import { AngularFirestoreDocument } from "@angular/fire/firestore";
 
 @Component({
   selector: 'app-footer',
@@ -15,19 +14,14 @@ import { AngularFirestoreDocument } from "@angular/fire/firestore";
 })
 
 export class FooterComponent implements OnInit {
-  footer: AngularFirestoreDocument<FSInfo | undefined>;
+  footer: Observable<FSInfo | undefined>;
 
   constructor(infoService: InfoService) {
-    this.footer = infoService.getInfo('footer');
-    this.footer.get
-    this.footer.subscribe(f => {
-      console.log(f);
-    }, error => { }, () => { });
+    this.footer = infoService.getInfo('footer').valueChanges();
   }
 
   ngOnInit() {
   }
-
 
 
 }
