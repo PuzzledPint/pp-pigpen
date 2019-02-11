@@ -39,6 +39,8 @@ import { MessageModule } from 'primeng/message';
 import { MessageService } from "primeng/api";
 import { ToastModule } from 'primeng/toast';
 import { FieldsetModule } from 'primeng/fieldset';
+import { PuzzleSetsComponent } from '../components/puzzle-sets.component';
+import { CarouselModule } from 'primeng/carousel';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -63,7 +65,8 @@ const config = {
     WebmasterComponent,
     PlaytestingComponent,
     AddPuzzleSetComponent,
-    EditPuzzleSetComponent
+    EditPuzzleSetComponent,
+    PuzzleSetsComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +94,7 @@ const config = {
     MessageModule,
     ToastModule,
     FieldsetModule,
+    CarouselModule,
 
     // Our app
     AppRoutingModule,

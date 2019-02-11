@@ -16,6 +16,7 @@ export class PuzzleService {
   puzzleSets: Set<string> = new Set();
   puzzleSetAdded: Subject<string> = new Subject();
 
+
   constructor(private af: AngularFirestore) {
     this.puzzleSetsCollection = af.collection<FSPuzzleSet>("puzzleSets");
     this.puzzleSetsCollection.snapshotChanges().subscribe(dca =>
@@ -23,11 +24,17 @@ export class PuzzleService {
         const change = action.payload;
         const set = change.doc.id;
         switch (change.type) {
-          case 'added': { this.puzzleSets.add(set); break; }
+          case 'added': {
+            this.puzzleSets.add(set); break;
+          }
           case 'removed': { this.puzzleSets.delete(set); break; }
         }
       })
     );
+  }
+
+  getSet(slug: string): Observable<FSPuzzleSet | undefined> {
+    return this.puzzleSetsCollection.doc<FSPuzzleSet>(slug).valueChanges();
   }
 
   async addPuzzleSet(slug: string): Promise<void> {

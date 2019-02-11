@@ -12,11 +12,10 @@ import { PuzzleService } from "src/services/puzzle.service";
 @Component({
   selector: "app-add-puzzle-set",
   template: `
-    <p-toast [style]="{ marginTop: '80px' }"></p-toast>
     <p-fieldset
       legend="Add Puzzle Set"
       [toggleable]="true"
-      [transitionOptions]="'100ms'"
+      [transitionOptions]="'200ms'"
       [collapsed]="false"
     >
       <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
@@ -32,13 +31,13 @@ import { PuzzleService } from "src/services/puzzle.service";
         label="Create"
         [disabled]="!form.valid"
       ></p-button>
+      </div>
       <p-message
         severity="error"
         text="{{ errorText(slug.errors) }}"
         *ngIf="!form.controls['slug'].valid && form.controls['slug'].dirty"
       >
       </p-message>
-    </div>
   </form>
     </p-fieldset>
   `,
