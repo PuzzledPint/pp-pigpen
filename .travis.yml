@@ -29,7 +29,7 @@ script:
   - ng lint
   - ng build pp-pigpen --configuration=production --aot
   - npm start & wait-on http-get://localhost:4200
-  - cypress run
+  - cypress run --browser chromium
 
 notifications:
   email:

@@ -52,22 +52,22 @@ import { NotifyService } from "src/services/notify.service";
               >
               </p-message>
             </div>
-            <div class="p-col-4">
-              <span>In Playtesting</span>
+            <div class="ui-inputgroup p-col-12">
+              <span class="ui-inputgroup-addon">In Playtesting</span>
+              <p-inputSwitch
+                [(ngModel)]="selectedPuzzleSet.playtesting"
+                name="playtesting"
+                pInputText
+              ></p-inputSwitch>
             </div>
-            <p-inputSwitch
-              class="p-col-8"
-              [(ngModel)]="selectedPuzzleSet.playtesting"
-              name="playtesting"
-            ></p-inputSwitch>
-            <div class="p-col-4">
-              <span>In Archives</span>
+            <div class="ui-inputgroup p-col-12">
+              <span class="ui-inputgroup-addon">In Archives</span>
+              <p-inputSwitch
+                [(ngModel)]="selectedPuzzleSet.archives"
+                name="archives"
+                pInputText
+              ></p-inputSwitch>
             </div>
-            <p-inputSwitch
-              class="p-col-8"
-              [(ngModel)]="selectedPuzzleSet.archives"
-              name="archives"
-            ></p-inputSwitch>
             <div class="ui-inputgroup p-col-12">
               <span class="ui-inputgroup-addon">Polaroid URL</span>
               <input
@@ -76,7 +76,7 @@ import { NotifyService } from "src/services/notify.service";
                 placeholder="/assets/foo.png"
                 [(ngModel)]="selectedPuzzleSet.polaroid"
                 name="polaroid"
-                size = "30"
+                size="30"
                 #polaroid="ngModel"
               />
             </div>

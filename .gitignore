@@ -37,3 +37,8 @@
 # System Files
 .DS_Store
 Thumbs.db
+
+# cypress logs
+cypress/screenshots/*
+cypress/videos/*
+
