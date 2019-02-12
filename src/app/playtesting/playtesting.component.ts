@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/services/auth.service";
 import { NotifyService } from "src/services/notify.service";
+import { PuzzleService } from "src/services/puzzle.service";
 
 @Component({
   selector: "view-playtesting",
@@ -28,14 +29,23 @@ import { NotifyService } from "src/services/notify.service";
 
     <p-card>Thank you for your interest in playtesting!</p-card>
 
+    <app-puzzle-sets [puzzleSets]="ps.playtestingSets"></app-puzzle-sets>
 
+    <div *ngIf="ps.selectedPuzzleSet as puzzleSet">
+          <div *ngFor="let puzzleRef of puzzleSet.puzzleRefs">
+            <app-puzzle [puzzle]="puzzleRef | refToPuzzle"></app-puzzle>
+          </div>
+    </div>
+    <app-puzzle></app-puzzle>
 
     </div>
   `,
   styles: []
 })
 export class PlaytestingComponent implements OnInit {
-  constructor(public auth: UserService, private ns: NotifyService) {}
+  constructor(public auth: UserService,
+    private ns: NotifyService,
+    public ps: PuzzleService) { }
 
   ngOnInit() {
     this.ns.setTitle("Playtesting");

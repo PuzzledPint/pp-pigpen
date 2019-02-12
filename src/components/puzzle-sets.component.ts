@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from "@angular/core";
+import { Component, OnInit, Output, Input } from "@angular/core";
 import { PuzzleService, PuzzleSet } from "src/services/puzzle.service";
 import { Observable } from "rxjs";
 
@@ -27,10 +27,9 @@ import { Observable } from "rxjs";
   styles: []
 })
 export class PuzzleSetsComponent implements OnInit {
-  puzzleSets: Observable<PuzzleSet[]>;
+  @Input() puzzleSets: Observable<PuzzleSet[]> | undefined;
 
   constructor(public ps: PuzzleService) {
-    this.puzzleSets = ps.puzzleSets;
   }
 
   ngOnInit() {}

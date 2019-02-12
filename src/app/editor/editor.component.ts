@@ -5,7 +5,7 @@ import { PuzzleService } from "src/services/puzzle.service";
 @Component({
   selector: "view-editor",
   template: `
-    <app-puzzle-sets></app-puzzle-sets>
+    <app-puzzle-sets [puzzleSets]="ps.puzzleSets"></app-puzzle-sets>
     <p-toolbar>
       <div class="ui-toolbar-group-right">
         <p-button

@@ -6,7 +6,7 @@ import {
   DocumentReference
 } from "@angular/fire/firestore";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
-import { map, tap, shareReplay } from "rxjs/operators";
+import { map, tap, shareReplay, filter } from "rxjs/operators";
 
 import { FSPuzzleSet } from "src/models/fs-puzzle-set.model";
 import { FSPuzzle } from "src/models/fs-puzzle.model";
@@ -20,6 +20,7 @@ export interface Puzzle extends FSPuzzle { afDoc: AngularFirestoreDocument<FSPuz
 export class PuzzleService {
   private puzzleSetsCollection: AngularFirestoreCollection<FSPuzzleSet>;
   puzzleSets: Observable<PuzzleSet[]>;
+  playtestingSets: Observable<PuzzleSet[]>;
 
   private _selectedPuzzleSet: Subject<Observable<PuzzleSet> | undefined> = new Subject();
   selectedPuzzleSet = this._selectedPuzzleSet.asObservable();
@@ -40,6 +41,8 @@ export class PuzzleService {
       ),
       shareReplay(1)
     );
+    this.playtestingSets = this.puzzleSets.pipe(
+      map(sets => sets.filter(set => set.playtesting)));
 
     this.puzzlesCollection = af.collection<FSPuzzle>("puzzles");
   }
@@ -75,6 +78,7 @@ export class PuzzleService {
         name: "",
         slug: "",
         playtesting: false,
+        onhomepage: false,
         archives: false,
         polaroid: "/assets/images/nopolaroid.png",
         month: new Date().getFullYear() + "-01",
