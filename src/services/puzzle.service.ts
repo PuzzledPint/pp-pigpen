@@ -6,11 +6,13 @@ import {
   DocumentReference
 } from "@angular/fire/firestore";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, tap, shareReplay } from "rxjs/operators";
 
 import { FSPuzzleSet } from "src/models/fs-puzzle-set.model";
+import { FSPuzzle } from "src/models/fs-puzzle.model";
 
 export interface PuzzleSet extends FSPuzzleSet { afDoc: AngularFirestoreDocument<FSPuzzleSet>; }
+export interface Puzzle extends FSPuzzle { afDoc: AngularFirestoreDocument<FSPuzzle>; }
 
 @Injectable({
   providedIn: "root"
@@ -24,13 +26,15 @@ export class PuzzleService {
   constructor(private readonly af: AngularFirestore) {
     this.puzzleSetsCollection = af.collection<FSPuzzleSet>("puzzleSets");
     this.puzzleSets = this.puzzleSetsCollection.snapshotChanges().pipe(
+      tap(arr => console.log(`read ${arr.length} docs from puzzleSets collection`)),
       map(actions => actions.map(
         a => {
           const afDoc: AngularFirestoreDocument<FSPuzzleSet> = af.doc(a.payload.doc.ref);
           const data = a.payload.doc.data() as FSPuzzleSet;
           return { afDoc, ...data };
         })
-      )
+      ),
+      shareReplay(1)
     );
   }
 
@@ -39,9 +43,15 @@ export class PuzzleService {
   }
 
 
-  private static fromFS<T, K extends T>(afDoc: AngularFirestoreDocument<T>): Observable<K>  {
+  private static fromFS<T, K extends T>(afDoc: AngularFirestoreDocument<T>): Observable<K> {
     const obs: Observable<T | undefined> = afDoc.valueChanges();
-    return obs.pipe(map(fs => { return { afDoc, ...fs } as unknown as K; }));
+    return obs.pipe(
+      tap(
+        doc => { if (doc) { console.log("firestore read:", doc); }
+  }),
+      map(fs => { return { afDoc, ...fs } as unknown as K; }),
+      shareReplay(1)
+    );
   }
 
 
@@ -71,6 +81,11 @@ export class PuzzleService {
     afDoc.set(fsPuzzleSet);
   }
 
+  updatePuzzle(puzzle: Puzzle) {
+    const { afDoc, ...fsPuzzle } = puzzle;
+    afDoc.set(fsPuzzle);
+  }
+
   selectPuzzleSet(set: PuzzleSet) {
     this._selectedPuzzleSet.next(PuzzleService.fromFS(set.afDoc));
   }
@@ -79,4 +94,10 @@ export class PuzzleService {
     const sets: PuzzleSet[] = await this.puzzleSets.toPromise();
     return sets.find(set => set.slug === slug) ? true : false;
   }
+
+  getPuzzle(ref: DocumentReference): Observable<Puzzle> {
+    const doc = this.af.doc<FSPuzzle>(ref);
+    return PuzzleService.fromFS<FSPuzzle, Puzzle>(doc);
+  }
+
 }

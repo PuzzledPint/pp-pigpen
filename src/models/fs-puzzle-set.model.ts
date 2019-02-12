@@ -1,3 +1,5 @@
+import { DocumentReference } from "@angular/fire/firestore";
+
 export interface FSPuzzleSet {
   name: string;
   slug: string;
@@ -7,5 +9,5 @@ export interface FSPuzzleSet {
   polaroid: string; // URL
   month: string; // format is YYYY-MM
 
-  puzzleRefs: string[];
+  puzzleRefs: DocumentReference[];
 }

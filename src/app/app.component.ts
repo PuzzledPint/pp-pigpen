@@ -1,5 +1,6 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, isDevMode } from '@angular/core';
 import { UserService } from "src/services/auth.service";
+import * as firebase from "firebase";
 
 @Component({
   selector: 'view-root',
@@ -25,6 +26,8 @@ export class AppComponent implements OnInit {
   constructor(private auth: UserService) {
   }
   ngOnInit(): void {
-    // this.auth.initLinkedDocs();
+    if (isDevMode()) {
+      //firebase.firestore.setLogLevel('debug');
+    }
   }
 }

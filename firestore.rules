@@ -26,6 +26,15 @@ service cloud.firestore {
       allow write: if GCCityMatches(docId);
     }
 
+    match /puzzleSets/{docId} {
+      allow read: if true;
+      allow write: if isEditor()
+    }
+
+    match /puzzles/{docId} {
+      allow read: if true;
+      allow write: if isEditor()
+    }
 
     function auth() {
       return request.auth != null;

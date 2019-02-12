@@ -1,12 +1,14 @@
 import { Component, OnInit } from "@angular/core";
-import { PuzzleService, PuzzleSet } from "src/services/puzzle.service";
+import { PuzzleService, PuzzleSet, Puzzle } from "src/services/puzzle.service";
 import { NotifyService } from "src/services/notify.service";
+import { Observable } from "rxjs";
+import { DocumentReference } from "@angular/fire/firestore";
 
 @Component({
   selector: "app-edit-puzzle-set",
   template: `
     <div *ngIf="selectedPuzzleSet">
-      <form (ngSubmit)="save()" #puzzleSetForm="ngForm">
+      <form (ngSubmit)="savePuzzleSet()" #puzzleSetForm="ngForm">
         <p-fieldset
           legend="Edit Puzzle Set"
           [toggleable]="true"
@@ -14,7 +16,7 @@ import { NotifyService } from "src/services/notify.service";
           [collapsed]="false"
         >
           <div class="p-grid">
-            <div class="ui-inputgroup p-col-12">
+            <div class="ui-inputgroup p-col-12 p-lg-3">
               <span class="ui-inputgroup-addon">Name</span>
               <input
                 pInputText
@@ -30,10 +32,9 @@ import { NotifyService } from "src/services/notify.service";
                 text="{{ errorText(name) }}"
                 *ngIf="!name.valid && name.dirty"
               >
-                >
               </p-message>
             </div>
-            <div class="ui-inputgroup p-col-12">
+            <div class="ui-inputgroup p-col-12 p-lg-3">
               <span class="ui-inputgroup-addon">Slug</span>
               <input
                 pInputText
@@ -52,23 +53,7 @@ import { NotifyService } from "src/services/notify.service";
               >
               </p-message>
             </div>
-            <div class="ui-inputgroup p-col-12">
-              <span class="ui-inputgroup-addon">In Playtesting</span>
-              <p-inputSwitch
-                [(ngModel)]="selectedPuzzleSet.playtesting"
-                name="playtesting"
-                pInputText
-              ></p-inputSwitch>
-            </div>
-            <div class="ui-inputgroup p-col-12">
-              <span class="ui-inputgroup-addon">In Archives</span>
-              <p-inputSwitch
-                [(ngModel)]="selectedPuzzleSet.archives"
-                name="archives"
-                pInputText
-              ></p-inputSwitch>
-            </div>
-            <div class="ui-inputgroup p-col-12">
+            <div class="ui-inputgroup p-col-12 p-lg-6">
               <span class="ui-inputgroup-addon">Polaroid URL</span>
               <input
                 pInputText
@@ -80,7 +65,7 @@ import { NotifyService } from "src/services/notify.service";
                 #polaroid="ngModel"
               />
             </div>
-            <div class="ui-inputgroup p-col-12">
+            <div class="ui-inputgroup p-col-12 p-lg-6">
               <span class="ui-inputgroup-addon">Month</span>
               <p-calendar
                 [(ngModel)]="selectedPuzzleSet.month"
@@ -94,7 +79,38 @@ import { NotifyService } from "src/services/notify.service";
               >
               </p-calendar>
             </div>
-            <p-toolbar class="p-col-12">
+            <p-orderList
+              [value]="selectedPuzzleSet.puzzleRefs"
+              class="class p-col-12 p-lg-6"
+              [(selection)]="selectedPuzzles"
+              (onSelectionChange)="puzzleSelectionChanged()"
+            >
+              >
+              <ng-template let-puzzleRef pTemplate="item">
+                <h3>
+                  {{ (puzzleRef | refToPuzzle | async)?.name }} ({{
+                    (puzzleRef | refToPuzzle | async)?.type
+                  }})
+                </h3>
+              </ng-template>
+            </p-orderList>
+            <div class="ui-inputgroup p-col-12 p-lg-3">
+              <span class="ui-inputgroup-addon">In Playtesting</span>
+              <p-inputSwitch
+                [(ngModel)]="selectedPuzzleSet.playtesting"
+                name="playtesting"
+                pInputText
+              ></p-inputSwitch>
+            </div>
+            <div class="ui-inputgroup p-col-12 p-lg-2">
+              <span class="ui-inputgroup-addon">In Archives</span>
+              <p-inputSwitch
+                [(ngModel)]="selectedPuzzleSet.archives"
+                name="archives"
+                pInputText
+              ></p-inputSwitch>
+            </div>
+            <p-toolbar class="p-col-12 p-lg-7">
               <div class="ui-toolbar-group-right">
                 <p-button
                   type="submit"
@@ -107,13 +123,141 @@ import { NotifyService } from "src/services/notify.service";
         </p-fieldset>
       </form>
     </div>
+    <div *ngIf="selectedPuzzle as puzzle" class="p-grid">
+      <form (ngSubmit)="savePuzzle()" #puzzleForm="ngForm">
+        <p-fieldset
+          legend="Edit Puzzle"
+          [toggleable]="true"
+          [transitionOptions]="'200ms'"
+          [collapsed]="false"
+        >
+          <div class="p-grid">
+            <div class="ui-inputgroup p-col-12 p-lg-3">
+              <span class="ui-inputgroup-addon">Name</span>
+              <input
+                pInputText
+                type="text"
+                placeholder=" Full title of the puzzle"
+                [(ngModel)]="puzzle.name"
+                name="name"
+                required
+                #name="ngModel"
+              />
+              <p-message
+                severity="error"
+                text="{{ errorText(name) }}"
+                *ngIf="!name.valid && name.dirty"
+              >
+              </p-message>
+            </div>
+            <div class="ui-inputgroup p-col-12 p-lg-3">
+              <span class="ui-inputgroup-addon">Type</span>
+              <p-dropdown
+                [options]="puzzleTypes"
+                [(ngModel)]="puzzle.type"
+                name="type"
+                #type="ngModel"
+                placeholder="Select..."
+                optionLabel="type"
+                [showClear]="false"
+              >
+              </p-dropdown>
+              <p-message
+                *ngIf="!type.valid && type.dirty"
+                severity="error"
+                text="{{ errorText(type) }}"
+              >
+              </p-message>
+            </div>
+            <div class="ui-inputgroup p-col-12 p-lg-6">
+              <span class="ui-inputgroup-addon">PDF URL</span>
+              <input
+                pInputText
+                type="text"
+                placeholder="Google Drive Link"
+                [(ngModel)]="puzzle.pdf"
+                name="pdf"
+                size="30"
+                #polaroid="ngModel"
+              />
+            </div>
+            <p-table [value]="puzzle.hints">
+              <ng-template pTemplate="caption">
+                <h3>Hints</h3>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="width:20%">Title</th>
+                  <th>Full Hint Text</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-hint let-columns="columns">
+                <tr>
+                  <td pEditableColumn>
+                    <p-cellEditor>
+                      <ng-template pTemplate="input">
+                        <input
+                          type="text"
+                          [(ngModel)]="hint.title"
+                          [ngModelOptions]="{ standalone: true }"
+                        />
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                        {{ hint.title }}
+                      </ng-template>
+                    </p-cellEditor>
+                  </td>
+                  <td pEditableColumn>
+                    <p-cellEditor>
+                      <ng-template pTemplate="input">
+                        <input
+                          type="text"
+                          [(ngModel)]="hint.text"
+                          [ngModelOptions]="{ standalone: true }"
+                        />
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                        {{ hint.text }}
+                      </ng-template>
+                    </p-cellEditor>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+            <p-toolbar class="p-col-12 p-lg-12">
+              <div class="ui-toolbar-group-right">
+                <p-button
+                  type="button"
+                  label="Add Hint"
+                  (click)="addHint()"
+                  style="padding:5px"
+                ></p-button>
+                <p-button
+                  type="submit"
+                  label="Save"
+                  [disabled]="!puzzleForm.valid"
+                ></p-button>
+              </div>
+            </p-toolbar>
+          </div>
+        </p-fieldset>
+      </form>
+    </div>
   `,
   styles: []
 })
 export class EditPuzzleSetComponent implements OnInit {
   selectedPuzzleSet: PuzzleSet | undefined;
+  selectedPuzzles: DocumentReference[] = [];
+  selectedPuzzle: Puzzle | undefined = undefined;
+  puzzleTypes = [
+    { type: "Location" },
+    { type: "Main Set" },
+    { type: "Meta" },
+    { type: "Bonus" }
+  ];
 
-  constructor(private ps: PuzzleService, private ns: NotifyService) {
+  constructor(public ps: PuzzleService, private ns: NotifyService) {
     ps.selectedPuzzleSet.subscribe(newSPS => {
       if (newSPS) {
         newSPS.subscribe(newPS => {
@@ -123,13 +267,26 @@ export class EditPuzzleSetComponent implements OnInit {
     });
   }
 
-  save() {
+  addHint() {
+    if (this.selectedPuzzle) {
+      this.selectedPuzzle.hints.push({ title: "", text: "" });
+    }
+  }
+  savePuzzleSet() {
     if (this.selectedPuzzleSet) {
       if (this.ps.isSetSlugUnique(this.selectedPuzzleSet.slug)) {
         this.ps.updatePuzzleSet(this.selectedPuzzleSet);
       } else {
         this.ns.error("Slug in use", "slugs must be unique");
       }
+    } else {
+      console.error("Save Puzzle Set called with no selected set");
+    }
+  }
+
+  savePuzzle() {
+    if (this.selectedPuzzle) {
+      this.ps.updatePuzzle(this.selectedPuzzle);
     } else {
       console.error("Save Puzzle Set called with no selected set");
     }
@@ -153,5 +310,15 @@ export class EditPuzzleSetComponent implements OnInit {
     }
     console.log(errors);
     return "Unknown validation error";
+  }
+
+  puzzleSelectionChanged() {
+    if (this.selectedPuzzles && this.selectedPuzzles[0]) {
+      this.ps
+        .getPuzzle(this.selectedPuzzles[0])
+        .subscribe(newPuzzle => (this.selectedPuzzle = newPuzzle));
+    } else {
+      this.selectedPuzzle = undefined;
+    }
   }
 }

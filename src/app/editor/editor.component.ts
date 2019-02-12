@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NotifyService } from "src/services/notify.service";
-import { PuzzleService, PuzzleSet } from "src/services/puzzle.service";
-import { Observable } from "rxjs";
+import { PuzzleService } from "src/services/puzzle.service";
 
 @Component({
   selector: "view-editor",

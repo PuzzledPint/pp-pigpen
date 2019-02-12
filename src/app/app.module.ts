@@ -43,6 +43,10 @@ import { CarouselModule } from 'primeng/carousel';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
+import { OrderListModule } from 'primeng/orderlist';
+import { RefToPuzzlePipe } from "src/pipes/refToPuzzle.pipe";
+import { DropdownModule } from 'primeng/dropdown';
+import {TableModule} from 'primeng/table';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -60,14 +64,16 @@ const config = {
     FooterComponent,
     HeaderComponent,
     UserAuthComponent,
-    VariablesPipe,
     TestAllComponent,
     HomeComponent,
     EditorComponent,
     WebmasterComponent,
     PlaytestingComponent,
     EditPuzzleSetComponent,
-    PuzzleSetsComponent
+    PuzzleSetsComponent,
+
+    VariablesPipe,
+    RefToPuzzlePipe
   ],
   imports: [
     BrowserModule,
@@ -99,7 +105,9 @@ const config = {
     InputTextModule,
     InputSwitchModule,
     CalendarModule,
-
+    OrderListModule,
+    DropdownModule,
+    TableModule,
     // Our app
     AppRoutingModule,
 
