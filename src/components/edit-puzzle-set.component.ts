@@ -3,6 +3,7 @@ import { PuzzleService, PuzzleSet, Puzzle } from "src/services/puzzle.service";
 import { NotifyService } from "src/services/notify.service";
 import { Observable } from "rxjs";
 import { DocumentReference } from "@angular/fire/firestore";
+import { SelectItem } from "primeng/api";
 
 @Component({
   selector: "app-edit-puzzle-set",
@@ -150,7 +151,7 @@ import { DocumentReference } from "@angular/fire/firestore";
               >
               </p-message>
             </div>
-            <div class="ui-inputgroup p-col-12 p-lg-3">
+            <div class="ui-inputgroup p-col-12 p-lg-2">
               <span class="ui-inputgroup-addon">Type</span>
               <p-dropdown
                 [options]="puzzleTypes"
@@ -158,7 +159,6 @@ import { DocumentReference } from "@angular/fire/firestore";
                 name="type"
                 #type="ngModel"
                 placeholder="Select..."
-                optionLabel="type"
                 [showClear]="false"
               >
               </p-dropdown>
@@ -169,7 +169,7 @@ import { DocumentReference } from "@angular/fire/firestore";
               >
               </p-message>
             </div>
-            <div class="ui-inputgroup p-col-12 p-lg-6">
+            <div class="ui-inputgroup p-col-12 p-lg-7">
               <span class="ui-inputgroup-addon">PDF URL</span>
               <input
                 pInputText
@@ -177,22 +177,26 @@ import { DocumentReference } from "@angular/fire/firestore";
                 placeholder="Google Drive Link"
                 [(ngModel)]="puzzle.pdf"
                 name="pdf"
-                size="30"
+                size="60"
                 #polaroid="ngModel"
               />
             </div>
             <p-table [value]="puzzle.hints">
               <ng-template pTemplate="caption">
-                <h3>Hints</h3>
+                <p>Hints</p>
               </ng-template>
               <ng-template pTemplate="header">
                 <tr>
-                  <th style="width:20%">Title</th>
-                  <th>Full Hint Text</th>
+                <th style="width:3rem"></th>
+                <th style="width:20%">Title</th>
+                <th>Full Hint Text</th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body" let-hint let-columns="columns">
-                <tr>
+              <ng-template pTemplate="body" let-hint let-index="rowIndex">
+                <tr [pReorderableRow]="index">
+                  <td pReorderableRowHandle>
+                    <i pReorderableRowHandle class="pi pi-bars"></i>
+                  </td>
                   <td pEditableColumn>
                     <p-cellEditor>
                       <ng-template pTemplate="input">
@@ -230,11 +234,11 @@ import { DocumentReference } from "@angular/fire/firestore";
                   type="button"
                   label="Add Hint"
                   (click)="addHint()"
-                  style="padding:5px"
+                  [ngStyle]="{ 'padding' : '1rem'}"
                 ></p-button>
                 <p-button
                   type="submit"
-                  label="Save"
+                  label="Save Puzzle"
                   [disabled]="!puzzleForm.valid"
                 ></p-button>
               </div>
@@ -250,12 +254,11 @@ export class EditPuzzleSetComponent implements OnInit {
   selectedPuzzleSet: PuzzleSet | undefined;
   selectedPuzzles: DocumentReference[] = [];
   selectedPuzzle: Puzzle | undefined = undefined;
-  puzzleTypes = [
-    { type: "Location" },
-    { type: "Main Set" },
-    { type: "Meta" },
-    { type: "Bonus" }
-  ];
+  puzzleTypes :SelectItem[] = [
+    { label: "Location", value: "Location" },
+    { label: "Main Set", value: "Main Set"  },
+    { label: "Meta", value: "Meta"  },
+    { label: "Bonus", value: "Bonus" }];
 
   constructor(public ps: PuzzleService, private ns: NotifyService) {
     ps.selectedPuzzleSet.subscribe(newSPS => {
