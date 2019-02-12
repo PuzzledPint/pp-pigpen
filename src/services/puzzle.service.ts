@@ -20,8 +20,12 @@ export interface Puzzle extends FSPuzzle { afDoc: AngularFirestoreDocument<FSPuz
 export class PuzzleService {
   private puzzleSetsCollection: AngularFirestoreCollection<FSPuzzleSet>;
   puzzleSets: Observable<PuzzleSet[]>;
+
   private _selectedPuzzleSet: Subject<Observable<PuzzleSet> | undefined> = new Subject();
   selectedPuzzleSet = this._selectedPuzzleSet.asObservable();
+
+  private puzzlesCollection: AngularFirestoreCollection<FSPuzzle>;
+
 
   constructor(private readonly af: AngularFirestore) {
     this.puzzleSetsCollection = af.collection<FSPuzzleSet>("puzzleSets");
@@ -36,6 +40,8 @@ export class PuzzleService {
       ),
       shareReplay(1)
     );
+
+    this.puzzlesCollection = af.collection<FSPuzzle>("puzzles");
   }
 
   static improperSlug(slug: string): boolean {
@@ -74,6 +80,17 @@ export class PuzzleService {
         month: new Date().getFullYear() + "-01",
         puzzleRefs: []
       }).then(docRef => this._selectedPuzzleSet.next(PuzzleService.fromFS<FSPuzzleSet, PuzzleSet>(this.af.doc(docRef))));
+  }
+
+  addPuzzle(): Promise<DocumentReference> {
+    return this.puzzlesCollection.add(
+      {
+        name: "",
+        type: "Main Set",
+        pdf: "",
+
+        hints: [{ title: 'ANSWER', text: 'Answer should be here' }]
+      });
   }
 
   updatePuzzleSet(set: PuzzleSet) {

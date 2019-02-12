@@ -88,11 +88,11 @@ import { SelectItem } from "primeng/api";
             >
               >
               <ng-template let-puzzleRef pTemplate="item">
-                <h3>
+                <p>
                   {{ (puzzleRef | refToPuzzle | async)?.name }} ({{
                     (puzzleRef | refToPuzzle | async)?.type
                   }})
-                </h3>
+                </p>
               </ng-template>
             </p-orderList>
             <div class="ui-inputgroup p-col-12 p-lg-3">
@@ -100,6 +100,14 @@ import { SelectItem } from "primeng/api";
               <p-inputSwitch
                 [(ngModel)]="selectedPuzzleSet.playtesting"
                 name="playtesting"
+                pInputText
+              ></p-inputSwitch>
+            </div>
+            <div class="ui-inputgroup p-col-12 p-lg-3">
+              <span class="ui-inputgroup-addon">On the Home Page</span>
+              <p-inputSwitch
+                [(ngModel)]="selectedPuzzleSet.onhomepage"
+                name="onhomepage"
                 pInputText
               ></p-inputSwitch>
             </div>
@@ -111,11 +119,17 @@ import { SelectItem } from "primeng/api";
                 pInputText
               ></p-inputSwitch>
             </div>
-            <p-toolbar class="p-col-12 p-lg-7">
+            <p-toolbar class="p-col-12 p-lg-4">
               <div class="ui-toolbar-group-right">
                 <p-button
+                  label="Add Puzzle"
+                  type="button"
+                  (click)="addPuzzle()"
+                  [ngStyle]="{ 'margin-right': '1rem' }"
+                ></p-button>
+                <p-button
                   type="submit"
-                  label="Save"
+                  label="Save Puzzle Set"
                   [disabled]="!puzzleSetForm.valid"
                 ></p-button>
               </div>
@@ -124,7 +138,7 @@ import { SelectItem } from "primeng/api";
         </p-fieldset>
       </form>
     </div>
-    <br/>
+    <br />
     <div *ngIf="selectedPuzzle as puzzle">
       <form (ngSubmit)="savePuzzle()" #puzzleForm="ngForm">
         <p-fieldset
@@ -182,15 +196,15 @@ import { SelectItem } from "primeng/api";
                 #polaroid="ngModel"
               />
             </div>
-            <p-table [value]="puzzle.hints">
+            <p-table [value]="puzzle.hints" (onEditComplete)="savePuzzle()">
               <ng-template pTemplate="caption">
                 <p>Hints</p>
               </ng-template>
               <ng-template pTemplate="header">
                 <tr>
-                <th style="width:3rem"></th>
-                <th style="width:20%">Title</th>
-                <th>Full Hint Text</th>
+                  <th style="width:3rem"></th>
+                  <th style="width:20%">Title</th>
+                  <th>Full Hint Text</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-hint let-index="rowIndex">
@@ -235,7 +249,7 @@ import { SelectItem } from "primeng/api";
                   type="button"
                   label="Add Hint"
                   (click)="addHint()"
-                  [ngStyle]="{ 'padding' : '1rem'}"
+                  [ngStyle]="{ 'margin-right': '1rem' }"
                 ></p-button>
                 <p-button
                   type="submit"
@@ -257,9 +271,10 @@ export class EditPuzzleSetComponent implements OnInit {
   selectedPuzzle: Puzzle | undefined = undefined;
   puzzleTypes: SelectItem[] = [
     { label: "Location", value: "Location" },
-    { label: "Main Set", value: "Main Set"  },
-    { label: "Meta", value: "Meta"  },
-    { label: "Bonus", value: "Bonus" }];
+    { label: "Main Set", value: "Main Set" },
+    { label: "Meta", value: "Meta" },
+    { label: "Bonus", value: "Bonus" }
+  ];
 
   constructor(public ps: PuzzleService, private ns: NotifyService) {
     ps.selectedPuzzleSet.subscribe(newSPS => {
@@ -274,8 +289,23 @@ export class EditPuzzleSetComponent implements OnInit {
   addHint() {
     if (this.selectedPuzzle) {
       this.selectedPuzzle.hints.push({ title: "", text: "" });
+      this.savePuzzle();
     }
   }
+
+  async addPuzzle() {
+    const ps = this.selectedPuzzleSet;
+    if (!ps) {
+      return;
+    }
+    const newPuzzleRef = await this.ps.addPuzzle();
+    if (!ps.puzzleRefs) {
+      ps.puzzleRefs = [];
+    }
+    ps.puzzleRefs.push(newPuzzleRef);
+    this.savePuzzleSet();
+  }
+
   savePuzzleSet() {
     if (this.selectedPuzzleSet) {
       if (this.ps.isSetSlugUnique(this.selectedPuzzleSet.slug)) {
