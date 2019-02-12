@@ -124,7 +124,8 @@ import { SelectItem } from "primeng/api";
         </p-fieldset>
       </form>
     </div>
-    <div *ngIf="selectedPuzzle as puzzle" class="p-grid">
+    <br/>
+    <div *ngIf="selectedPuzzle as puzzle">
       <form (ngSubmit)="savePuzzle()" #puzzleForm="ngForm">
         <p-fieldset
           legend="Edit Puzzle"
@@ -254,7 +255,7 @@ export class EditPuzzleSetComponent implements OnInit {
   selectedPuzzleSet: PuzzleSet | undefined;
   selectedPuzzles: DocumentReference[] = [];
   selectedPuzzle: Puzzle | undefined = undefined;
-  puzzleTypes :SelectItem[] = [
+  puzzleTypes: SelectItem[] = [
     { label: "Location", value: "Location" },
     { label: "Main Set", value: "Main Set"  },
     { label: "Meta", value: "Meta"  },

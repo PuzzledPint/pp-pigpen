@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
   }
   ngOnInit(): void {
     if (isDevMode()) {
-      //firebase.firestore.setLogLevel('debug');
+      // firebase.firestore.setLogLevel('debug');
     }
   }
 }
