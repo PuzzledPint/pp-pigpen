@@ -48,6 +48,7 @@ import { RefToPuzzlePipe } from "src/pipes/refToPuzzle.pipe";
 import { DropdownModule } from 'primeng/dropdown';
 import {TableModule} from 'primeng/table';
 import { PuzzleComponent } from '../components/puzzle.component';
+import { AccordionModule } from 'primeng/accordion';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -110,6 +111,7 @@ const config = {
     OrderListModule,
     DropdownModule,
     TableModule,
+    AccordionModule,
     // Our app
     AppRoutingModule,
 

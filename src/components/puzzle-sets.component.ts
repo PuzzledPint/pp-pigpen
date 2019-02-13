@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
       headerText="Select Puzzle Set">
       <ng-template let-set pTemplate="set">
         <div
-          (click)="ps.selectPuzzleSet(set)"
+          (click)="selectPuzzleSet(set)"
         >
               <img
                 alt="Set Polaroid"
@@ -39,5 +39,9 @@ export class PuzzleSetsComponent implements OnInit {
       return path;
     }
     return "/assets/images/nopolaroid.png";
+  }
+
+  selectPuzzleSet(set: PuzzleSet) {
+    this.ps.selectPuzzleSet(set);
   }
 }

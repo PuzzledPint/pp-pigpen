@@ -1,13 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/services/auth.service";
 import { NotifyService } from "src/services/notify.service";
-import { PuzzleService } from "src/services/puzzle.service";
+import { PuzzleService, Puzzle } from "src/services/puzzle.service";
 
 @Component({
   selector: "view-playtesting",
   template: `
-    <div *ngIf="!(auth.isSignedIn | async)">
-      <p-card>Thank you for your interest in playtesting!</p-card>
+    <p-card>Thank you for your interest in playtesting!</p-card>
+    <ng-template #notLoggedIn>
+      <h1>Not Logged In</h1>
       <p-card>
         In order to playtest you now need to log in. Certain fields will be
         saved across tests, like your city, this will allow you to save
@@ -23,22 +24,30 @@ import { PuzzleService } from "src/services/puzzle.service";
       <p-card
         >Please sign in using the button on the top right now. Thanks!</p-card
       >
-      <div *ngIf="(auth.isSignedIn | async)">
-        <p-card>Thank you for your interest in playtesting!</p-card>
+    </ng-template>
 
-        <app-puzzle-sets [puzzleSets]="ps.playtestingSets"></app-puzzle-sets>
+    <ng-template #noSetSelected><h1>No set selected</h1></ng-template>
 
-        <div *ngIf="ps.selectedPuzzleSet as puzzleSet">
-          <p-accordion>
-            <div *ngFor="let puzzleRef of puzzleSet.puzzleRefs">
-              <p-accordionTab
-                [header]="(puzzleRef | refToPuzzle | async)?.name"
-              >
-                <app-puzzle [puzzle]="puzzleRef | refToPuzzle"></app-puzzle>
-              </p-accordionTab>
-            </div>
-          </p-accordion>
-        </div>
+    <div *ngIf="(auth.isSignedIn | async); else notLoggedIn">
+      <app-puzzle-sets [puzzleSets]="ps.playtestingSets"></app-puzzle-sets>
+
+      <div
+        *ngIf="
+          (ps.selectedPuzzleSet | async | async) as puzzleSet;
+          else noSetSelected
+        "
+      >
+        <h3>
+          Set selected is {{ puzzleSet.name }}. Please open each section below
+          to playtest a puzzle.
+        </h3>
+        <p-accordion>
+          <div *ngFor="let puzzleRef of puzzleSet.puzzleRefs">
+            <p-accordionTab [header]="toTitle(puzzleRef | refToPuzzle | async)">
+              <app-puzzle [puzzle]="puzzleRef | refToPuzzle"></app-puzzle>
+            </p-accordionTab>
+          </div>
+        </p-accordion>
       </div>
     </div>
   `,
@@ -53,5 +62,13 @@ export class PlaytestingComponent implements OnInit {
 
   ngOnInit() {
     this.ns.setTitle("Playtesting");
+  }
+
+  toTitle(puzzle: Puzzle): string {
+    if (puzzle) {
+      return `(${puzzle.type}) ${puzzle.name}`;
+    } else {
+      return "Error getting title";
+    }
   }
 }

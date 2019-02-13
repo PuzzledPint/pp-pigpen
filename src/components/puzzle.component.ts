@@ -5,10 +5,17 @@ import { Observable } from "rxjs";
 @Component({
   selector: 'app-puzzle',
   template: `
-    <div *ngFor="let hint in (puzzle | async).hints">
+    <div *ngIf="(puzzle | async) as puz; else noPuzzle">
+    {{ puz.name }}
+    {{ puz.type }}
+    {{ puz.pdf }}
+    <div *ngFor="let hint of (puzzle | async).hints">
     {{ hint.title }}       {{ hint.text }}
     </div>
-
+    </div>
+    <ng-template #noPuzzle>
+      No puzzle found
+      </ng-template>
   `,
   styles: []
 })
