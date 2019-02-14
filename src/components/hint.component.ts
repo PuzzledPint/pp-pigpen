@@ -21,7 +21,6 @@ import { FSHint } from "src/models/fs-hint.model";
 export class HintComponent implements OnInit {
   @Input() hint: FSHint | undefined;
   revealed = false;
-  hintNum = 0;
   hintStyle = { "background-color": "grey", "color": "grey" };
 
   constructor() {}
@@ -40,8 +39,7 @@ export class HintComponent implements OnInit {
     if (title) {
       return `Hint (${title})`;
     } else {
-      this.hintNum++;
-      return `Hint (${this.hintNum})`;
+      return `Hint`;
     }
   }
 }
