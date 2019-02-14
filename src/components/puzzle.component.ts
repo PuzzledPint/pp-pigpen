@@ -6,11 +6,9 @@ import { Observable } from "rxjs";
   selector: 'app-puzzle',
   template: `
     <div *ngIf="(puzzle | async) as puz; else noPuzzle">
-    {{ puz.name }}
-    {{ puz.type }}
-    {{ puz.pdf }}
-    <div *ngFor="let hint of (puzzle | async).hints">
-    {{ hint.title }}       {{ hint.text }}
+    <h3>Download the puzzle <a href="{{ puz.pdf }}">here</a></h3>
+    <div *ngFor="let hint of puz.hints">
+      <app-hint [hint]="hint"></app-hint>
     </div>
     </div>
     <ng-template #noPuzzle>

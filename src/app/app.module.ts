@@ -49,6 +49,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import {TableModule} from 'primeng/table';
 import { PuzzleComponent } from '../components/puzzle.component';
 import { AccordionModule } from 'primeng/accordion';
+import { HintComponent } from '../components/hint.component';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -76,7 +77,8 @@ const config = {
 
     VariablesPipe,
     RefToPuzzlePipe,
-    PuzzleComponent
+    PuzzleComponent,
+    HintComponent
   ],
   imports: [
     BrowserModule,
