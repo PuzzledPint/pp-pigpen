@@ -46,10 +46,13 @@ import { CalendarModule } from 'primeng/calendar';
 import { OrderListModule } from 'primeng/orderlist';
 import { RefToPuzzlePipe } from "src/pipes/refToPuzzle.pipe";
 import { DropdownModule } from 'primeng/dropdown';
-import {TableModule} from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { PuzzleComponent } from '../components/puzzle.component';
 import { AccordionModule } from 'primeng/accordion';
 import { HintComponent } from '../components/hint.component';
+import { EditorModule } from 'primeng/editor';
+import { PuzzleFeedbackComponent } from '../components/puzzle-feedback.component';
+import { FsEditorComponent } from '../components/fs-editor.component';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -78,7 +81,9 @@ const config = {
     VariablesPipe,
     RefToPuzzlePipe,
     PuzzleComponent,
-    HintComponent
+    HintComponent,
+    PuzzleFeedbackComponent,
+    FsEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -116,6 +121,7 @@ const config = {
     AccordionModule,
     // Our app
     AppRoutingModule,
+    EditorModule,
 
   ],
   providers: [MessageService],
