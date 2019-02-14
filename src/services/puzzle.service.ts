@@ -10,6 +10,7 @@ import { map, tap, shareReplay, filter } from "rxjs/operators";
 
 import { FSPuzzleSet } from "src/models/fs-puzzle-set.model";
 import { FSPuzzle } from "src/models/fs-puzzle.model";
+import { Util } from './util';
 
 export interface PuzzleSet extends FSPuzzleSet { afDoc: AngularFirestoreDocument<FSPuzzleSet>; }
 export interface Puzzle extends FSPuzzle { afDoc: AngularFirestoreDocument<FSPuzzle>; }
@@ -47,21 +48,6 @@ export class PuzzleService {
     this.puzzlesCollection = af.collection<FSPuzzle>("puzzles");
   }
 
-  static improperSlug(slug: string): boolean {
-    return /[^a-z]/.test(slug);
-  }
-
-
-  private static fromFS<T, K extends T>(afDoc: AngularFirestoreDocument<T>): Observable<K> {
-    const obs: Observable<T | undefined> = afDoc.valueChanges();
-    return obs.pipe(
-      tap(
-        doc => { if (doc) { console.log("firestore read:", doc); }
-  }),
-      map(fs => { return { afDoc, ...fs } as unknown as K; }),
-      shareReplay(1)
-    );
-  }
 
 
   // getPuzzleSet(id: string): Observable<PuzzleSet> {
@@ -83,7 +69,7 @@ export class PuzzleService {
         polaroid: "/assets/images/nopolaroid.png",
         month: new Date().getFullYear() + "-01",
         puzzleRefs: []
-      }).then(docRef => this._selectedPuzzleSet.next(PuzzleService.fromFS<FSPuzzleSet, PuzzleSet>(this.af.doc(docRef))));
+      }).then(docRef => this._selectedPuzzleSet.next(Util.fromFS<FSPuzzleSet, PuzzleSet>(this.af.doc(docRef))));
   }
 
   addPuzzle(): Promise<DocumentReference> {
@@ -108,7 +94,7 @@ export class PuzzleService {
   }
 
   selectPuzzleSet(set: PuzzleSet) {
-    this._selectedPuzzleSet.next(PuzzleService.fromFS(set.afDoc));
+    this._selectedPuzzleSet.next(Util.fromFS(set.afDoc));
   }
 
   async isSetSlugUnique(slug: string): Promise<boolean> {
@@ -118,7 +104,7 @@ export class PuzzleService {
 
   getPuzzle(ref: DocumentReference): Observable<Puzzle> {
     const doc = this.af.doc<FSPuzzle>(ref);
-    return PuzzleService.fromFS<FSPuzzle, Puzzle>(doc);
+    return Util.fromFS<FSPuzzle, Puzzle>(doc);
   }
 
 }
