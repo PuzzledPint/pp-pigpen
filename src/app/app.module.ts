@@ -52,7 +52,6 @@ import { AccordionModule } from 'primeng/accordion';
 import { HintComponent } from '../components/hint.component';
 import { EditorModule } from 'primeng/editor';
 import { PuzzleFeedbackComponent } from '../components/puzzle-feedback.component';
-import { FsEditorComponent } from '../components/fs-editor.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RatingModule } from 'primeng/rating';
 
@@ -85,7 +84,6 @@ const config = {
     PuzzleComponent,
     HintComponent,
     PuzzleFeedbackComponent,
-    FsEditorComponent
   ],
   imports: [
     BrowserModule,
