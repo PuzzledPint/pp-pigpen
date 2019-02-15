@@ -4,6 +4,7 @@ import {
   PlaytestFeedback,
   PlaytestService
 } from "src/services/playtest.service";
+import { NotifyService } from 'src/services/notify.service';
 
 @Component({
   selector: "app-puzzle-feedback",
@@ -15,7 +16,7 @@ import {
           pInputText
           type="text"
           [(ngModel)]="puzzleFeedback.numPlaytesters"
-          (onblur)="puzzleFeedback.save()"
+          (blur)="puzzleFeedback.save(ns)"
         />
       </div>
       <div class="ui-inputgroup p-col-12 p-lg-3">
@@ -25,7 +26,7 @@ import {
           type="text"
           placeholder="Located near the puzzle title"
           [(ngModel)]="puzzleFeedback.version"
-          (onblur)="puzzleFeedback.save()"
+          (blur)="puzzleFeedback.save(ns)"
         />
       </div>
     </div>
@@ -39,7 +40,7 @@ export class PuzzleFeedbackComponent implements OnInit {
   @Input() puzzleRef: DocumentReference | undefined;
   puzzleFeedback: PlaytestFeedback | undefined;
 
-  constructor(private pts: PlaytestService) {
+  constructor(private pts: PlaytestService, public ns: NotifyService) {
   }
 
   ngOnInit() {

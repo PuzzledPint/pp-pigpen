@@ -9,6 +9,7 @@ import {
 import { FSPlaytestFeedback } from "../models/fs-playtest-feedback.model";
 import { UserService } from "./user.service";
 import { Util } from './util';
+import { NotifyService } from './notify.service';
 
 export class PlaytestFeedback {
   inner: FSPlaytestFeedback;
@@ -16,26 +17,27 @@ export class PlaytestFeedback {
   solveMinutes_error = "";
   difficulty_error = "";
   fun_error = "";
+  isDirty = false;
 
   get numPlaytesters() {
     return Util.numToString(this.inner.numPlaytesters);
   }
   set numPlaytesters(s: string) {
     const i = +s;
+    this.dirty(i, this.inner.numPlaytesters);
     this.inner.numPlaytesters = i;
     this.numPlaytesters_error =
       Number.isInteger(i) && i > 0
         ? ""
         : "number of playtesters must be a positive whole number";
-    this.save();
   }
   get version() {
     return this.inner.version;
 
   }
   set version(s: string) {
+    this.dirty(s, this.inner.version);
     this.inner.version = s;
-    this.save();
   }
 
   get solveMinutes() {
@@ -43,31 +45,61 @@ export class PlaytestFeedback {
   }
   set solveMinutes(s: string) {
     const i = +s;
+    this.dirty(i, this.inner.solveMinutes);
     this.inner.solveMinutes = i;
     this.solveMinutes_error =
       Number.isInteger(i) && i > 0
         ? ""
         : "solving time must be a positive whole number of minutes";
-    this.save();
   }
 
   get difficulty() {
     return this.inner.difficulty;
   }
   set difficulty(i: number) {
+    this.dirty(i, this.inner.difficulty);
     this.inner.difficulty = i;
     this.difficulty_error =
       Number.isInteger(i) && i > 0 ? "" : "please select a difficulty level";
-    this.save();
   }
   get fun() {
     return this.inner.fun;
   }
   set fun(i: number) {
+    this.dirty(i, this.inner.fun);
     this.inner.fun = i;
     this.fun_error =
       Number.isInteger(i) && i > 0 ? "" : "please select a fun level";
-    this.save();
+  }
+  get errors() {
+    return this.inner.errors;
+
+  }
+  set errors(s: string) {
+    this.dirty(s, this.inner.errors);
+    this.inner.errors = s;
+  }
+  get visual() {
+    return this.inner.visual;
+
+  }
+  set visual(s: string) {
+    this.dirty(s, this.inner.visual);
+    this.inner.visual = s;
+  }
+  get general() {
+    return this.inner.general;
+
+  }
+  set general(s: string) {
+    this.dirty(s, this.inner.general);
+    this.inner.general = s;
+  }
+
+  private dirty(a: string|number, b: string|number) {
+    if (a !== b) {
+      this.isDirty = true;
+    }
   }
 
   constructor(private afDoc: AngularFirestoreDocument<FSPlaytestFeedback>, puzzleRef: DocumentReference) {
@@ -95,14 +127,16 @@ export class PlaytestFeedback {
     });
   }
 
-  save() {
-    const anyerrors =
-      this.numPlaytesters_error ||
-      this.solveMinutes_error ||
-      this.fun_error ||
-      this.difficulty_error;
-    if (!anyerrors) {
+  save(ns: NotifyService) {
+    let go = true;
+    if (this.numPlaytesters_error) { ns.error("Invalid Field", this.numPlaytesters_error); go = false; }
+    if (this.difficulty_error) { ns.error("Invalid Field", this.difficulty_error); go = false; }
+    if (this.solveMinutes_error) { ns.error("Invalid Field", this.solveMinutes_error); go = false; }
+    if (this.fun_error) { ns.error("Invalid Field", this.fun_error); go = false; }
+
+    if (go) {
       this.afDoc.set(this.inner);
+      this.isDirty = false;
     }
   }
 }
