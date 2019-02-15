@@ -4,7 +4,6 @@ import {
   PlaytestFeedback,
   PlaytestService
 } from "src/services/playtest.service";
-import { IfStmt } from "@angular/compiler";
 
 @Component({
   selector: "app-puzzle-feedback",
@@ -16,7 +15,7 @@ import { IfStmt } from "@angular/compiler";
           pInputText
           type="text"
           [(ngModel)]="puzzleFeedback.numPlaytesters"
-          (onblur)="Save()"
+          (onblur)="puzzleFeedback.save()"
         />
       </div>
       <div class="ui-inputgroup p-col-12 p-lg-3">
@@ -26,12 +25,12 @@ import { IfStmt } from "@angular/compiler";
           type="text"
           placeholder="Located near the puzzle title"
           [(ngModel)]="puzzleFeedback.version"
-          (onblur)="Save()"
+          (onblur)="puzzleFeedback.save()"
         />
       </div>
     </div>
     <ng-template #noFeedback>
-      <p-button label="Add Feedback" (click)="addFeedback()"></p-button>
+      <h3>Error, feedback object is not defined</h3>
     </ng-template>
   `,
   styles: []
@@ -40,18 +39,14 @@ export class PuzzleFeedbackComponent implements OnInit {
   @Input() puzzleRef: DocumentReference | undefined;
   puzzleFeedback: PlaytestFeedback | undefined;
 
-  constructor(private pts: PlaytestService) {}
+  constructor(private pts: PlaytestService) {
+  }
 
-  async ngOnInit() {
+  ngOnInit() {
     if (this.puzzleRef) {
-      const obs = this.pts.getPlaytestFeedback(this.puzzleRef);
-      obs.subscribe(pf => this.puzzleFeedback = pf);
+      this.puzzleFeedback = this.pts.getPlaytestFeedback(this.puzzleRef);
     } else {
       console.error("PuzzleFeedbackComponent: puzzleRef was undefined");
     }
-  }
-
-  addFeedback() {
-    this.pts.addPlaytestFeedback(this.puzzleRef);
   }
 }

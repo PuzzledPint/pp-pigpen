@@ -37,7 +37,9 @@ export class UserService {
   public isShowrunner: Subject<boolean> = new Subject<boolean>();
 
   public GCCity: Subject<string> = new Subject<string>();
-  public docRef: AngularFirestoreDocument<FSUserDoc> | undefined = undefined;
+  public fsdoc: AngularFirestoreDocument<FSUserDoc> | undefined = undefined;
+
+  public currentId: string | null = null;
 
   // A user consists of two places:
   // Auth from firebase, and user profile.
@@ -60,6 +62,7 @@ export class UserService {
   updateFbUser(newFbUser: User | null) {
     this.isSignedIn.next(!!newFbUser);
     this.id.next(newFbUser ? newFbUser.uid : undefined);
+    this.currentId = newFbUser ? newFbUser.uid : null;
     this.name.next(newFbUser ? newFbUser.displayName || '' : undefined);
     this.email.next(newFbUser ? newFbUser.email || '' : undefined);
     this.photo.next(newFbUser ? newFbUser.photoURL || '' : undefined);
@@ -77,7 +80,7 @@ export class UserService {
           this.GCCity.next(claims.GCCity);
         });
 
-      this.docRef = this.af.doc(`users/${newFbUser.uid}`);
+      this.fsdoc = this.af.doc(`user/${newFbUser.uid}`);
     } else {
       this.isEditor.next(false);
       this.isCityOps.next(false);
@@ -87,7 +90,7 @@ export class UserService {
 
       this.GCCity.next(undefined);
 
-      this.docRef = undefined;
+      this.fsdoc = undefined;
     }
   }
 

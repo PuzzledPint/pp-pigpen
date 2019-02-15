@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, OnInit, isDevMode } from '@angular/core';
-import { UserService } from "src/services/auth.service";
+import { UserService } from "src/services/user.service";
 import * as firebase from "firebase";
 
 @Component({

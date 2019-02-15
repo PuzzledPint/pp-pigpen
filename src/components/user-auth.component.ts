@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UserService } from "src/services/auth.service";
+import { UserService } from "src/services/user.service";
 import { MenuItem } from "primeng/api";
 import { NotifyService } from "src/services/notify.service";
 

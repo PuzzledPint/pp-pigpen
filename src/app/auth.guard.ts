@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { take, tap, map } from 'rxjs/operators';
 
-import { UserService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 import { NotifyService } from '../services/notify.service';
 
 @Injectable({

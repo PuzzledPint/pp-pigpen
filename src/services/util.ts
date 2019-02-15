@@ -17,4 +17,9 @@ export class Util {
       shareReplay(1)
     );
   }
+
+  public static numToString(n: number) {
+    if (n && n > 0) { return n.toString(); }
+    return "";
+  }
 }

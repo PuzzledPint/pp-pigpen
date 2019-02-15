@@ -8,6 +8,10 @@ service cloud.firestore {
       allow read, write: if uidMatches(docId);
     }
 
+    match /user/{userId}/playtestFeedback/{puzzleId} {
+      allow read, write: if uidMatches(userId);
+    }
+
     match /editor/{document=**} {
       allow read, write: if isEditor();
     }
