@@ -18,10 +18,10 @@ import { CommsGuard } from './comms/comms.guard';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'testAll', component: TestAllComponent },
-  { path: 'editor', component: EditorComponent,  canActivate: [EditorGuard] },
+  { path: 'editor', component: EditorComponent },
   { path: 'webmaster', component: WebmasterComponent,  canActivate: [WebmasterGuard] },
   { path: 'playtesting', component: PlaytestingComponent },
-  { path: 'comms', component: CommsComponent, canActivate: [WebmasterGuard] },
+  { path: 'comms', component: CommsComponent },
   { path: '**', component: HomeComponent, resolve: {void: NotFoundResolver}}
 ];
 

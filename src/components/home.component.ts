@@ -6,27 +6,26 @@ import { UserService } from "src/services/user.service";
   selector: "app-home",
   template: `
     <div class="p-grid">
+    <div *ngIf="isEditor">
       <app-info-card
-        *ngIf="isEditor"
         title="Hello Editor"
         text="Click the button to go to your dashboard"
         buttonText="Go"
-        link="editor"
+        link="/editor"
         class="p-col-12 p-lg-4"
       ></app-info-card>
-
+</div>
+<div *ngIf="isComms">
       <app-info-card
-        *ngIf="isComms"
         title="Hello Comms"
         text="Click the button to go to your dashboard"
         buttonText="Go"
-        link="comms"
+        link="/comms"
         class="p-col-12 p-lg-4"
       ></app-info-card>
-
+</div>
       <div
         *ngFor="let i of Arr(10).fill(1)"
-        [ngStyle]="{ 'margin-right': '0.3rem', 'margin-bottom': '0.3rem' }"
       >
         <app-info-card
           title="Thing"

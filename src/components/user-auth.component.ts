@@ -21,12 +21,17 @@ import { NotifyService } from "src/services/notify.service";
 })
 export class UserAuthComponent implements OnInit {
   items: MenuItem[] = [];
+  email = "";
 
   constructor(public us: UserService, public notify: NotifyService) {
+    us.email.subscribe(e => this.email = e);
   }
 
   ngOnInit(): void {
     this.items = [{
+      label: "as "+this.email, separator: true
+    },
+    {
       label: "Sign Out",
       icon: "pi pi-unlock",
       command: () => {

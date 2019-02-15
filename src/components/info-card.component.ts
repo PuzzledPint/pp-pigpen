@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { AppRoutingModule } from "src/app/app-routing.module";
 import { Router } from "@angular/router";
 
 @Component({
   selector: "app-info-card",
   template: `
+  <div style="padding:5px;margin-bottom:0px">
     <p-card
       header="{{ title }}"
       subheader="{{ subtitle }}"
@@ -13,17 +13,19 @@ import { Router } from "@angular/router";
       <p-header *ngIf="imageUrl">
         <img src="{{ imageUrl }}" />
       </p-header>
-      <div>{{ text }}</div>
-      <p-footer *ngIf="buttonText" class="ui-toolbar-group-right">
+      <span>{{ text }}</span>
+      <p-footer *ngIf="buttonText">
         <button
           pButton
           type="button"
           label="{{ buttonText }}"
           class="ui-button-primary"
+          style="float:right"
           (click)="go()"
         ></button>
       </p-footer>
     </p-card>
+    </div>
   `,
   styles: []
 })
@@ -37,9 +39,10 @@ export class InfoCardComponent implements OnInit {
 
   constructor(private r: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
-  go() {
-    this.r.navigate([this.link]);
+  async go() {
+    const result = await this.r.navigate([ this.link ? this.link : "" ]);
   }
 }
