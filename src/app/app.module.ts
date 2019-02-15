@@ -27,6 +27,11 @@ import { WebmasterComponent } from './webmaster/webmaster.component';
 import { PlaytestingComponent } from './playtesting/playtesting.component';
 import { UserAuthComponent } from '../components/user-auth.component';
 import { EditPuzzleSetComponent } from '../components/edit-puzzle-set.component';
+import { PuzzleSetsComponent } from '../components/puzzle-sets.component';
+import { RefToPuzzlePipe } from "src/pipes/refToPuzzle.pipe";
+import { PuzzleComponent } from '../components/puzzle.component';
+import { PuzzleFeedbackComponent } from '../components/puzzle-feedback.component';
+import { InfoCardComponent } from '../components/info-card.component';
 
 // PrimeNG
 import { CardModule } from 'primeng/card';
@@ -40,23 +45,19 @@ import { MessageModule } from 'primeng/message';
 import { MessageService } from "primeng/api";
 import { ToastModule } from 'primeng/toast';
 import { FieldsetModule } from 'primeng/fieldset';
-import { PuzzleSetsComponent } from '../components/puzzle-sets.component';
 import { CarouselModule } from 'primeng/carousel';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { OrderListModule } from 'primeng/orderlist';
-import { RefToPuzzlePipe } from "src/pipes/refToPuzzle.pipe";
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
-import { PuzzleComponent } from '../components/puzzle.component';
 import { AccordionModule } from 'primeng/accordion';
 import { HintComponent } from '../components/hint.component';
 import { EditorModule } from 'primeng/editor';
-import { PuzzleFeedbackComponent } from '../components/puzzle-feedback.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RatingModule } from 'primeng/rating';
-import {InputTextareaModule} from 'primeng/inputtextarea';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -89,6 +90,7 @@ const config = {
     PuzzleComponent,
     HintComponent,
     PuzzleFeedbackComponent,
+    InfoCardComponent,
   ],
   imports: [
     BrowserModule,

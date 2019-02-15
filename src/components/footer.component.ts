@@ -7,7 +7,7 @@ import { NotifyService } from 'src/services/notify.service';
 @Component({
   selector: 'app-footer',
   template: `
-    <p data-cy="app-footer" style="text-align:center; color:#505052">
+    <p data-cy="app-footer" [ngStyle]="{'text-align':'center','color':'#505052','margin':'0px'}">
       {{ info.footer | variables }}
     </p>
   `,
