@@ -1,27 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { InfoService } from 'src/services/info.service';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { InfoService, Info } from 'src/services/info.service';
 import { Observable } from 'rxjs';
 import { FSInfo } from 'src/models/fs-info.model';
+import { NotifyService } from 'src/services/notify.service';
 
 @Component({
   selector: 'app-footer',
   template: `
     <p data-cy="app-footer" style="text-align:center; color:#505052">
-      {{ (footer | async)?.fulltext | variables }}
+      {{ info.footer | variables }}
     </p>
   `,
   styles: []
 })
 
 export class FooterComponent implements OnInit {
-  footer: Observable<FSInfo | undefined>;
+  info: Info;
 
-  constructor(infoService: InfoService) {
-    this.footer = infoService.getInfo('footer').valueChanges();
+  constructor(infoService: InfoService, private ns: NotifyService) {
+    this.info = infoService.getInfo();
   }
 
-  ngOnInit() {
-  }
-
-
+  ngOnInit() {}
 }

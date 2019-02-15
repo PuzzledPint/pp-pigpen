@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { NotifyService } from "src/services/notify.service";
 import { BehaviorSubject } from "rxjs";
 import {
@@ -80,5 +80,7 @@ export class HeaderComponent implements OnInit {
     this.title = ns.title;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
 }

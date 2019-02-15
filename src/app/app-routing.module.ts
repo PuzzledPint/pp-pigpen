@@ -11,6 +11,8 @@ import { WebmasterGuard } from './webmaster/webmaster.guard';
 import { PlaytestingComponent } from './playtesting/playtesting.component';
 import { HomeComponent } from 'src/components/home.component';
 import { NotFoundResolver } from './not-found.resolver';
+import { CommsComponent } from './comms/comms.component';
+import { CommsGuard } from './comms/comms.guard';
 
 
 const routes: Routes = [
@@ -19,6 +21,7 @@ const routes: Routes = [
   { path: 'editor', component: EditorComponent,  canActivate: [EditorGuard] },
   { path: 'webmaster', component: WebmasterComponent,  canActivate: [WebmasterGuard] },
   { path: 'playtesting', component: PlaytestingComponent },
+  { path: 'comms', component: CommsComponent, canActivate: [WebmasterGuard] },
   { path: '**', component: HomeComponent, resolve: {void: NotFoundResolver}}
 ];
 

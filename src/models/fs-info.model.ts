@@ -1,3 +1,4 @@
 export interface FSInfo {
-  fulltext: string;
+  alertHeader: string;
+  footer: string;
 }

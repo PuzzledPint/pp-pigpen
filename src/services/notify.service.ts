@@ -12,8 +12,12 @@ export class NotifyService {
   constructor(private messageService: MessageService, private titleService: Title) { }
 
   error(title: string, desc: string) {
-      this.messageService.add({severity: 'error', summary: title, detail: desc});
-  }
+    this.messageService.add({severity: 'error', summary: title, detail: desc});
+}
+
+stickyAlert(title: string, desc: string) {
+  this.messageService.add({severity: 'error', summary: title, detail: desc, sticky: true});
+}
 
   setTitle(newTitle: string) {
     this.titleService.setTitle("Puzzled Pint " + newTitle);

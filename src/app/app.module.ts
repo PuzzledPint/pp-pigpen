@@ -14,13 +14,15 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 // Our Modules
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { FooterComponent } from '../components/footer.component';
 import { HeaderComponent } from '../components/header.component';
+import { FooterComponent } from '../components/footer.component';
+import { SitewideAlertComponent } from '../components/sitewide-alert.component';
 import { VariablesPipe } from '../pipes/variables.pipe';
 import { TestAllComponent } from './test-all/test-all.component';
 import { environment } from '../environments/environment';
 import { HomeComponent } from '../components/home.component';
 import { EditorComponent } from './editor/editor.component';
+import { CommsComponent } from './comms/comms.component';
 import { WebmasterComponent } from './webmaster/webmaster.component';
 import { PlaytestingComponent } from './playtesting/playtesting.component';
 import { UserAuthComponent } from '../components/user-auth.component';
@@ -54,6 +56,7 @@ import { EditorModule } from 'primeng/editor';
 import { PuzzleFeedbackComponent } from '../components/puzzle-feedback.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RatingModule } from 'primeng/rating';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -70,10 +73,12 @@ const config = {
     AppComponent,
     FooterComponent,
     HeaderComponent,
+    SitewideAlertComponent,
     UserAuthComponent,
     TestAllComponent,
     HomeComponent,
     EditorComponent,
+    CommsComponent,
     WebmasterComponent,
     PlaytestingComponent,
     EditPuzzleSetComponent,
@@ -121,6 +126,7 @@ const config = {
     AccordionModule,
     CheckboxModule,
     RatingModule,
+    InputTextareaModule,
 
     // Our app
     AppRoutingModule,

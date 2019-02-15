@@ -11,6 +11,7 @@ import * as firebase from "firebase";
       </div>
       <div class="p-col-12">
         <p-scrollPanel [style]="{height:'80vh'}" styleClass="custombar2" >
+          <app-sitewide-alert></app-sitewide-alert>
           <router-outlet></router-outlet>
         </p-scrollPanel>
       </div>
