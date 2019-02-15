@@ -53,6 +53,8 @@ import { HintComponent } from '../components/hint.component';
 import { EditorModule } from 'primeng/editor';
 import { PuzzleFeedbackComponent } from '../components/puzzle-feedback.component';
 import { FsEditorComponent } from '../components/fs-editor.component';
+import { CheckboxModule } from 'primeng/checkbox';
+import { RatingModule } from 'primeng/rating';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -119,6 +121,9 @@ const config = {
     DropdownModule,
     TableModule,
     AccordionModule,
+    CheckboxModule,
+    RatingModule,
+
     // Our app
     AppRoutingModule,
     EditorModule,

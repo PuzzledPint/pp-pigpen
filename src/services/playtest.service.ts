@@ -39,6 +39,13 @@ export class PlaytestFeedback {
     this.dirty(s, this.inner.version);
     this.inner.version = s;
   }
+  get solved() {
+    return this.inner.solved;
+  }
+  set solved(b: boolean) {
+    this.dirty(b, this.inner.solved);
+    this.inner.solved = b;
+  }
 
   get solveMinutes() {
     return Util.numToString(this.inner.solveMinutes);
@@ -96,7 +103,7 @@ export class PlaytestFeedback {
     this.inner.general = s;
   }
 
-  private dirty(a: string|number, b: string|number) {
+  private dirty(a: string|number|boolean, b: string|number|boolean) {
     if (a !== b) {
       this.isDirty = true;
     }
