@@ -28,8 +28,8 @@ import {
       </div>
       <div class="p-col-6">
         <p-toast></p-toast>
-        <div [@titleBounce]="1">
-          <h1 data-cy="Title" style="margin:0px">{{ title | async }}</h1>
+        <div [@title]="title">
+          <h1 data-cy="Title" style="margin:0px">{{ title }}</h1>
         </div>
       </div>
       <div class="p-col-3">
@@ -62,9 +62,8 @@ import {
     `
   ],
   animations: [
-    trigger("titleBounce", [
-      state("1", style({ transform: "translateY(0px)" })),
-      transition("* => 1", [
+    trigger("title", [
+      transition("* <=> *", [
         animate("0ms ease-in", style({ transform: "translateY(-300px)" })),
         animate("500ms ease-in", style({ transform: "translateY(0px)" })),
         animate("200ms ease-out", style({ transform: "translateY(-50px)" })),
@@ -76,10 +75,10 @@ import {
   ]
 })
 export class HeaderComponent implements OnInit {
-  public title: BehaviorSubject<string>;
+  public title = "";
 
   constructor(private ns: NotifyService) {
-    this.title = ns.title;
+    ns.title.subscribe(newTitle => this.title = newTitle);
   }
 
   ngOnInit() {}
