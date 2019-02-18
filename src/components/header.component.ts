@@ -14,15 +14,17 @@ import {
   template: `
     <div class="p-grid" style="padding:0px">
       <div class="p-col-3">
-        <picture>
-          <source
-            media="(min-width: 900px)"
-            srcset="../assets/images/pp-logo-lg.webp"
-            type="image/webp"
-          />
-          <source srcset="/assets/images/pp-logo-sm.webp" type="image/webp" />
-          <img src="/assets/images/pp-logo-sm.png" alt="Puzzled Pint Logo" />
-        </picture>
+        <a routerLink="/" routerLinkActive="active">
+          <picture>
+            <source
+              media="(min-width: 900px)"
+              srcset="../assets/images/pp-logo-lg.webp"
+              type="image/webp"
+            />
+            <source srcset="/assets/images/pp-logo-sm.webp" type="image/webp" />
+            <img src="/assets/images/pp-logo-sm.png" alt="Puzzled Pint Logo" />
+          </picture>
+        </a>
       </div>
       <div class="p-col-6">
         <p-toast></p-toast>
@@ -80,7 +82,5 @@ export class HeaderComponent implements OnInit {
     this.title = ns.title;
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

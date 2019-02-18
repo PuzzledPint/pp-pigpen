@@ -25,8 +25,10 @@ const routes: Routes = [
   { path: '**', component: HomeComponent, resolve: {void: NotFoundResolver}}
 ];
 
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

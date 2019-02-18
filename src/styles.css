@@ -22,6 +22,14 @@
   font-style: normal;
 }
 
+router-outlet ~ * {
+  position: absolute;
+  height: 75vh;
+  width: 95%;
+
+}
+
+
 /* based on nova-light  */
 * {
   -moz-box-sizing: border-box;

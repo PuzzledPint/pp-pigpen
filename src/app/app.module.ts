@@ -58,7 +58,7 @@ import { EditorModule } from 'primeng/editor';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RatingModule } from 'primeng/rating';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { NotifyService, AppErrorHandler } from 'src/services/notify.service';
+import { AppErrorHandler } from 'src/services/notify.service';
 
 // Firebase credentials (okay to be public)
 const config = {
