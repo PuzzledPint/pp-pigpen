@@ -12,7 +12,7 @@ import {
 @Component({
   selector: "app-header",
   template: `
-    <div class="p-grid" style="margin:3px">
+    <div class="p-grid" style="padding:0px">
       <div class="p-col-3">
         <picture>
           <source
@@ -27,7 +27,7 @@ import {
       <div class="p-col-6">
         <p-toast></p-toast>
         <div [@titleBounce]="1">
-          <h1 data-cy="Title">{{ title | async }}</h1>
+          <h1 data-cy="Title" style="margin:0px">{{ title | async }}</h1>
         </div>
       </div>
       <div class="p-col-3">

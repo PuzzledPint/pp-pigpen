@@ -1,6 +1,6 @@
 // Angular Libs
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
@@ -58,6 +58,7 @@ import { EditorModule } from 'primeng/editor';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RatingModule } from 'primeng/rating';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { NotifyService, AppErrorHandler } from 'src/services/notify.service';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -135,7 +136,7 @@ const config = {
     EditorModule,
 
   ],
-  providers: [MessageService],
+  providers: [MessageService, {provide: ErrorHandler, useClass: AppErrorHandler}],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
