@@ -24,12 +24,8 @@ export class UserAuthComponent implements OnInit {
   email = "";
 
   constructor(public us: UserService, public notify: NotifyService) {
-    us.email.subscribe(e => this.email = e);
-  }
-
-  ngOnInit(): void {
     this.items = [{
-      label: "as "+this.email, separator: true
+      label: "", separator: true
     },
     {
       label: "Sign Out",
@@ -44,10 +40,16 @@ export class UserAuthComponent implements OnInit {
       command: () => {
         this.profile();
       }
-    }
-  ];
+    }];
 
+    us.isSignedIn.subscribe(
+      signedIn => {
+        this.items[0].label = us.email;
+      }
+    );
   }
+
+  ngOnInit(): void {}
 
   profile() {
     this.notify.error("Not Implemented", "Sorry, user profiles are not yet implemented");

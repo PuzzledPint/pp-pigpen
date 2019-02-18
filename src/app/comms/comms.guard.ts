@@ -22,13 +22,19 @@ export class CommsGuard implements CanActivate {
     private notify: NotifyService
   ) {}
 
-  canActivate(
+  async canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.auth.hasRole(this.auth.isComms, () => {
-      this.notify.error('Denied', 'You must be on the communications team to access that page!');
-      this.router.navigate(['/']);
-    });
+  ): Promise<boolean> {
+    if (this.auth.isComms) {
+      return true;
+    }
+    const signedIn = await this.auth.isSignedIn;
+    if (!this.auth.isComms) {
+      this.notify.error("Denied", "You must be on the communications team to access that page!");
+      this.router.navigate(["/"]);
+      return false;
+    }
+    return true;
   }
 }

@@ -6,7 +6,7 @@ import { UserService } from "src/services/user.service";
   selector: "app-home",
   template: `
     <div class="p-grid">
-    <div *ngIf="isEditor">
+    <div *ngIf="us.isEditor">
       <app-info-card
         title="Hello Editor"
         text="Click the button to go to your dashboard"
@@ -15,7 +15,7 @@ import { UserService } from "src/services/user.service";
         class="p-col-12 p-lg-4"
       ></app-info-card>
 </div>
-<div *ngIf="isComms">
+<div *ngIf="us.isComms">
       <app-info-card
         title="Hello Comms"
         text="Click the button to go to your dashboard"
@@ -41,12 +41,8 @@ import { UserService } from "src/services/user.service";
 })
 export class HomeComponent implements OnInit {
   Arr = Array;
-  isEditor = false;
-  isComms = false;
 
-  constructor(private ns: NotifyService, us: UserService) {
-    us.isEditor.subscribe(is => (this.isEditor = is));
-    us.isComms.subscribe(is => (this.isComms = is));
+  constructor(private ns: NotifyService, public us: UserService) {
   }
 
   ngOnInit() {
