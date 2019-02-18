@@ -30,7 +30,7 @@ stickyAlert(title: string, desc: string) {
 
 export class AppErrorHandler implements ErrorHandler {
   handleError(error: string) {
-    if(isDevMode() && NotifyService.singleton) {
+    if (isDevMode() && NotifyService.singleton) {
       NotifyService.singleton.stickyAlert("Uncaught Exception", error);
     } else {
       console.error(error);
