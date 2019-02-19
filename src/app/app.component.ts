@@ -19,7 +19,7 @@ import { fadeAnimation } from "./animations";
       <div class="p-col-12">
         <p-scrollPanel [style]="{ height: '76vh' }" styleClass="custombar2">
           <app-sitewide-alert></app-sitewide-alert>
-          <main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+          <main [@fadeAnimation]="safe(o)">
             <router-outlet #o="outlet"></router-outlet>
           </main>
         </p-scrollPanel>
@@ -41,5 +41,8 @@ export class AppComponent implements OnInit {
     if (isDevMode()) {
       // firebase.firestore.setLogLevel('debug');
     }
+  }
+  safe(o: { isActivated: any; activatedRoute: any; }) {
+    return o.isActivated ? o.activatedRoute : '';
   }
 }
