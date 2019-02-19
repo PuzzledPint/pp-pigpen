@@ -2,6 +2,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NotifyService } from "src/services/notify.service";
 import { UserService } from "src/services/user.service";
+import { Router, ActivatedRoute } from "@angular/router";
 
 class Info {
   title = "";
@@ -15,19 +16,30 @@ class Info {
   selector: "app-info",
   template: `
     <div class="p-grid">
-      <div *ngFor="let i of staticInfos" class="p-xl-3 p-lg-4 p-md-6 p-sm-12">
-        <app-info-card
-          [title]="i.title"
-          [text]="i.teaser"
-          [buttonText]="i.buttonText"
-          [link]="info + '/' + i.slug"
-        ></app-info-card>
+      <div class="p-xl-9 p-lg-8 p-md-6 p-sm-6">
+        <p-card [header]="selected.title" styleClass="ui-card-shadow">
+          <span [innerHTML]="selected.fulltext"></span>
+        </p-card>
+      </div>
+      <div class="p-xl-3 p-lg-4 p-md-6 p-sm-6">
+        <div *ngFor="let i of staticInfos">
+          <div *ngIf="i.slug !== selected.slug">
+            <app-info-card
+              [title]="i.title"
+              [text]="i.teaser"
+              [buttonText]="i.buttonText"
+              [link]="'/info/' + i.slug"
+            ></app-info-card>
+          </div>
+        </div>
       </div>
     </div>
   `,
   styles: []
 })
 export class InfoComponent implements OnInit {
+  selected: Info = new Info();
+
   staticInfos: Info[] = [
     {
       title: "About",
@@ -36,7 +48,6 @@ export class InfoComponent implements OnInit {
       buttonText: "More",
       slug: "about",
       fulltext: `
-      <h1>About</h1>
       <p><strong>Puzzled Pint</strong> is a casual, social puzzle solving event which happens at bars/pubs on the
       <strong>second Tuesday of every month</strong> in multiple cities around the world. The Friday before each
       event, we post a <strong>location puzzle</strong> to this web site. The solution to that puzzle will lead
@@ -100,9 +111,28 @@ export class InfoComponent implements OnInit {
     }
   ];
 
-  constructor(private ns: NotifyService, public us: UserService) {}
+  constructor(
+    private ns: NotifyService,
+    public us: UserService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.setSelected("about");
+  }
 
   ngOnInit() {
     this.ns.setTitle("Info");
+
+    this.route.paramMap.subscribe(params => this.setSelected(params.get("slug")));
+  }
+
+  setSelected(slug: string | null) {
+    console.log("setSelected = "+slug);
+    if (!slug) {
+      slug = "about";
+    }
+    const newInfo = this.staticInfos.find(info => info.slug === slug);
+    console.log("found: "+newInfo);
+    this.selected = newInfo ? newInfo : new Info();
   }
 }

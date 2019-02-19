@@ -42,8 +42,4 @@ export class InfoCardComponent implements OnInit {
   constructor(private r: Router) {}
 
   ngOnInit() {}
-
-  async go() {
-    const result = await this.r.navigate([this.link ? this.link : ""]);
-  }
 }

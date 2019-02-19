@@ -27,6 +27,7 @@ const routes: Routes = [
   { path: 'playtesting', component: PlaytestingComponent },
 
   // public
+  { path: 'info/:slug', component: InfoComponent },
   { path: 'info', component: InfoComponent },
 
   // Catch all
