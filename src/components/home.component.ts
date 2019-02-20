@@ -75,6 +75,7 @@ import { UserService } from "src/services/user.service";
         ></app-info-card>
       </div>
     </div>
+    <br/>
   `,
   styles: []
 })

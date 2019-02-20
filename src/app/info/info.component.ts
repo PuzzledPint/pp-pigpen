@@ -127,12 +127,10 @@ export class InfoComponent implements OnInit {
   }
 
   setSelected(slug: string | null) {
-    console.log("setSelected = " + slug);
     if (!slug) {
       slug = "about";
     }
     const newInfo = this.staticInfos.find(info => info.slug === slug);
-    console.log("found: " + newInfo);
     this.selected = newInfo ? newInfo : new Info();
   }
 }
