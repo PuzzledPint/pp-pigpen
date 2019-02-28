@@ -41,11 +41,11 @@ import { PuzzleService, Puzzle } from "src/services/puzzle.service";
           Set selected is {{ puzzleSet.name }}. Please open each section below
           to playtest a puzzle.
         </h3>
-        <p-accordion>
-          <div *ngFor="let puzzleRef of puzzleSet.puzzleRefs">
+        <p-accordion [activeIndex]="accordianActive">
+          <div *ngFor="let puzzleRef of puzzleSet.puzzleRefs; let i = index">
             <p-accordionTab [header]="toTitle(puzzleRef | refToPuzzle | async)">
               <app-puzzle [puzzle]="puzzleRef | refToPuzzle"></app-puzzle>
-              <app-puzzle-feedback [puzzleRef]="puzzleRef"></app-puzzle-feedback>
+              <app-puzzle-feedback [puzzleRef]="puzzleRef" (saved)="onSaved(i)"></app-puzzle-feedback>
             </p-accordionTab>
           </div>
         </p-accordion>
@@ -55,11 +55,17 @@ import { PuzzleService, Puzzle } from "src/services/puzzle.service";
   styles: []
 })
 export class PlaytestingComponent implements OnInit {
+  accordianActive: number | undefined = undefined;
+
   constructor(
     public auth: UserService,
     private ns: NotifyService,
     public ps: PuzzleService
   ) {}
+
+  onSaved(i: number) {
+    this.accordianActive = i + 1;
+  }
 
   ngOnInit() {
     this.ns.setTitle("Playtesting");

@@ -13,7 +13,7 @@ import { Observable } from "rxjs";
         legend="Hints"
         [toggleable]="true"
         [transitionOptions]="'200ms'"
-        [collapsed]="false"
+        [collapsed]="true"
       >
         <div *ngFor="let hint of puz.hints">
           <app-hint [hint]="hint"></app-hint>
