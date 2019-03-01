@@ -14,7 +14,7 @@ import { NotFoundResolver } from './not-found.resolver';
 import { CommsComponent } from './comms/comms.component';
 import { CommsGuard } from './comms/comms.guard';
 import { InfoComponent } from './info/info.component';
-
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,6 +29,10 @@ const routes: Routes = [
   // public
   { path: 'info/:slug', component: InfoComponent },
   { path: 'info', component: InfoComponent },
+
+  // profile
+  { path: 'profile/:uid', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent },
 
   // Catch all
   { path: '**', component: HomeComponent, resolve: {void: NotFoundResolver}}

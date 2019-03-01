@@ -61,6 +61,7 @@ import { PuzzleFeedbackComponent } from '../components/puzzle-feedback.component
 import { InfoCardComponent } from '../components/info-card.component';
 import { AppErrorHandler } from 'src/services/notify.service';
 import { InfoComponent } from './info/info.component';
+import { ProfileComponent } from './profile/profile.component';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -95,6 +96,7 @@ const config = {
     HintComponent,
     PuzzleFeedbackComponent,
     InfoCardComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

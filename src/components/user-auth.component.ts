@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/services/user.service";
 import { MenuItem } from "primeng/api";
 import { NotifyService } from "src/services/notify.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-user-auth",
@@ -23,7 +24,7 @@ export class UserAuthComponent implements OnInit {
   items: MenuItem[] = [];
   email = "";
 
-  constructor(public us: UserService, public notify: NotifyService) {
+  constructor(public us: UserService, public notify: NotifyService, private router: Router) {
     this.items = [{
       label: "", separator: true
     },
@@ -52,6 +53,6 @@ export class UserAuthComponent implements OnInit {
   ngOnInit(): void {}
 
   profile() {
-    this.notify.error("Not Implemented", "Sorry, user profiles are not yet implemented");
+    this.router.navigateByUrl("/profile");
   }
 }

@@ -1,8 +1,7 @@
-import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
 
-export const helloWorld = functions.https.onRequest((request, response) => {
-  response.send("Hello from Firebase!");
-});
+admin.initializeApp();
 
-
-
+export { apiResetUserPerms } from './apiResetUserPerms';
+export { apiFeedbackSaved } from './apiFeedbackSaved';
+export { functionNewUser } from './functionNewUser';
