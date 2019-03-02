@@ -22,13 +22,13 @@
   font-style: normal;
 }
 
-router-outlet ~ * {
-  position: absolute;
-  height: 75vh;
-  width: 95%;
-
+html {
+  height: 100%;
 }
 
+body {
+  height: 98vh;
+}
 
 /* based on nova-light  */
 * {

@@ -8,23 +8,23 @@ import {
   group
 } from "@angular/animations";
 
-export const fader = trigger("faderAnimation", [
+export const faderAnimation = trigger("faderAnimation", [
   transition("* <=> *", [
     query(":enter, :leave", [
       style({
         position: "absolute",
         left: 0,
-        width: "100%",
+        width: "99%",
         opacity: 0,
         transform: "scale(0) translateY(100%)"
       })
-    ]),
+    ], { optional: true }),
     query(":enter", [
       animate(
-        "600ms ease",
+        "400ms ease",
         style({ opacity: 1, transform: "scale(1) translateY(0)" })
       )
-    ])
+    ], { optional: true }),
   ])
 ]);
 

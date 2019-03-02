@@ -33,7 +33,7 @@ export class UserAuthComponent implements OnInit {
       icon: "pi pi-unlock",
       command: () => {
         this.us.signOut();
-        location.reload();
+        location.replace("/");
       }
     },
     {
