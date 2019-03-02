@@ -65,7 +65,7 @@ export class UserService {
     this.photo = newFbUser ? newFbUser.photoURL || "" : "";
 
     if (newFbUser) {
-      const newToken = await newFbUser.getIdTokenResult();
+      const newToken = await newFbUser.getIdTokenResult(true);
       const claims = newToken.claims;
       this.isEditor = claims.Editor;
       this.isCityOps = claims.CityOps;

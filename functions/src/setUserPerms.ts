@@ -22,11 +22,17 @@ export async function setUserPerms(id: string): Promise<void> {
   // check if this user has extra permissions and set them.
   const snapshot = await fs.doc('/webmaster/permissions').get();
   const permissions = snapshot.data();
+  if (!permissions) {
+    return Promise.reject("Unable to get permissions from database");
+  }
 
   const userClaims: Claim[] = permissions.userClaims;
 
   const userClaim = userClaims.find(claim => claim.uid === id);
 
+  if (!userClaim) {
+    return Promise.reject("User not foud in permissions");
+  }
   const { uid, ...claims } = userClaim;
 
   const existingUser = await admin.auth().getUser(uid);
@@ -36,7 +42,9 @@ export async function setUserPerms(id: string): Promise<void> {
   if (claims) {
     console.log("Setting claims for " + uid);
     console.log(JSON.stringify(claims));
-    return admin.auth().setCustomUserClaims(uid, claims);
+    await admin.auth().setCustomUserClaims(uid, claims);
+    const metadataRef = admin.database().ref("metadata/" + uid);
+    return metadataRef.set({refreshTime: new Date().getTime()});
   } else {
     console.log("No claims for newly created user " + id);
   }
