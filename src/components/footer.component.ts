@@ -19,11 +19,11 @@ import { NotifyService } from 'src/services/notify.service';
 })
 
 export class FooterComponent implements OnInit {
-  info: Info;
+  public info: Info;
 
   constructor(infoService: InfoService, private ns: NotifyService) {
     this.info = infoService.getInfo();
   }
 
-  ngOnInit() {}
+  public ngOnInit() {}
 }

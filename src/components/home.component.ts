@@ -79,11 +79,11 @@ import { UserService } from "src/services/user.service";
   styles: []
 })
 export class HomeComponent implements OnInit {
-  Arr = Array;
+  public Arr = Array;
 
   constructor(private ns: NotifyService, public us: UserService) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.ns.setTitle("Welcome");
   }
 }

@@ -131,24 +131,24 @@ import { PuzzleSetsComponent } from "./puzzle-sets.component";
   styles: ["h3 { margin:0px }", "textarea { width:100%}"]
 })
 export class PuzzleFeedbackComponent implements OnInit {
-  @Input() puzzleRef: DocumentReference | undefined;
-  @Output() saved = new EventEmitter();
+  @Input() public puzzleRef: DocumentReference | undefined;
+  @Output() public saved = new EventEmitter();
 
-  puzzleFeedback: PlaytestFeedback | undefined;
+  public puzzleFeedback: PlaytestFeedback | undefined;
   constructor(private pts: PlaytestService, public ns: NotifyService) {}
 
-  save() {
+  public save() {
     if (this.puzzleFeedback) {
       this.puzzleFeedback.save(this.ns);
     }
   }
 
-  saveNext() {
+  public saveNext() {
     this.save();
     this.saved.emit();
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     if (this.puzzleRef) {
       this.puzzleFeedback = this.pts.getPlaytestFeedback(this.puzzleRef);
     } else {

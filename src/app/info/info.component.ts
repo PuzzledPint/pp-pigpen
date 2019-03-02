@@ -5,11 +5,11 @@ import { UserService } from "src/services/user.service";
 import { Router, ActivatedRoute } from "@angular/router";
 
 class Info {
-  title = "";
-  teaser = "";
-  buttonText = "";
-  slug = "";
-  fulltext = "";
+  public title = "";
+  public teaser = "";
+  public buttonText = "";
+  public slug = "";
+  public fulltext = "";
 }
 
 @Component({
@@ -38,9 +38,9 @@ class Info {
   styles: []
 })
 export class InfoComponent implements OnInit {
-  selected: Info = new Info();
+  public selected: Info = new Info();
 
-  staticInfos: Info[] = [
+  public staticInfos: Info[] = [
     {
       title: "About",
       teaser: `Puzzled Pint is a casual, social puzzle solving event which happens at bars/pubs on
@@ -120,13 +120,13 @@ export class InfoComponent implements OnInit {
     this.setSelected("about");
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.ns.setTitle("Info");
 
     this.route.paramMap.subscribe(params => this.setSelected(params.get("slug")));
   }
 
-  setSelected(slug: string | null) {
+  public setSelected(slug: string | null) {
     if (!slug) {
       slug = "about";
     }

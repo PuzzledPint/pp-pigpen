@@ -12,11 +12,11 @@ import { NotifyService } from "src/services/notify.service";
   styles: []
 })
 export class SitewideAlertComponent implements OnInit {
-  info: Info;
+  public info: Info;
 
   constructor(infoService: InfoService) {
     this.info = infoService.getInfo();
   }
 
-  ngOnInit() {}
+  public ngOnInit() {}
 }

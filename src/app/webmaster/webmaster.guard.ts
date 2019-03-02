@@ -21,7 +21,7 @@ export class WebmasterGuard implements CanActivate {
     private notify: NotifyService
   ) {}
 
-  async canActivate(
+  public async canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Promise<boolean> {

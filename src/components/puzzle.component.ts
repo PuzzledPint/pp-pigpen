@@ -27,9 +27,9 @@ import { Observable } from "rxjs";
   styles: []
 })
 export class PuzzleComponent implements OnInit {
-  @Input() puzzle: Observable<Puzzle> | undefined;
+  @Input() public puzzle: Observable<Puzzle> | undefined;
 
   constructor() {}
 
-  ngOnInit() {}
+  public ngOnInit() {}
 }

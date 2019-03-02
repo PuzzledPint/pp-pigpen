@@ -10,7 +10,7 @@ export class RefToPuzzlePipe implements PipeTransform {
 
   constructor(private ps: PuzzleService) {}
 
-  transform(ref: DocumentReference): Observable<any> {
+  public transform(ref: DocumentReference): Observable<any> {
     return this.ps.getPuzzle(ref);
   }
 }

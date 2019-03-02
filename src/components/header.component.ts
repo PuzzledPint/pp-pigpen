@@ -81,5 +81,5 @@ export class HeaderComponent implements OnInit {
     ns.title.subscribe(newTitle => this.title = newTitle);
   }
 
-  ngOnInit() {}
+  public ngOnInit() {}
 }

@@ -19,15 +19,15 @@ import { FSHint } from "src/models/fs-hint.model";
   styles: []
 })
 export class HintComponent implements OnInit {
-  @Input() hint: FSHint | undefined;
-  revealed = false;
-  hintStyle = { "background-color": "grey", "color": "grey" };
+  @Input() public hint: FSHint | undefined;
+  public revealed = false;
+  public hintStyle = { "background-color": "grey", "color": "grey" };
 
   constructor() {}
 
-  ngOnInit() {}
+  public ngOnInit() {}
 
-  toggleReveal() {
+  public toggleReveal() {
     this.revealed = !this.revealed;
 
     this.hintStyle = this.revealed
@@ -35,7 +35,7 @@ export class HintComponent implements OnInit {
       : { "background-color": "grey", "color": "grey" };
   }
 
-  titleText(title: string): string {
+  public titleText(title: string): string {
     if (title) {
       return `Hint (${title})`;
     } else {

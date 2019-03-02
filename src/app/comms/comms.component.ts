@@ -39,13 +39,13 @@ import { InfoService, Info } from "src/services/info.service";
   styles: []
 })
 export class CommsComponent implements OnInit {
-  info: Info | undefined;
+  public info: Info | undefined;
 
   constructor(public ns: NotifyService, public is: InfoService) {
     ns.setTitle("Comms");
   }
 
-  ngOnInit() {
+  public ngOnInit() {
       this.info = this.is.getInfo();
   }
 }

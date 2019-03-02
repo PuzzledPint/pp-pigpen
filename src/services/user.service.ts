@@ -58,7 +58,7 @@ export class UserService {
     );
   }
 
-  async updateFbUser(newFbUser: User | null) {
+  public async updateFbUser(newFbUser: User | null) {
     this.id = newFbUser ? newFbUser.uid : "";
     this.name = newFbUser ? newFbUser.displayName || "" : "";
     this.email = newFbUser ? newFbUser.email || "" : "";
@@ -89,13 +89,13 @@ export class UserService {
     this.isSignedIn.next(!!newFbUser);
   }
 
-  signIn() {
+  public signIn() {
     this.afAuth.auth
       .signInWithPopup(new auth.GoogleAuthProvider())
       .then(credential => {}); // need this?
   }
 
-  signOut() {
+  public signOut() {
     this.afAuth.auth.signOut();
   }
 }

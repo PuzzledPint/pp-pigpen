@@ -55,7 +55,7 @@ import { PuzzleService, Puzzle } from "src/services/puzzle.service";
   styles: []
 })
 export class PlaytestingComponent implements OnInit {
-  accordianActive: number | undefined = undefined;
+  public accordianActive: number | undefined = undefined;
 
   constructor(
     public auth: UserService,
@@ -63,15 +63,15 @@ export class PlaytestingComponent implements OnInit {
     public ps: PuzzleService
   ) {}
 
-  onSaved(i: number) {
+  public onSaved(i: number) {
     this.accordianActive = i + 1;
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.ns.setTitle("Playtesting");
   }
 
-  toTitle(puzzle: Puzzle): string {
+  public toTitle(puzzle: Puzzle): string {
     if (puzzle) {
       return `(${puzzle.type}) ${puzzle.name}`;
     } else {

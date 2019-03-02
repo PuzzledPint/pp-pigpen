@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class VariablesPipe implements PipeTransform {
 
-  transform(value: string): string {
+  public transform(value: string): string {
     if (value && value.includes('$year')) {
       const year = new Date().getFullYear();
 

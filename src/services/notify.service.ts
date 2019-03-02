@@ -7,7 +7,7 @@ import { BehaviorSubject } from "rxjs";
   providedIn: "root"
 })
 export class NotifyService {
-  static singleton: NotifyService;
+  public static singleton: NotifyService;
   public title: BehaviorSubject<string> = new BehaviorSubject("");
 
   constructor(
@@ -17,7 +17,7 @@ export class NotifyService {
     NotifyService.singleton = this;
   }
 
-  error(title: string, desc: string) {
+  public error(title: string, desc: string) {
     this.messageService.add({
       severity: "error",
       summary: title,
@@ -25,7 +25,7 @@ export class NotifyService {
     });
   }
 
-  stickyAlert(title: string, desc: string) {
+  public stickyAlert(title: string, desc: string) {
     this.messageService.add({
       severity: "error",
       summary: title,
@@ -34,14 +34,14 @@ export class NotifyService {
     });
   }
 
-  setTitle(newTitle: string) {
+  public setTitle(newTitle: string) {
     this.titleService.setTitle("Puzzled Pint " + newTitle);
     this.title.next(newTitle);
   }
 }
 
 export class AppErrorHandler implements ErrorHandler {
-  handleError(error: string) {
+  public handleError(error: string) {
     if (isDevMode() && NotifyService.singleton) {
       NotifyService.singleton.stickyAlert("Uncaught Exception", error);
     }

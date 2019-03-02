@@ -38,12 +38,12 @@ import { faderAnimation } from "./animations";
 })
 export class AppComponent implements OnInit {
   constructor(private auth: UserService) {}
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (isDevMode()) {
       // firebase.firestore.setLogLevel('debug');
     }
   }
-  safe(o: { isActivated: any; activatedRoute: any }) {
+  public safe(o: { isActivated: any; activatedRoute: any }) {
     return o.isActivated ? o.activatedRoute : "";
   }
 }

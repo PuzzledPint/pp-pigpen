@@ -11,8 +11,8 @@ import { Util } from "./util";
 import { NotifyService } from "./notify.service";
 
 export class Info {
-  inner: FSInfo;
-  isDirty = false;
+  public inner: FSInfo;
+  public isDirty = false;
 
   get footer() {
     return this.inner.footer;
@@ -49,7 +49,7 @@ export class Info {
     });
   }
 
-  save(ns: NotifyService) {
+  public save(ns: NotifyService) {
     this.afDoc.set(this.inner);
     this.isDirty = false;
   }
@@ -62,7 +62,7 @@ export class InfoService {
   constructor(private readonly af: AngularFirestore) {}
   // Public interface
 
-  getInfo(): Info {
+  public getInfo(): Info {
     return new Info(this.af.doc('/info/info'));
   }
 }

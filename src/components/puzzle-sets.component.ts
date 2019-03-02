@@ -27,21 +27,21 @@ import { Observable } from "rxjs";
   styles: []
 })
 export class PuzzleSetsComponent implements OnInit {
-  @Input() puzzleSets: Observable<PuzzleSet[]> | undefined;
+  @Input() public puzzleSets: Observable<PuzzleSet[]> | undefined;
 
   constructor(public ps: PuzzleService) {
   }
 
-  ngOnInit() {}
+  public ngOnInit() {}
 
-  setImage(path: string) {
+  public setImage(path: string) {
     if (path) {
       return path;
     }
     return "/assets/images/nopolaroid.png";
   }
 
-  selectPuzzleSet(set: PuzzleSet) {
+  public selectPuzzleSet(set: PuzzleSet) {
     this.ps.selectPuzzleSet(set);
   }
 }

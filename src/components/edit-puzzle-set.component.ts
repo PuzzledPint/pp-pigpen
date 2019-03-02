@@ -266,10 +266,10 @@ import { SelectItem } from "primeng/api";
   styles: []
 })
 export class EditPuzzleSetComponent implements OnInit {
-  selectedPuzzleSet: PuzzleSet | undefined;
-  selectedPuzzles: DocumentReference[] = [];
-  selectedPuzzle: Puzzle | undefined = undefined;
-  puzzleTypes: SelectItem[] = [
+  public selectedPuzzleSet: PuzzleSet | undefined;
+  public selectedPuzzles: DocumentReference[] = [];
+  public selectedPuzzle: Puzzle | undefined = undefined;
+  public puzzleTypes: SelectItem[] = [
     { label: "Location", value: "Location" },
     { label: "Main Set", value: "Main Set" },
     { label: "Meta", value: "Meta" },
@@ -286,14 +286,14 @@ export class EditPuzzleSetComponent implements OnInit {
     });
   }
 
-  addHint() {
+  public addHint() {
     if (this.selectedPuzzle) {
       this.selectedPuzzle.hints.push({ title: "", text: "" });
       this.savePuzzle();
     }
   }
 
-  async addPuzzle() {
+  public async addPuzzle() {
     const ps = this.selectedPuzzleSet;
     if (!ps) {
       return;
@@ -306,7 +306,7 @@ export class EditPuzzleSetComponent implements OnInit {
     this.savePuzzleSet();
   }
 
-  savePuzzleSet() {
+  public savePuzzleSet() {
     if (this.selectedPuzzleSet) {
       if (this.ps.isSetSlugUnique(this.selectedPuzzleSet.slug)) {
         this.ps.updatePuzzleSet(this.selectedPuzzleSet);
@@ -318,7 +318,7 @@ export class EditPuzzleSetComponent implements OnInit {
     }
   }
 
-  savePuzzle() {
+  public savePuzzle() {
     if (this.selectedPuzzle) {
       this.ps.updatePuzzle(this.selectedPuzzle);
     } else {
@@ -326,9 +326,9 @@ export class EditPuzzleSetComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  public ngOnInit() {}
 
-  errorText(field: any): string {
+  public errorText(field: any): string {
     if (!field) {
       return "";
     }
@@ -346,7 +346,7 @@ export class EditPuzzleSetComponent implements OnInit {
     return "Unknown validation error";
   }
 
-  puzzleSelectionChanged() {
+  public puzzleSelectionChanged() {
     if (this.selectedPuzzles && this.selectedPuzzles[0]) {
       this.ps
         .getPuzzle(this.selectedPuzzles[0])

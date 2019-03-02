@@ -23,5 +23,5 @@ export class EditorComponent implements OnInit {
     ns.setTitle("Editor");
   }
 
-  ngOnInit() {}
+  public ngOnInit() {}
 }

@@ -20,11 +20,11 @@ export interface Puzzle extends FSPuzzle { afDoc: AngularFirestoreDocument<FSPuz
 })
 export class PuzzleService {
   private puzzleSetsCollection: AngularFirestoreCollection<FSPuzzleSet>;
-  puzzleSets: Observable<PuzzleSet[]>;
-  playtestingSets: Observable<PuzzleSet[]>;
+  public puzzleSets: Observable<PuzzleSet[]>;
+  public playtestingSets: Observable<PuzzleSet[]>;
 
   private _selectedPuzzleSet: Subject<Observable<PuzzleSet> | undefined> = new Subject();
-  selectedPuzzleSet = this._selectedPuzzleSet.asObservable();
+  public selectedPuzzleSet = this._selectedPuzzleSet.asObservable();
 
   private puzzlesCollection: AngularFirestoreCollection<FSPuzzle>;
 
@@ -58,7 +58,7 @@ export class PuzzleService {
 
   // Public interface
 
-  addPuzzleSet() {
+  public addPuzzleSet() {
     this.puzzleSetsCollection.add(
       {
         name: "",
@@ -72,7 +72,7 @@ export class PuzzleService {
       }).then(docRef => this._selectedPuzzleSet.next(Util.fromFS<FSPuzzleSet, PuzzleSet>(this.af.doc(docRef))));
   }
 
-  addPuzzle(): Promise<DocumentReference> {
+  public addPuzzle(): Promise<DocumentReference> {
     return this.puzzlesCollection.add(
       {
         name: "",
@@ -83,26 +83,26 @@ export class PuzzleService {
       });
   }
 
-  updatePuzzleSet(set: PuzzleSet) {
+  public updatePuzzleSet(set: PuzzleSet) {
     const { afDoc, ...fsPuzzleSet } = set;
     afDoc.set(fsPuzzleSet);
   }
 
-  updatePuzzle(puzzle: Puzzle) {
+  public updatePuzzle(puzzle: Puzzle) {
     const { afDoc, ...fsPuzzle } = puzzle;
     afDoc.set(fsPuzzle);
   }
 
-  selectPuzzleSet(set: PuzzleSet) {
+  public selectPuzzleSet(set: PuzzleSet) {
     this._selectedPuzzleSet.next(Util.fromFS(set.afDoc));
   }
 
-  async isSetSlugUnique(slug: string): Promise<boolean> {
+  public async isSetSlugUnique(slug: string): Promise<boolean> {
     const sets: PuzzleSet[] = await this.puzzleSets.toPromise();
     return sets.find(set => set.slug === slug) ? true : false;
   }
 
-  getPuzzle(ref: DocumentReference): Observable<Puzzle> {
+  public getPuzzle(ref: DocumentReference): Observable<Puzzle> {
     const doc = this.af.doc<FSPuzzle>(ref);
     return Util.fromFS<FSPuzzle, Puzzle>(doc);
   }

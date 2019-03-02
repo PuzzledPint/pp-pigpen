@@ -5,11 +5,11 @@ import { UserService } from "src/services/user.service";
 import { Router, ActivatedRoute } from "@angular/router";
 
 class Info {
-  title = "";
-  teaser = "";
-  buttonText = "";
-  slug = "";
-  fulltext = "";
+  public title = "";
+  public teaser = "";
+  public buttonText = "";
+  public slug = "";
+  public fulltext = "";
 }
 
 @Component({
@@ -68,10 +68,10 @@ class Info {
   styles: []
 })
 export class ProfileComponent implements OnInit {
-  userName = "";
-  userId = "";
-  userEmail = "";
-  userPhoto = "";
+  public userName = "";
+  public userId = "";
+  public userEmail = "";
+  public userPhoto = "";
 
   constructor(
     private ns: NotifyService,
@@ -82,7 +82,7 @@ export class ProfileComponent implements OnInit {
     this.us.isSignedIn.subscribe(foo => this.setSelected(this.us.id));
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.ns.setTitle("Profile");
 
     this.route.paramMap.subscribe(params =>
@@ -90,7 +90,7 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  setSelected(uid: string | null) {
+  public setSelected(uid: string | null) {
     if (!uid) {
       uid = this.us.id;
     }

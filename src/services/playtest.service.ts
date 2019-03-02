@@ -12,12 +12,12 @@ import { Util } from './util';
 import { NotifyService } from './notify.service';
 
 export class PlaytestFeedback {
-  inner: FSPlaytestFeedback;
-  numPlaytesters_error = "";
-  solveMinutes_error = "";
-  difficulty_error = "";
-  fun_error = "";
-  isDirty = false;
+  public inner: FSPlaytestFeedback;
+  public numPlaytesters_error = "";
+  public solveMinutes_error = "";
+  public difficulty_error = "";
+  public fun_error = "";
+  public isDirty = false;
 
   get numPlaytesters() {
     return Util.numToString(this.inner.numPlaytesters);
@@ -134,7 +134,7 @@ export class PlaytestFeedback {
     });
   }
 
-  save(ns: NotifyService) {
+  public save(ns: NotifyService) {
     let go = true;
     if (this.numPlaytesters_error) { ns.error("Invalid Field", this.numPlaytesters_error); go = false; }
     if (this.difficulty_error) { ns.error("Invalid Field", this.difficulty_error); go = false; }
@@ -152,7 +152,7 @@ export class PlaytestFeedback {
   providedIn: "root"
 })
 export class PlaytestService {
-  playtestCollection: AngularFirestoreCollection<FSPlaytestFeedback> | undefined;
+  public playtestCollection: AngularFirestoreCollection<FSPlaytestFeedback> | undefined;
 
   constructor(
     private readonly af: AngularFirestore,
@@ -164,7 +164,7 @@ export class PlaytestService {
   }
   // Public interface
 
-  getPlaytestFeedback(puzzleRef: DocumentReference): PlaytestFeedback {
+  public getPlaytestFeedback(puzzleRef: DocumentReference): PlaytestFeedback {
     if (this.playtestCollection) {
       return new PlaytestFeedback(this.playtestCollection.doc(puzzleRef.id), puzzleRef);
     }

@@ -21,8 +21,8 @@ import { Router } from "@angular/router";
   styles: []
 })
 export class UserAuthComponent implements OnInit {
-  items: MenuItem[] = [];
-  email = "";
+  public items: MenuItem[] = [];
+  public email = "";
 
   constructor(public us: UserService, public notify: NotifyService, private router: Router) {
     this.items = [{
@@ -51,9 +51,9 @@ export class UserAuthComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
+  public ngOnInit(): void {}
 
-  profile() {
+  public profile() {
     this.router.navigateByUrl("/profile");
   }
 }

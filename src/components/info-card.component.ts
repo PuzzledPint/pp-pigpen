@@ -32,14 +32,14 @@ import { Router } from "@angular/router";
   styles: []
 })
 export class InfoCardComponent implements OnInit {
-  @Input() title: string | undefined;
-  @Input() subtitle: string | undefined;
-  @Input() imageUrl: string | undefined;
-  @Input() text: string | undefined;
-  @Input() buttonText: string | undefined;
-  @Input() link: string | undefined;
+  @Input() public title: string | undefined;
+  @Input() public subtitle: string | undefined;
+  @Input() public imageUrl: string | undefined;
+  @Input() public text: string | undefined;
+  @Input() public buttonText: string | undefined;
+  @Input() public link: string | undefined;
 
   constructor(private r: Router) {}
 
-  ngOnInit() {}
+  public ngOnInit() {}
 }

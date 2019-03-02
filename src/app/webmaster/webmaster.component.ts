@@ -13,7 +13,7 @@ export class WebmasterComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
 }
