@@ -74,7 +74,7 @@ export class UserService {
       this.isShowrunner = claims.Showrunner;
 
       this.GCCity = claims.GCCity;
-      this.fsdoc = this.af.doc(`user/${newFbUser.uid}`);
+      this.fsdoc = this.af.doc(`users/${newFbUser.uid}`);
     } else {
       this.isEditor = false;
       this.isCityOps = false;
