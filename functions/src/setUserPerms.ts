@@ -41,9 +41,7 @@ export async function setUserPerms(id: string): Promise<void> {
   if (claims) {
     console.log("Setting claims for " + uid);
     console.log(JSON.stringify(claims));
-    await admin.auth().setCustomUserClaims(uid, claims);
-    const metadataRef = admin.database().ref("metadata/" + uid);
-    return metadataRef.set({refreshTime: new Date().getTime()});
+    return admin.auth().setCustomUserClaims(uid, claims);
   } else {
     console.log("No claims for newly created user " + id);
   }

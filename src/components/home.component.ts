@@ -25,7 +25,7 @@ import { UserService } from "src/services/user.service";
       <div class="p-xl-3 p-lg-4 p-md-6 p-sm-12">
         <app-info-card
           title="Info"
-          text="Everything you wanted to know about Puzzled Pint can be fond here"
+          text="Everything you wanted to know about Puzzled Pint can be found here"
           buttonText="Learn More"
           link="/info"
         ></app-info-card>
@@ -75,7 +75,6 @@ import { UserService } from "src/services/user.service";
         ></app-info-card>
       </div>
     </div>
-    <br/>
   `,
   styles: []
 })
