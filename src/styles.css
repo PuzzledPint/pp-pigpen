@@ -12,14 +12,15 @@
 @import url('../node_modules/quill/dist/quill.snow.css');
 
 @font-face {
-  font-family: 'Deutsch-Gothic';
-  font-display: 'swap';
-  src:url('assets/fonts/Deutsch-Gothic.ttf.woff') format('woff'),
-      url('assets/fonts/Deutsch-Gothic.ttf.svg#Deutsch-Gothic') format('svg'),
-      url('assets/fonts/Deutsch-Gothic.ttf.eot'),
-      url('assets/fonts/Deutsch-Gothic.ttf.eot?#iefix') format('embedded-opentype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'deutsch_gothicnormal';
+    font-display: 'swap';
+    src: url('assets/fonts/Deutsch-webfont.eot');
+    src: url('assets/fonts/Deutsch-webfont.eot?#iefix') format('embedded-opentype'),
+         url('assets/fonts/Deutsch-webfont.woff') format('woff'),
+         url('assets/fonts/Deutsch-webfont.ttf') format('truetype'),
+         url('assets/fonts/Deutsch-webfont.svg#deutsch_gothicnormal') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 html {
