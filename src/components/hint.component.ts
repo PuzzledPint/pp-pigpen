@@ -12,7 +12,7 @@ import { FSHint } from "src/models/fs-hint.model";
       ></p-button>
       <p class="p-col-3">{{ titleText(hint?.title) }}</p>
       <p class="p-col-8">
-        <span [ngStyle]="hintStyle">{{ hint?.text }}</span>
+        <span [ngStyle]="hintStyle" [innerHTML]="revealed ? (hint?.text) : 'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO'"></span>
       </p>
     </div>
   `,

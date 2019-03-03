@@ -45,7 +45,7 @@ import { PuzzleSetsComponent } from "./puzzle-sets.component";
             pInputText
             type="text"
             placeholder="(in minutes)"
-            size="8"
+            size="10"
             [(ngModel)]="puzzleFeedback.solveMinutes"
             (blur)="save()"
           />
@@ -119,7 +119,7 @@ import { PuzzleSetsComponent } from "./puzzle-sets.component";
         </div>
         <p-toolbar class="p-col-12 p-lg-12">
           <div class="ui-toolbar-group-right">
-            <p-button label="Save Feedback" (click)="saveNext()"></p-button>
+            <p-button label="Save Feedback" icon="pi pi-save" iconPos="right" (click)="saveNext()"></p-button>
           </div>
         </p-toolbar>
       </div>

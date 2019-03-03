@@ -229,11 +229,11 @@ import { SelectItem } from "primeng/api";
                   <td pEditableColumn>
                     <p-cellEditor>
                       <ng-template pTemplate="input">
-                        <input
-                          type="text"
+                        <textarea
+                          [rows]="3"
                           [(ngModel)]="hint.text"
                           [ngModelOptions]="{ standalone: true }"
-                        />
+                        ></textarea>
                       </ng-template>
                       <ng-template pTemplate="output">
                         {{ hint.text }}

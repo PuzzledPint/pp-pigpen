@@ -1032,7 +1032,7 @@ body .ui-password-panel {
 body .ui-inputgroup .ui-inputgroup-addon {
   border-color: #a6a6a6;
   background-color: #eaeaea;
-  color: #848484;
+  color: #2f2f2f;
   padding: 0.429em;
   min-width: 2em;
 }
@@ -1480,6 +1480,7 @@ body .ui-fieldset {
   border: 1px solid #c8c8c8;
   background-color: #ffffff;
   color: #333333;
+  margin: 10px;
 }
 body .ui-fieldset .ui-fieldset-legend a {
   padding: 0.571em 1em;

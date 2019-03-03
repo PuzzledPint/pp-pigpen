@@ -6,9 +6,7 @@ import { Observable } from "rxjs";
   selector: "app-puzzle",
   template: `
     <div *ngIf="(puzzle | async) as puz; else noPuzzle">
-      <h3>
-        Download the puzzle <a href="{{ puz.pdf }}" target="_blank">here</a>
-      </h3>
+      <a href="{{ puz.pdf }}" target="_blank"><button pButton type="button" icon="pi pi-download" class="ui-button-success" label="Download the puzzle"></button></a>
       <p-fieldset
         legend="Hints"
         [toggleable]="true"
@@ -24,7 +22,7 @@ import { Observable } from "rxjs";
       No puzzle found
     </ng-template>
   `,
-  styles: []
+  styles: ["button { margin-bottom:5px; }"]
 })
 export class PuzzleComponent implements OnInit {
   @Input() public puzzle: Observable<Puzzle> | undefined;
