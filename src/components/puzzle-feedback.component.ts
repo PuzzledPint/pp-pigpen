@@ -14,7 +14,7 @@ import { PuzzleSetsComponent } from "./puzzle-sets.component";
       legend="Your Feedback"
       [toggleable]="true"
       [transitionOptions]="'200ms'"
-      [collapsed]="false"
+      [collapsed]="true"
     >
       <div *ngIf="puzzleRef && puzzleFeedback; else noFeedback" class="p-grid">
       <div class="ui-inputgroup p-col-12 p-md-6 p-lg-6 p-xl-4">

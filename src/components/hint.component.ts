@@ -6,13 +6,13 @@ import { FSHint } from "src/models/fs-hint.model";
   template: `
     <div class="p-grid">
       <p-button
-        class="p-col-1"
+        class="p-col-4 p-md-2"
         label="{{ revealed ? 'Hide' : 'Reveal' }}"
         (click)="toggleReveal()"
       ></p-button>
-      <p class="p-col-3">{{ titleText(hint?.title) }}</p>
-      <p class="p-col-8">
-        <span [ngStyle]="hintStyle" [innerHTML]="revealed ? (hint?.text) : 'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO'"></span>
+      <p class="p-col-8 p-md-4">{{ titleText(hint?.title) }}</p>
+      <p class="p-col-12 p-md-6">
+        <span [ngStyle]="hintStyle" [innerHTML]="resolveHint()"></span>
       </p>
     </div>
   `,
@@ -41,5 +41,9 @@ export class HintComponent implements OnInit {
     } else {
       return `Hint`;
     }
+  }
+
+  public resolveHint(): string {
+    return this.revealed ? (this.hint ? this.hint.text : '') : 'OOOOOOOOOOOOOOOOOOOOOOOOOOOOO';
   }
 }

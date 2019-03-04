@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChildren, QueryList, ElementRef } from "@angular/core";
 import { UserService } from "src/services/user.service";
 import { NotifyService } from "src/services/notify.service";
 import { PuzzleService, Puzzle } from "src/services/puzzle.service";
@@ -75,7 +75,7 @@ export class PlaytestingComponent implements OnInit {
     if (puzzle) {
       return `(${puzzle.type}) ${puzzle.name}`;
     } else {
-      return "Error getting title";
+      return "Loading puzzle...";
     }
   }
 }
