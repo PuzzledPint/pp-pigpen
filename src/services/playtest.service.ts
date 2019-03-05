@@ -186,8 +186,8 @@ export class PlaytestService {
       tap(arr => console.log(`read ${arr.length} docs from puzzle/playtestFeedback collection`)),
       map(actions => actions.map(a => {
         const data = a.payload.doc.data();
-        const id = a.payload.doc.id;
-        return { id, ...data };
+        const userId = a.payload.doc.id;
+        return { userId, ...data };
       }),
       shareReplay(1))
     );

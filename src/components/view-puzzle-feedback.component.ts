@@ -13,6 +13,7 @@ import {
 import { NotifyService } from "src/services/notify.service";
 import { Observable, Subscription } from "rxjs";
 import { Puzzle, PuzzleService } from "src/services/puzzle.service";
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: "app-view-puzzle-feedback",
@@ -24,33 +25,67 @@ import { Puzzle, PuzzleService } from "src/services/puzzle.service";
       [collapsed]="true"
     >
       <div *ngIf="puzzle; else noPuzzle">
-        <h3>Name: {{ puzzle.name }}</h3>
         <div
           *ngIf="
             (playtestFeedback$ | async) as playtestFeedback;
             else noFeedback
           "
+          class="p-grid"
         >
           <div *ngFor="let report of playtestFeedback">
             <p-card
-              [header]="makeHeader(report)"
-              [subheader]="makeSubheader(report)"
+              [subheader]="
+                makeSubheader(report) +
+                (report.lastChanged.toDate() | date: 'yyyy-MM-dd HH:mm')
+              "
               styleClass="ui-card-shadow"
+              p-col-12
+              p-md-6
+              p-lg-4
+              p-xl-3
             >
+              <p-header>
+                <p-button
+                  *ngIf="report.solved; else unsolved"
+                  label="Solved"
+                  icon="pi pi-check"
+                  styleClass="ui-button-success"
+                ></p-button>
+                <ng-template #unsolved>
+                  <p-button
+                    label="Unsolved"
+                    icon="pi pi-times"
+                    styleClass="ui-button-danger"
+                  ></p-button>
+                </ng-template>
+                <p-button
+                  label="{{ report.userId }}"
+                  styleClass="ui-button-secondary"
+                ></p-button>
+                <div class="ui-toolbar-group-right">
+                  <button
+                    pButton
+                    type="button"
+                    [label]="makeVersion(report)"
+                    class="ui-button-info"
+                  ></button>
+                </div>
+              </p-header>
               <div *ngIf="report.errors">
-                <h3>Errors</h3>
-                <span>{{ report.errors }}</span>
+              <b>Errors: </b>
+              <span>{{ report.errors }}</span>
                 <hr />
               </div>
               <div *ngIf="report.visual">
-                <h3>Errors</h3>
-                <span>{{ report.visual }}</span>
+              <b>Visual: </b>
+              <span>{{ report.visual }}</span>
                 <hr />
               </div>
               <div *ngIf="report.general">
                 <span>{{ report.general }}</span>
               </div>
               <p-footer>
+                <app-email-button [subject]="'Question about your feedback on '+puzzle.name" [toUser]="report.userId"></app-email-button>
                 <p-button
                   label="Changing Status Goes Here (TODO)"
                   icon="pi pi-save"
@@ -94,13 +129,12 @@ export class ViewPuzzleFeedbackComponent implements OnInit, OnDestroy {
     this.spSub.unsubscribe();
   }
 
-  public makeHeader(report: PlaytestFeedbackAugmented) {
+  public makeVersion(report: PlaytestFeedbackAugmented): string {
     let v = report.version;
     if (!v.startsWith("v") && !v.startsWith("V")) {
       v = "v-" + v;
     }
-    const solved = report.solved ? "Solved" : "Unsolved";
-    return `${report.userId} ${solved} ${v}`;
+    return v;
   }
 
   public makeSubheader(report: PlaytestFeedbackAugmented) {
@@ -110,12 +144,16 @@ export class ViewPuzzleFeedbackComponent implements OnInit, OnDestroy {
     }
     const solved = report.solved ? "Solved" : "Unsolved";
     const date = report.lastChanged;
-    return `testers:${report.numPlaytesters} mins:${report.solveMinutes} d:${
-      report.difficulty
-    } f:${report.fun} ${date}`;
+    return `
+      [${report.solveMinutes} mins]
+      [${report.numPlaytesters} solvers]
+      D:${"⭐".repeat(report.difficulty)}
+      F:${"⭐".repeat(report.fun)} `;
   }
 
   public fieldSetName(): string {
-    return this.puzzle ? 'Playtest Feedback for ' + this.puzzle.name : 'Loading Puzzle...';
+    return this.puzzle
+      ? "Playtest Feedback for " + this.puzzle.name
+      : "Loading Puzzle...";
   }
 }
