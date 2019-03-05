@@ -22,6 +22,23 @@ import { DatePipe } from "@angular/common";
           </p-card>
         </div>
       </p-fieldset>
+      <p-fieldset legend="Statistics" [toggleable]="true" [transitionOptions]="'200ms'" [collapsed]="false">
+        <div class="p-grid">
+          <p-card header="Solve Rate" styleClass="ui-card-shadow">
+            <h3>42%</h3>
+          </p-card>
+          <p-card header="Time" styleClass="ui-card-shadow">
+            <h4>Average Solve Time: ? (not yet implemented)</h4>
+          </p-card>
+          <p-card header="Difficulty" styleClass="ui-card-shadow">
+            <h4>Average Difficulty: ? (not yet implemented)</h4>
+            <h4>80th Percentile Difficulty: ? (not yet implemented)</h4>
+          </p-card>
+          <p-card header="Fun" styleClass="ui-card-shadow">
+            <h4>Average Fun Rating: ? (not yet implemented)</h4>
+          </p-card>
+        </div>
+      </p-fieldset>
       <div *ngIf="puzzle; else noPuzzle">
         <div *ngIf="(playtestFeedback$ | async) as playtestFeedback; else noFeedback" class="p-grid">
           <div *ngFor="let report of playtestFeedback">
@@ -87,7 +104,10 @@ export class ViewPuzzleFeedbackComponent implements OnInit, OnDestroy {
 
   public playtestFeedback$: Observable<PlaytestFeedbackAugmented[]> | undefined;
 
-  public editStatuses = ["Unreviewed", "Under Consideration", "Asked Author To Fix", "Fixed", "Will Not Fix"];
+  public readonly editStatuses = ["Unreviewed", "Under Consideration", "Asked Author To Fix", "Fixed", "Will Not Fix"];
+
+  public solvedFilter: string[] = ["Unsolved", "Solved"];
+  public statusFilter: string[] = [...this.editStatuses];
 
   constructor(private pts: PlaytestService, public ns: NotifyService, private ps: PuzzleService) {
     this.spSub = ps.selectedPuzzle.subscribe(newPuzzle => {
