@@ -2,12 +2,9 @@ import { Injectable } from "@angular/core";
 import {
   AngularFirestore,
   AngularFirestoreDocument,
-  DocumentReference,
-  AngularFirestoreCollection
 } from "@angular/fire/firestore";
 
 import { FSInfo } from "../models/fs-info.model";
-import { Util } from "./util";
 import { NotifyService } from "./notify.service";
 
 export class Info {

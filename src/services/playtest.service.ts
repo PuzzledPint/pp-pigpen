@@ -10,6 +10,14 @@ import { FSPlaytestFeedback } from "../models/fs-playtest-feedback.model";
 import { UserService } from "./user.service";
 import { Util } from './util';
 import { NotifyService } from './notify.service';
+import { Observable } from "rxjs";
+import { map, tap, shareReplay } from "rxjs/operators";
+import { Puzzle } from "./puzzle.service";
+
+export interface PlaytestFeedbackAugmented extends FSPlaytestFeedback {
+  userId: string;
+  lastChanged: string;
+}
 
 export class PlaytestFeedback {
   public inner: FSPlaytestFeedback;
@@ -169,5 +177,19 @@ export class PlaytestService {
       return new PlaytestFeedback(this.playtestCollection.doc(puzzleRef.id), puzzleRef);
     }
     throw new Error("tried to get playtest feedback of user with no id");
+  }
+
+  public getPlaytestFeedbackAugmented(puzzle: Puzzle): Observable<PlaytestFeedbackAugmented[]> {
+    const col = puzzle.afDoc.collection<PlaytestFeedbackAugmented>(`playtestFeedback`);
+
+    return col.snapshotChanges().pipe(
+      tap(arr => console.log(`read ${arr.length} docs from puzzle/playtestFeedback collection`)),
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data();
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }),
+      shareReplay(1))
+    );
   }
 }

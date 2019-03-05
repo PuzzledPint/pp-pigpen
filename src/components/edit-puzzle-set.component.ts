@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { PuzzleService, PuzzleSet, Puzzle } from "src/services/puzzle.service";
 import { NotifyService } from "src/services/notify.service";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { DocumentReference } from "@angular/fire/firestore";
 import { SelectItem } from "primeng/api";
 
@@ -261,11 +261,12 @@ import { SelectItem } from "primeng/api";
           </div>
         </p-fieldset>
       </form>
+      <app-view-puzzle-feedback></app-view-puzzle-feedback>
     </div>
   `,
   styles: []
 })
-export class EditPuzzleSetComponent implements OnInit {
+export class EditPuzzleSetComponent implements OnInit, OnDestroy {
   public selectedPuzzleSet: PuzzleSet | undefined;
   public selectedPuzzles: DocumentReference[] = [];
   public selectedPuzzle: Puzzle | undefined = undefined;
@@ -276,14 +277,25 @@ export class EditPuzzleSetComponent implements OnInit {
     { label: "Bonus", value: "Bonus" }
   ];
 
+  private spsSub: Subscription;
+  private spSub: Subscription;
+
   constructor(public ps: PuzzleService, private ns: NotifyService) {
-    ps.selectedPuzzleSet.subscribe(newSPS => {
+    this.spsSub = ps.selectedPuzzleSet.subscribe(newSPS => {
       if (newSPS) {
         newSPS.subscribe(newPS => {
           this.selectedPuzzleSet = newPS;
         });
       }
     });
+    this.spSub = ps.selectedPuzzle.subscribe(
+      newSP => (this.selectedPuzzle = newSP)
+    );
+  }
+
+  public ngOnDestroy(): void {
+    this.spsSub.unsubscribe();
+    this.spSub.unsubscribe();
   }
 
   public addHint() {
@@ -350,9 +362,9 @@ export class EditPuzzleSetComponent implements OnInit {
     if (this.selectedPuzzles && this.selectedPuzzles[0]) {
       this.ps
         .getPuzzle(this.selectedPuzzles[0])
-        .subscribe(newPuzzle => (this.selectedPuzzle = newPuzzle));
+        .subscribe(newPuzzle => this.ps.selectPuzzle(newPuzzle));
     } else {
-      this.selectedPuzzle = undefined;
+      this.ps.selectPuzzle(undefined);
     }
   }
 }

@@ -26,6 +26,9 @@ export class PuzzleService {
   private _selectedPuzzleSet: Subject<Observable<PuzzleSet> | undefined> = new Subject();
   public selectedPuzzleSet = this._selectedPuzzleSet.asObservable();
 
+  private _selectedPuzzle: BehaviorSubject<Puzzle | undefined> = new BehaviorSubject<Puzzle | undefined>(undefined);
+  public selectedPuzzle = this._selectedPuzzle.asObservable();
+
   private puzzlesCollection: AngularFirestoreCollection<FSPuzzle>;
 
 
@@ -95,6 +98,10 @@ export class PuzzleService {
 
   public selectPuzzleSet(set: PuzzleSet) {
     this._selectedPuzzleSet.next(Util.fromFS(set.afDoc));
+  }
+
+  public selectPuzzle(puzzle: Puzzle | undefined) {
+    this._selectedPuzzle.next(puzzle);
   }
 
   public async isSetSlugUnique(slug: string): Promise<boolean> {
