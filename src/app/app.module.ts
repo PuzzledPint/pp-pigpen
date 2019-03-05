@@ -63,6 +63,7 @@ import { AppErrorHandler } from 'src/services/notify.service';
 import { InfoComponent } from './info/info.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ViewPuzzleFeedbackComponent } from "src/components/view-puzzle-feedback.component";
+import { EmailButtonComponent } from "src/components/email-button.component";
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -98,7 +99,8 @@ const config = {
     PuzzleFeedbackComponent,
     ViewPuzzleFeedbackComponent,
     InfoCardComponent,
-    ProfileComponent
+    ProfileComponent,
+    EmailButtonComponent
   ],
   imports: [
     BrowserModule,

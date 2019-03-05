@@ -145,7 +145,7 @@ import { SelectItem } from "primeng/api";
           legend="Edit Puzzle"
           [toggleable]="true"
           [transitionOptions]="'200ms'"
-          [collapsed]="false"
+          [collapsed]="true"
         >
           <div class="p-grid">
             <div class="ui-inputgroup p-col-12 p-lg-3">

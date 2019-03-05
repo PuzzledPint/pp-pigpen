@@ -20,6 +20,7 @@ export const apiFeedbackSaved = functions.firestore
     const { puzzleRef, ...feedback } = after;
 
     const lastChanged = admin.firestore.Timestamp.now();
+    const editStatus = "Unreviewed";
 
-    return doc.set({ lastChanged, ...feedback }, { merge: true });
+    return doc.set({ lastChanged, editStatus, ...feedback }, { merge: true });
   });
