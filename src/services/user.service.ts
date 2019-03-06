@@ -89,8 +89,9 @@ export class UserService {
     this.isSignedIn.next(!!newFbUser);
   }
 
-  public signIn() {
-    this.afAuth.auth
+  public async signIn() {
+    await this.afAuth.auth.signOut();
+    return this.afAuth.auth
       .signInWithPopup(new auth.GoogleAuthProvider())
       .then(credential => {}); // need this?
   }

@@ -6,15 +6,16 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "module": "ESNext",
+    "module": "es2015",
     "moduleResolution": "node",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "strict": true,
-    "target": "ESNext",
+    "target": "es5",
     "types": ["cypress"],
     "typeRoots": [
       "node_modules/@types"
     ],
+    "lib": [ "es2018", "dom" ]
   }
 }
