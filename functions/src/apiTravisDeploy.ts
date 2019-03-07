@@ -5,11 +5,20 @@ const fs = admin.firestore();
 
 export const apiTravisDeploy = functions.https.onRequest((request, response) => {
   // See https://docs.travis-ci.com/user/notifications/#configuring-webhook-notifications for request body (POST)
-  const build = request.body.number;
-  const commit = request.body.commit;
+  if (request && request.body && request.body.payload) {
 
-  if (!build || !commit) return response.sendStatus(500);
-  return fs.doc('/settings/travis').set({build, commit}).then(a => response.sendStatus(200)).catch(a => response.sendStatus(500));
+    const build = request.body.payload.number;
+    const commit = request.body.payload.commit;
+
+    if (!build || !commit) {
+      console.log("payload str = " + JSON.stringify(request.body.payload));
+      console.log("payload = " + request.body.payload);
+      return response.sendStatus(500);
+    }
+    return fs.doc('/settings/travis').set({ build, commit }).then(a => response.sendStatus(200)).catch(a => response.sendStatus(500));
+  } else {
+    return response.sendStatus(500);
+  }
 });
 
 
