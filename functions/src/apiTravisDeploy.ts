@@ -14,7 +14,7 @@ export const apiTravisDeploy = functions.https.onRequest((request, response) => 
   if (!body) return response.status(500).send("No valid body found");
   console.log("body valid  = "+JSON.stringify(body));
 
-  const payload = body.payload;
+  const payload = JSON.parse(body.payload);
   if (!payload) return response.status(500).send("No valid payload found");
   console.log("payload valid  = "+JSON.stringify(payload));
 
