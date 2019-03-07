@@ -5,30 +5,31 @@ const fs = admin.firestore();
 
 export const apiTravisDeploy = functions.https.onRequest((request, response) => {
   // See https://docs.travis-ci.com/user/notifications/#configuring-webhook-notifications for request body (POST)
-  if (request && request.body && request.body.payload) {
-    const payload = request.body.payload;
+  console.log("apiTravisDeploy");
 
-    const build = payload.number;
-    const commit = payload.commit;
+  if (!request) return response.status(500).send("No valid request found");
+  if (!request.body) return response.status(500).send("No valid body found");
+  if (!request.body.payload) return response.status(500).send("No valid payload found");
 
-    if (build) {
-      console.log("build: " + build);
-    } else {
-      return response.status(500).send("No valid build number found");
-    }
+  const payload = request.body.payload;
 
-    if (commit) {
-      console.log("commit: " + commit);
-    } else {
-      return response.status(500).send("No valid commit hash found");
-    }
+  if (!payload.number) return response.status(500).send("No valid build number found");
 
-    return fs
-      .doc("/settings/travis")
-      .set({ build, commit })
-      .then(a => response.sendStatus(200))
-      .catch(err => response.status(500).send("Failed to write DB: "+err));
-  } else {
-    return response.status(500).send("No valid payload found");
-  }
+  const build = payload.number;
+  console.log("build: " + build);
+
+  if (!payload.commit) return response.status(500).send("No valid commit hash found");
+
+  const commit = payload.commit;
+  console.log("build: " + build);
+
+  console.log("Setting...");
+
+  return fs
+    .doc("/settings/travis")
+    .set({ build, commit })
+    .then(a => response.sendStatus(200))
+    .catch(err => response.status(500).send("Failed to write DB: " + err));
 });
+
+
