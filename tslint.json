@@ -1,5 +1,5 @@
 {
-  "rulesDirectory": ["node_modules/codelyzer"],
+  "rulesDirectory": ["codelyzer"],
   "editor.codeActionsOnSave": {
     "source.fixAll.tslint": true
   },
