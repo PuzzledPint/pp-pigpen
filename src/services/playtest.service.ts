@@ -16,7 +16,7 @@ import { Puzzle } from "./puzzle.service";
 
 export interface PlaytestFeedbackAugmented extends FSPlaytestFeedback {
   userId: string;
-  lastChanged: string;
+  lastChanged: Date;
 }
 
 export class PlaytestFeedback {
@@ -180,7 +180,7 @@ export class PlaytestService {
   }
 
   public getPlaytestFeedbackAugmented(puzzle: Puzzle): Observable<PlaytestFeedbackAugmented[]> {
-    const col = puzzle.afDoc.collection<PlaytestFeedbackAugmented>(`playtestFeedback`);
+    const col = puzzle.afDoc.collection<PlaytestFeedbackAugmented>(`playtestFeedback`, ref=>ref.orderBy('lastChanged'));
 
     return col.snapshotChanges().pipe(
       tap(arr => console.log(`read ${arr.length} docs from puzzle/playtestFeedback collection`)),

@@ -43,7 +43,7 @@ import { DatePipe } from "@angular/common";
         <div *ngIf="(playtestFeedback$ | async) as playtestFeedback; else noFeedback" class="p-grid">
           <div *ngFor="let report of playtestFeedback">
             <div *ngIf="report.solveMinutes || report.errors || report.visual || report.general">
-              <p-card [subheader]="makeSubheader(report) + (report.lastChanged.toDate() | date: 'yyyy-MM-dd HH:mm')" styleClass="ui-card-shadow">
+              <p-card [subheader]="makeSubheader(report, report?.lastChanged?.toDate() | date: 'yyyy-MM-dd HH:mm')" styleClass="ui-card-shadow">
                 <p-header>
                   <p-button *ngIf="report.solved; else unsolved" label="Solved" icon="pi pi-check" styleClass="ui-button-success"></p-button>
                   <ng-template #unsolved>
@@ -78,9 +78,9 @@ import { DatePipe } from "@angular/common";
                       </span>
                     </ng-template>
                   </p-dropdown>
-                  <p-button label="Add Notes" style="margin-left:3px"></p-button>
+                  <p-button label="Add Notes"></p-button>
                   <div class="ui-toolbar-group-right">
-                    <app-email-button [subject]="'Question about your feedback on ' + puzzle.name" [toUser]="report.userId"></app-email-button>
+                    <app-email-button [subject]="'Question about your feedback on ' + puzzle?.name" [toUser]="report.userId"></app-email-button>
                   </div>
                 </p-footer>
               </p-card>
@@ -96,7 +96,7 @@ import { DatePipe } from "@angular/common";
       </ng-template>
     </p-fieldset>
   `,
-  styles: [],
+  styles: [".ui-dropdown { margin-right: 3px; }"],
 })
 export class ViewPuzzleFeedbackComponent implements OnInit, OnDestroy {
   public puzzle: Puzzle | undefined;
@@ -130,12 +130,13 @@ export class ViewPuzzleFeedbackComponent implements OnInit, OnDestroy {
     return v;
   }
 
-  public makeSubheader(report: PlaytestFeedbackAugmented) {
+  public makeSubheader(report: PlaytestFeedbackAugmented, d: string) {
     return `
       [${report.solveMinutes} mins]
       [${report.numPlaytesters} solvers]
       D:${"⭐".repeat(report.difficulty)}
-      F:${"⭐".repeat(report.fun)} `;
+      F:${"⭐".repeat(report.fun)}
+      ${d}`;
   }
 
   public fieldSetName(): string {
