@@ -23,7 +23,7 @@ import { SelectItem } from "primeng/api";
                 pInputText
                 type="text"
                 placeholder=" Full title of the puzzle set"
-                [(ngModel)]="selectedPuzzleSet.name"
+                [(ngModel)]="selectedPuzzleSet!.name"
                 name="name"
                 required
                 #name="ngModel"
@@ -43,7 +43,7 @@ import { SelectItem } from "primeng/api";
                 placeholder=" must be only a-z"
                 required
                 pattern="[a-z]+"
-                [(ngModel)]="selectedPuzzleSet.slug"
+                [(ngModel)]="selectedPuzzleSet!.slug"
                 name="slug"
                 #slug="ngModel"
               />
@@ -60,7 +60,7 @@ import { SelectItem } from "primeng/api";
                 pInputText
                 type="text"
                 placeholder="/assets/foo.png"
-                [(ngModel)]="selectedPuzzleSet.polaroid"
+                [(ngModel)]="selectedPuzzleSet!.polaroid"
                 name="polaroid"
                 size="30"
                 #polaroid="ngModel"
@@ -69,7 +69,7 @@ import { SelectItem } from "primeng/api";
             <div class="ui-inputgroup p-col-12 p-lg-6">
               <span class="ui-inputgroup-addon">Month</span>
               <p-calendar
-                [(ngModel)]="selectedPuzzleSet.month"
+                [(ngModel)]="selectedPuzzleSet!.month"
                 name="month"
                 view="month"
                 dateFormat="yy-mm"
@@ -81,7 +81,7 @@ import { SelectItem } from "primeng/api";
               </p-calendar>
             </div>
             <p-orderList
-              [value]="selectedPuzzleSet.puzzleRefs"
+              [value]="selectedPuzzleSet!.puzzleRefs"
               class="class p-col-12 p-lg-6"
               [(selection)]="selectedPuzzles"
               (onSelectionChange)="puzzleSelectionChanged()"
@@ -98,7 +98,7 @@ import { SelectItem } from "primeng/api";
             <div class="ui-inputgroup p-col-12 p-lg-3">
               <span class="ui-inputgroup-addon">In Playtesting</span>
               <p-inputSwitch
-                [(ngModel)]="selectedPuzzleSet.playtesting"
+                [(ngModel)]="selectedPuzzleSet!.playtesting"
                 name="playtesting"
                 pInputText
               ></p-inputSwitch>
@@ -106,7 +106,7 @@ import { SelectItem } from "primeng/api";
             <div class="ui-inputgroup p-col-12 p-lg-3">
               <span class="ui-inputgroup-addon">On the Home Page</span>
               <p-inputSwitch
-                [(ngModel)]="selectedPuzzleSet.onhomepage"
+                [(ngModel)]="selectedPuzzleSet!.onhomepage"
                 name="onhomepage"
                 pInputText
               ></p-inputSwitch>
@@ -114,7 +114,7 @@ import { SelectItem } from "primeng/api";
             <div class="ui-inputgroup p-col-12 p-lg-2">
               <span class="ui-inputgroup-addon">In Archives</span>
               <p-inputSwitch
-                [(ngModel)]="selectedPuzzleSet.archives"
+                [(ngModel)]="selectedPuzzleSet!.archives"
                 name="archives"
                 pInputText
               ></p-inputSwitch>

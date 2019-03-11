@@ -11,4 +11,6 @@ export interface FSPlaytestFeedback {
   errors: string;
   visual: string;
   general: string;
+  name: string;
+  email: string;
 }

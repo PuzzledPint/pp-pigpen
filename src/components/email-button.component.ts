@@ -14,17 +14,14 @@ import { HQUserService } from "src/services/hquser.service";
 })
 export class EmailButtonComponent implements OnInit {
   @Input() public subject: string;
-  @Input() public toUser: string | undefined;
-
-  public toEmail = "";
+  @Input() public toEmail: string;
 
   constructor(private hqus: HQUserService, private us: UserService) {
     this.subject = "";
-    this.toUser = "";
+    this.toEmail = "";
   }
 
   public ngOnInit() {
-    this.toEmail = "Not@Implemented.yet";
   }
 
   public url(): string {

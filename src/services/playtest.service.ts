@@ -117,7 +117,7 @@ export class PlaytestFeedback {
     }
   }
 
-  constructor(private afDoc: AngularFirestoreDocument<FSPlaytestFeedback>, puzzleRef: DocumentReference) {
+  constructor(private afDoc: AngularFirestoreDocument<FSPlaytestFeedback>, puzzleRef: DocumentReference, name:string, email:string) {
     this.inner = {
       puzzleRef: puzzleRef,
       numPlaytesters: 0,
@@ -128,7 +128,9 @@ export class PlaytestFeedback {
       fun: 0,
       errors: "",
       visual: "",
-      general: ""
+      general: "",
+      name: name,
+      email: email
     };
 
     // subscribe to DB updates
@@ -174,7 +176,7 @@ export class PlaytestService {
 
   public getPlaytestFeedback(puzzleRef: DocumentReference): PlaytestFeedback {
     if (this.playtestCollection) {
-      return new PlaytestFeedback(this.playtestCollection.doc(puzzleRef.id), puzzleRef);
+      return new PlaytestFeedback(this.playtestCollection.doc(puzzleRef.id), puzzleRef, this.us.name, this.us.email);
     }
     throw new Error("tried to get playtest feedback of user with no id");
   }

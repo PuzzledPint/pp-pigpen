@@ -49,7 +49,7 @@ import { DatePipe } from "@angular/common";
                   <ng-template #unsolved>
                     <p-button label="Unsolved" icon="pi pi-times" styleClass="ui-button-danger"></p-button>
                   </ng-template>
-                  <p-button label="{{ report.userId }}" styleClass="ui-button-secondary"></p-button>
+                  <p-button label="{{ report.name }}" styleClass="ui-button-secondary"></p-button>
                   <div class="ui-toolbar-group-right">
                     <button pButton type="button" [label]="makeVersion(report)" class="ui-button-info"></button>
                   </div>
@@ -80,7 +80,7 @@ import { DatePipe } from "@angular/common";
                   </p-dropdown>
                   <p-button label="Add Notes"></p-button>
                   <div class="ui-toolbar-group-right">
-                    <app-email-button [subject]="'Question about your feedback on ' + puzzle?.name" [toUser]="report.userId"></app-email-button>
+                    <app-email-button [subject]="'Question about your feedback on ' + puzzle?.name" [toEmail]="report.email"></app-email-button>
                   </div>
                 </p-footer>
               </p-card>
