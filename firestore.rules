@@ -19,9 +19,17 @@ service cloud.firestore {
       allow write: if isEditor()
     }
 
-    match /puzzles/{document=**} {
+    match /puzzles/{docId} {
       allow read: if true;
       allow write: if isEditor()
+    }
+
+    match /puzzles/{docId}/playtestFeedback/{userId} {
+      allow read, write: if isEditor()
+    }
+
+    match /puzzles/{docId}/playtestFeedback {
+      allow read, write: if isEditor()
     }
 
     match /settings/{document=**} {
