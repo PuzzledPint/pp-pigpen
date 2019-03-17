@@ -369,7 +369,7 @@ export class EditPuzzleSetComponent implements OnInit, OnDestroy {
     }
   }
 
-  public downloadFeedback(sps : PuzzleSet) {
+  public downloadFeedback(sps: PuzzleSet) {
     this.ps.downloadFeedback(sps);
   }
 }

@@ -22,6 +22,18 @@ export class PlaytestFeedback {
   public fun_error = "";
   public isDirty = false;
 
+  public static get csvHeader(): string {
+    return "Puzzle, numPlaytesters, name, email, version, solved, solveMinutes, difficulty, fun, errors, visual, general";
+  }
+
+  public static makeCSVRow(puzzleName: string, pfa: PlaytestFeedbackAugmented) {
+    const escErrors = pfa.errors.replace(/"/g, '""');
+    const escVisual = pfa.visual.replace(/"/g, '""');
+    const escGeneral = pfa.general.replace(/"/g, '""');
+    // tslint:disable-next-line
+    return `"${puzzleName}","${pfa.numPlaytesters}","${pfa.name}","${pfa.email}","${pfa.version}","${pfa.solved}","${pfa.solveMinutes}","${pfa.difficulty}","${pfa.fun}","${escErrors}","${escVisual}","${escGeneral}"`;
+  }
+
   get numPlaytesters() {
     return Util.numToString(this.inner.numPlaytesters);
   }
@@ -122,17 +134,6 @@ export class PlaytestFeedback {
         Object.assign<FSPlaytestFeedback, FSPlaytestFeedback>(this.inner, newfs);
       }
     });
-  }
-
-  public static get csvHeader(): string {
-    return "Puzzle, numPlaytesters, name, email, version, solved, solveMinutes, difficulty, fun, errors, visual, general";
-  }
-
-  public static makeCSVRow(puzzleName: string, pfa: PlaytestFeedbackAugmented) {
-    const escErrors = pfa.errors.replace(/"/g, '""');
-    const escVisual = pfa.visual.replace(/"/g, '""');
-    const escGeneral = pfa.general.replace(/"/g, '""');
-    return `"${puzzleName}","${pfa.numPlaytesters}","${pfa.name}","${pfa.email}","${pfa.version}","${pfa.solved}","${pfa.solveMinutes}","${pfa.difficulty}","${pfa.fun}","${escErrors}","${escVisual}","${escGeneral}"`;
   }
 
   public save(ns: NotifyService) {

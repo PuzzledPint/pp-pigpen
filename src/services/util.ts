@@ -23,7 +23,7 @@ export class Util {
     return "";
   }
 
-  public static async single<T>(obs: Observable<T>) : Promise<T> {
+  public static async single<T>(obs: Observable<T>): Promise<T> {
     return await obs.pipe(first()).toPromise<T>();
   }
 }

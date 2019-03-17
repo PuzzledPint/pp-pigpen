@@ -116,17 +116,17 @@ export class PuzzleService {
     return Util.fromFS<FSPuzzle, Puzzle>(doc);
   }
 
-  public async downloadFeedback(sps : PuzzleSet) {
+  public async downloadFeedback(sps: PuzzleSet) {
     let emitHeader = true;
     console.log('df:6');
 
-    let csv: string[] = [];
+    const csv: string[] = [];
     console.log('df:7');
 
     const replacer = (key: string, value: any) => (value === null ? "" : value); // specify how you want to handle null values here
     console.log('df:8');
 
-    for (let puzzleRef of sps.puzzleRefs) {
+    for (const puzzleRef of sps.puzzleRefs) {
       console.log('df:9');
       const puzzle = await Util.single(this.getPuzzle(puzzleRef));
       console.log('df:9.1');
@@ -139,7 +139,7 @@ export class PuzzleService {
         console.log('df:10');
       }
 
-      for (let row of feedback) {
+      for (const row of feedback) {
         console.log('df:11');
         csv.push(PlaytestFeedback.makeCSVRow(puzzle.name, row));
       }
