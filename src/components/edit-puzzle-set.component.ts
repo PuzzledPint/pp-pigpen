@@ -137,7 +137,8 @@ import { SelectItem } from "primeng/api";
           </div>
         </p-fieldset>
       </form>
-    </div>
+      <p-button label="Download Feedback CSV for all Puzzles" (onClick)="downloadFeedback(selectedPuzzleSet)"></p-button>
+      </div>
     <br />
     <div *ngIf="selectedPuzzle as puzzle">
       <form (ngSubmit)="savePuzzle()" #puzzleForm="ngForm">
@@ -366,5 +367,9 @@ export class EditPuzzleSetComponent implements OnInit, OnDestroy {
     } else {
       this.ps.selectPuzzle(undefined);
     }
+  }
+
+  public downloadFeedback(sps : PuzzleSet) {
+    this.ps.downloadFeedback(sps);
   }
 }

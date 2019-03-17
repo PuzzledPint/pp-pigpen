@@ -1,15 +1,10 @@
 import { Injectable } from "@angular/core";
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-  DocumentReference,
-  AngularFirestoreCollection
-} from "@angular/fire/firestore";
+import { AngularFirestore, AngularFirestoreDocument, DocumentReference, AngularFirestoreCollection } from "@angular/fire/firestore";
 
 import { FSPlaytestFeedback } from "../models/fs-playtest-feedback.model";
 import { UserService } from "./user.service";
-import { Util } from './util';
-import { NotifyService } from './notify.service';
+import { Util } from "./util";
+import { NotifyService } from "./notify.service";
 import { Observable } from "rxjs";
 import { map, tap, shareReplay } from "rxjs/operators";
 import { Puzzle } from "./puzzle.service";
@@ -34,14 +29,10 @@ export class PlaytestFeedback {
     const i = +s;
     this.dirty(i, this.inner.numPlaytesters);
     this.inner.numPlaytesters = i;
-    this.numPlaytesters_error =
-      Number.isInteger(i) && i > 0
-        ? ""
-        : "number of playtesters must be a positive whole number";
+    this.numPlaytesters_error = Number.isInteger(i) && i > 0 ? "" : "number of playtesters must be a positive whole number";
   }
   get version() {
     return this.inner.version;
-
   }
   set version(s: string) {
     this.dirty(s, this.inner.version);
@@ -62,10 +53,7 @@ export class PlaytestFeedback {
     const i = +s;
     this.dirty(i, this.inner.solveMinutes);
     this.inner.solveMinutes = i;
-    this.solveMinutes_error =
-      Number.isInteger(i) && i > 0
-        ? ""
-        : "solving time must be a positive whole number of minutes";
+    this.solveMinutes_error = Number.isInteger(i) && i > 0 ? "" : "solving time must be a positive whole number of minutes";
   }
 
   get difficulty() {
@@ -74,8 +62,7 @@ export class PlaytestFeedback {
   set difficulty(i: number) {
     this.dirty(i, this.inner.difficulty);
     this.inner.difficulty = i;
-    this.difficulty_error =
-      Number.isInteger(i) && i > 0 ? "" : "please select a difficulty level";
+    this.difficulty_error = Number.isInteger(i) && i > 0 ? "" : "please select a difficulty level";
   }
   get fun() {
     return this.inner.fun;
@@ -83,12 +70,10 @@ export class PlaytestFeedback {
   set fun(i: number) {
     this.dirty(i, this.inner.fun);
     this.inner.fun = i;
-    this.fun_error =
-      Number.isInteger(i) && i > 0 ? "" : "please select a fun level";
+    this.fun_error = Number.isInteger(i) && i > 0 ? "" : "please select a fun level";
   }
   get errors() {
     return this.inner.errors;
-
   }
   set errors(s: string) {
     this.dirty(s, this.inner.errors);
@@ -96,7 +81,6 @@ export class PlaytestFeedback {
   }
   get visual() {
     return this.inner.visual;
-
   }
   set visual(s: string) {
     this.dirty(s, this.inner.visual);
@@ -104,20 +88,19 @@ export class PlaytestFeedback {
   }
   get general() {
     return this.inner.general;
-
   }
   set general(s: string) {
     this.dirty(s, this.inner.general);
     this.inner.general = s;
   }
 
-  private dirty(a: string|number|boolean, b: string|number|boolean) {
+  private dirty(a: string | number | boolean, b: string | number | boolean) {
     if (a !== b) {
       this.isDirty = true;
     }
   }
 
-  constructor(private afDoc: AngularFirestoreDocument<FSPlaytestFeedback>, puzzleRef: DocumentReference, name:string, email:string) {
+  constructor(private afDoc: AngularFirestoreDocument<FSPlaytestFeedback>, puzzleRef: DocumentReference, name: string, email: string) {
     this.inner = {
       puzzleRef: puzzleRef,
       numPlaytesters: 0,
@@ -130,26 +113,46 @@ export class PlaytestFeedback {
       visual: "",
       general: "",
       name: name,
-      email: email
+      email: email,
     };
 
     // subscribe to DB updates
     afDoc.valueChanges().subscribe(newfs => {
       if (newfs) {
-        Object.assign<FSPlaytestFeedback, FSPlaytestFeedback>(
-          this.inner,
-          newfs
-        );
+        Object.assign<FSPlaytestFeedback, FSPlaytestFeedback>(this.inner, newfs);
       }
     });
   }
 
+  public static get csvHeader(): string {
+    return "Puzzle, numPlaytesters, name, email, version, solved, solveMinutes, difficulty, fun, errors, visual, general";
+  }
+
+  public static makeCSVRow(puzzleName: string, pfa: PlaytestFeedbackAugmented) {
+    const escErrors = pfa.errors.replace(/"/g, '""');
+    const escVisual = pfa.visual.replace(/"/g, '""');
+    const escGeneral = pfa.general.replace(/"/g, '""');
+    return `"${puzzleName}","${pfa.numPlaytesters}","${pfa.name}","${pfa.email}","${pfa.version}","${pfa.solved}","${pfa.solveMinutes}","${pfa.difficulty}","${pfa.fun}","${escErrors}","${escVisual}","${escGeneral}"`;
+  }
+
   public save(ns: NotifyService) {
     let go = true;
-    if (this.numPlaytesters_error) { ns.error("Invalid Field", this.numPlaytesters_error); go = false; }
-    if (this.difficulty_error) { ns.error("Invalid Field", this.difficulty_error); go = false; }
-    if (this.solveMinutes_error) { ns.error("Invalid Field", this.solveMinutes_error); go = false; }
-    if (this.fun_error) { ns.error("Invalid Field", this.fun_error); go = false; }
+    if (this.numPlaytesters_error) {
+      ns.error("Invalid Field", this.numPlaytesters_error);
+      go = false;
+    }
+    if (this.difficulty_error) {
+      ns.error("Invalid Field", this.difficulty_error);
+      go = false;
+    }
+    if (this.solveMinutes_error) {
+      ns.error("Invalid Field", this.solveMinutes_error);
+      go = false;
+    }
+    if (this.fun_error) {
+      ns.error("Invalid Field", this.fun_error);
+      go = false;
+    }
 
     if (go) {
       this.afDoc.set(this.inner);
@@ -159,15 +162,12 @@ export class PlaytestFeedback {
 }
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class PlaytestService {
   public playtestCollection: AngularFirestoreCollection<FSPlaytestFeedback> | undefined;
 
-  constructor(
-    private readonly af: AngularFirestore,
-    private readonly us: UserService
-  ) {
+  constructor(private readonly af: AngularFirestore, private readonly us: UserService) {
     if (us.fsdoc) {
       this.playtestCollection = us.fsdoc.collection<FSPlaytestFeedback>("playtestFeedback");
     }
@@ -182,16 +182,19 @@ export class PlaytestService {
   }
 
   public getPlaytestFeedbackAugmented(puzzle: Puzzle): Observable<PlaytestFeedbackAugmented[]> {
-    const col = puzzle.afDoc.collection<PlaytestFeedbackAugmented>(`playtestFeedback`, ref=>ref.orderBy('lastChanged'));
+    const col = puzzle.afDoc.collection<PlaytestFeedbackAugmented>(`playtestFeedback`, ref => ref.orderBy("lastChanged"));
 
     return col.snapshotChanges().pipe(
       tap(arr => console.log(`read ${arr.length} docs from puzzle/playtestFeedback collection`)),
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data();
-        const userId = a.payload.doc.id;
-        return { userId, ...data };
-      }),
-      shareReplay(1))
+      map(
+        actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data();
+            const userId = a.payload.doc.id;
+            return { userId, ...data };
+          }),
+        shareReplay(1)
+      )
     );
   }
 }

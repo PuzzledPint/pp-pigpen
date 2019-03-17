@@ -11,6 +11,8 @@ import { map, tap, shareReplay, filter } from "rxjs/operators";
 import { FSPuzzleSet } from "src/models/fs-puzzle-set.model";
 import { FSPuzzle } from "src/models/fs-puzzle.model";
 import { Util } from './util';
+import { PlaytestService, PlaytestFeedback } from "./playtest.service";
+import { saveAs } from "file-saver";
 
 export interface PuzzleSet extends FSPuzzleSet { afDoc: AngularFirestoreDocument<FSPuzzleSet>; }
 export interface Puzzle extends FSPuzzle { afDoc: AngularFirestoreDocument<FSPuzzle>; }
@@ -32,7 +34,7 @@ export class PuzzleService {
   private puzzlesCollection: AngularFirestoreCollection<FSPuzzle>;
 
 
-  constructor(private readonly af: AngularFirestore) {
+  constructor(private readonly af: AngularFirestore, private pts: PlaytestService) {
     this.puzzleSetsCollection = af.collection<FSPuzzleSet>("puzzleSets");
     this.puzzleSets = this.puzzleSetsCollection.snapshotChanges().pipe(
       tap(arr => console.log(`read ${arr.length} docs from puzzleSets collection`)),
@@ -114,4 +116,38 @@ export class PuzzleService {
     return Util.fromFS<FSPuzzle, Puzzle>(doc);
   }
 
+  public async downloadFeedback(sps : PuzzleSet) {
+    let emitHeader = true;
+    console.log('df:6');
+
+    let csv: string[] = [];
+    console.log('df:7');
+
+    const replacer = (key: string, value: any) => (value === null ? "" : value); // specify how you want to handle null values here
+    console.log('df:8');
+
+    for (let puzzleRef of sps.puzzleRefs) {
+      console.log('df:9');
+      const puzzle = await Util.single(this.getPuzzle(puzzleRef));
+      console.log('df:9.1');
+      const feedback = await Util.single(this.pts.getPlaytestFeedbackAugmented(puzzle));
+      console.log('df:9.2');
+
+      if (emitHeader) {
+        emitHeader = false;
+        csv.push(PlaytestFeedback.csvHeader);
+        console.log('df:10');
+      }
+
+      for (let row of feedback) {
+        console.log('df:11');
+        csv.push(PlaytestFeedback.makeCSVRow(puzzle.name, row));
+      }
+    }
+
+    console.log('df:12');
+    saveAs(new Blob([csv.join("\r\n")], {type: 'text/csv'}), sps.slug+".csv");
+    console.log('df:13');
+    return;
+  }
 }

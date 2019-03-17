@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { AngularFirestoreDocument } from '@angular/fire/firestore';
-import { tap, map, shareReplay } from 'rxjs/operators';
+import { tap, map, shareReplay, first } from 'rxjs/operators';
 
 export class Util {
   public static improperSlug(slug: string): boolean {
@@ -21,5 +21,9 @@ export class Util {
   public static numToString(n: number) {
     if (n && n > 0) { return n.toString(); }
     return "";
+  }
+
+  public static async single<T>(obs: Observable<T>) : Promise<T> {
+    return await obs.pipe(first()).toPromise<T>();
   }
 }
