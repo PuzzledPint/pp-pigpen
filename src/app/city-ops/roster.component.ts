@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 @Component({
   selector: "app-roster",
   template: `
-    <p-table [value]="puzzle.hints" (onEditComplete)="savePuzzle()">
+    <p-table [value]="" (onEditComplete)="save()">
       <ng-template pTemplate="caption">
         <p>Hints</p>
       </ng-template>
@@ -48,5 +48,7 @@ import { Component, OnInit } from "@angular/core";
 export class RosterComponent implements OnInit {
   constructor() {}
 
-  ngOnInit() {}
+  public save() { }
+
+  public ngOnInit() {}
 }
