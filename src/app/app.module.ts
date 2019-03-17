@@ -101,7 +101,8 @@ const config = {
     ViewPuzzleFeedbackComponent,
     InfoCardComponent,
     ProfileComponent,
-    EmailButtonComponent
+    EmailButtonComponent,
+    RosterComponent,
   ],
   imports: [
     BrowserModule,
