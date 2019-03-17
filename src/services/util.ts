@@ -11,8 +11,9 @@ export class Util {
     const obs: Observable<T | undefined> = afDoc.valueChanges();
     return obs.pipe(
       tap(
-        doc => { if (doc) { console.log("firestore read:", doc); }
-  }),
+        doc => {
+          if (doc) { console.log("firestore read:", doc); }
+        }),
       map(fs => { return { afDoc, ...fs } as unknown as K; }),
       shareReplay(1)
     );
@@ -25,5 +26,9 @@ export class Util {
 
   public static async single<T>(obs: Observable<T>): Promise<T> {
     return await obs.pipe(first()).toPromise<T>();
+  }
+
+  public static isEmailValid(email: string): boolean {
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
   }
 }

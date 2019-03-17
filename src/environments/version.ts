@@ -1,2 +1,1 @@
-export const ppPigpenVersion = { build: 0, commit: "TRAVIS_COMMIT" };
-
+export const ppPigpenVersion = { build: "TRAVIS_BUILD_NUMBER", commit: "TRAVIS_COMMIT" };

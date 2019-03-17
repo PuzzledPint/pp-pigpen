@@ -18,8 +18,8 @@ branches:
     - master
 
 before_script:
-  - sed -ri "s/TRAVIS_BUILD_NUMBER/$TRAVIS_BUILD_NUMBER" src/environments/version.ts
-  - sed -ri "s/TRAVIS_COMMIT/$TRAVIS_COMMIT" src/environments/version.ts
+  - sed -ri "s/TRAVIS_BUILD_NUMBER/$TRAVIS_BUILD_NUMBER/" src/environments/version.ts
+  - sed -ri "s/TRAVIS_COMMIT/$TRAVIS_COMMIT/" src/environments/version.ts
   - npm install -g @angular/cli
   - npm install -g wait-on
   - cd functions && npm install

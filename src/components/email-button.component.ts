@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { UserService } from "src/services/user.service";
 import { HttpParams } from "@angular/common/http";
-import { HQUserService } from "src/services/hquser.service";
 
 @Component({
   selector: "app-email-button",
@@ -16,7 +15,7 @@ export class EmailButtonComponent implements OnInit {
   @Input() public subject: string;
   @Input() public toEmail: string;
 
-  constructor(private hqus: HQUserService, private us: UserService) {
+  constructor(private us: UserService) {
     this.subject = "";
     this.toEmail = "";
   }

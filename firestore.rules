@@ -45,10 +45,13 @@ service cloud.firestore {
       allow read, write: if uidMatches(userId);
     }
 
+    match /cityops/{document=**} {
+      allow read, write: if isCityOps();
+    }
+
     function auth() {
       return request.auth != null;
     }
-
     function token() {
       return auth() && request.auth.token != null;
     }
