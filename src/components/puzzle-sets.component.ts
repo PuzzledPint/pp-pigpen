@@ -10,6 +10,7 @@ import { Observable } from "rxjs";
       <ng-template let-set pTemplate="set">
         <div
           (click)="selectPuzzleSet(set)"
+          style="cursor: pointer"
         >
               <img
                 alt="Set Polaroid"
