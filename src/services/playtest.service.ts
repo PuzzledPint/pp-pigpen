@@ -168,11 +168,21 @@ export class PlaytestFeedback {
 export class PlaytestService {
   public playtestCollection: AngularFirestoreCollection<FSPlaytestFeedback> | undefined;
 
-  constructor(private readonly af: AngularFirestore, private readonly us: UserService) {
-    if (us.fsdoc) {
-      this.playtestCollection = us.fsdoc.collection<FSPlaytestFeedback>("playtestFeedback");
-    }
+  constructor(private readonly af: AngularFirestore, private readonly us: UserService, private readonly ns: NotifyService) {
+    us.isSignedIn.subscribe(
+      (authenticated) => {
+        if (authenticated) {
+          if (us.fsdoc) {
+            this.playtestCollection = us.fsdoc.collection<FSPlaytestFeedback>("playtestFeedback");
+          } else {
+            ns.error("user document not found", "In Playtest Service");
+          }
+        } else {
+          this.playtestCollection = undefined;
+        }
+      });
   }
+
   // Public interface
 
   public getPlaytestFeedback(puzzleRef: DocumentReference): PlaytestFeedback {
