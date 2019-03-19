@@ -4,6 +4,7 @@ The current developer documentation can be found <a target="_blank" href="https:
 
 ### Acknowledgements
 
-We're using BrowserStack for testing
-<img src="Browserstack-logo@2x.png">
+# We're using BrowserStack for testing
+# 
+<img src="Browserstack-logo@2x.png" width="200px" height="43px">
 
