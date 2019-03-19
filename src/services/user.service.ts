@@ -9,7 +9,7 @@ import {
 import { User, auth } from "firebase/app";
 
 import { FSUserDoc } from "../models/fs-user-doc.model";
-import { Subject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 
 export type AnyRole = keyof HQTeams;
 
@@ -25,7 +25,7 @@ export interface HQTeams {
   providedIn: "root"
 })
 export class UserService {
-  public isSignedIn: Subject<boolean> = new Subject<boolean>();
+  public isSignedIn: ReplaySubject<boolean> = new ReplaySubject<boolean>();
 
   public id = "";
   public name = "";
@@ -86,6 +86,7 @@ export class UserService {
 
       this.fsdoc = undefined;
     }
+    console.log("Sending User Update: " + this.id);
     this.isSignedIn.next(!!newFbUser);
   }
 

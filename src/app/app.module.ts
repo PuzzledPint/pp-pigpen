@@ -13,7 +13,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
 // PrimeNG
-import { CardModule } from 'primeng/card';
+import { CardModule as PNGCardModule } from 'primeng/card';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -32,19 +32,17 @@ import { OrderListModule } from 'primeng/orderlist';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { AccordionModule } from 'primeng/accordion';
-import { HintComponent } from '../components/hint.component';
-import { EditorModule } from 'primeng/editor';
+import { EditorModule as PNGEditorModule } from 'primeng/editor';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RatingModule } from 'primeng/rating';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 
-// Our Modules
+// Our Components
+import { HintComponent } from '../components/hint.component';
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from '../components/header.component';
 import { FooterComponent } from '../components/footer.component';
 import { SitewideAlertComponent } from '../components/sitewide-alert.component';
-import { VariablesPipe } from '../pipes/variables.pipe';
 import { TestAllComponent } from './test-all/test-all.component';
 import { environment } from '../environments/environment';
 import { HomeComponent } from '../components/home.component';
@@ -55,16 +53,24 @@ import { PlaytestingComponent } from './playtesting/playtesting.component';
 import { UserAuthComponent } from '../components/user-auth.component';
 import { EditPuzzleSetComponent } from '../components/edit-puzzle-set.component';
 import { PuzzleSetsComponent } from '../components/puzzle-sets.component';
-import { RefToPuzzlePipe } from "src/pipes/refToPuzzle.pipe";
 import { PuzzleComponent } from '../components/puzzle.component';
 import { PuzzleFeedbackComponent } from '../components/puzzle-feedback.component';
 import { InfoCardComponent } from '../components/info-card.component';
-import { AppErrorHandler } from 'src/services/notify.service';
 import { InfoComponent } from './info/info.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ViewPuzzleFeedbackComponent } from "src/components/view-puzzle-feedback.component";
 import { EmailButtonComponent } from "src/components/email-button.component";
-import { RosterComponent } from "src/app/city-ops/roster.component";
+
+// Our Services
+import { AppErrorHandler } from 'src/services/notify.service';
+
+// Our Pipes
+import { RefToPuzzlePipe } from "src/pipes/refToPuzzle.pipe";
+import { VariablesPipe } from '../pipes/variables.pipe';
+
+// Our Modules
+import { CityOpsModule } from "src/app/city-ops/city-ops.module";
+import { AppRoutingModule } from './app-routing.module';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -102,7 +108,6 @@ const config = {
     InfoCardComponent,
     ProfileComponent,
     EmailButtonComponent,
-    RosterComponent,
   ],
   imports: [
     BrowserModule,
@@ -120,7 +125,7 @@ const config = {
     }), // storage
 
     // PrimeNG
-    CardModule,
+    PNGCardModule,
     ScrollPanelModule,
     ButtonModule,
     SplitButtonModule,
@@ -141,11 +146,12 @@ const config = {
     CheckboxModule,
     RatingModule,
     InputTextareaModule,
+    PNGEditorModule,
 
     // Our app
-    AppRoutingModule,
-    EditorModule,
+    CityOpsModule,
 
+    AppRoutingModule // must be last because of the catch-all
   ],
   providers: [MessageService, {provide: ErrorHandler, useClass: AppErrorHandler}],
   bootstrap: [AppComponent]

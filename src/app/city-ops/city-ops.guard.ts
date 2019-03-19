@@ -16,7 +16,7 @@ import { map, tap, take } from 'rxjs/operators';
   providedIn: 'root'
 })
 
-export class CommsGuard implements CanActivate, CanActivateChild {
+export class CityOpsGuard implements CanActivate, CanActivateChild {
   constructor(
     private auth: UserService,
     private router: Router,
@@ -29,10 +29,10 @@ export class CommsGuard implements CanActivate, CanActivateChild {
     ): Observable<boolean> {
     return this.auth.isSignedIn.pipe(
       take(1),
-      map(b => b && this.auth.isComms),
+      map(b => b && this.auth.isCityOps),
       tap(b => {
         if (!b) {
-          this.notify.error("Denied", "You must be on the HQ Communications team to access that page!");
+          this.notify.error("Denied", "You must be on the HQ City Operations team to access that page!");
           this.router.navigate(["/"]);
           return false;
         }

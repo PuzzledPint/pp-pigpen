@@ -15,18 +15,19 @@ import { CommsComponent } from './comms/comms.component';
 import { CommsGuard } from './comms/comms.guard';
 import { InfoComponent } from './info/info.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CityOpsComponent } from './city-ops/city-ops.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'testAll', component: TestAllComponent },
 
   // Protected
-  { path: 'editor', component: EditorComponent },
+  { path: 'editor', component: EditorComponent, canActivate: [EditorGuard] },
   { path: 'webmaster', component: WebmasterComponent,  canActivate: [WebmasterGuard] },
-  { path: 'comms', component: CommsComponent },
-  { path: 'playtesting', component: PlaytestingComponent },
+  { path: 'comms', component: CommsComponent, canActivate: [CommsGuard] },
 
   // public
+  { path: 'playtesting', component: PlaytestingComponent },
   { path: 'info/:slug', component: InfoComponent },
   { path: 'info', component: InfoComponent },
 

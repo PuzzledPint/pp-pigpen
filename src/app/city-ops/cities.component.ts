@@ -1,9 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { RosterService } from "src/services/roster.service";
 
 @Component({
-  selector: "app-city-ops-roster",
-  template: `Roster`
+  selector: "app-city-ops-cities",
+  template:      `Cities`
     // <p-table [value]="" (onEditComplete)="save()">
     //   <ng-template pTemplate="caption">
     //     <p>Roster</p>
@@ -43,11 +42,12 @@ import { RosterService } from "src/services/roster.service";
     //     </tr>
     //   </ng-template>
     // </p-table>
+
   ,
   styles: [],
 })
-export class RosterComponent implements OnInit {
-  constructor(private rs: RosterService) {}
+export class CitiesComponent implements OnInit {
+  constructor() {}
 
   public ngOnInit() {}
 }

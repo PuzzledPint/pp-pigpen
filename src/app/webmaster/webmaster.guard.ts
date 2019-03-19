@@ -3,37 +3,47 @@ import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  Router
+  Router,
+  CanActivateChild
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { UserService } from '../../services/user.service';
 import { NotifyService } from '../../services/notify.service';
+import { map, tap, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class WebmasterGuard implements CanActivate {
+export class WebmasterGuard implements CanActivate, CanActivateChild {
   constructor(
     private auth: UserService,
     private router: Router,
     private notify: NotifyService
-  ) {}
+  ) { }
 
-  public async canActivate(
+  public canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Promise<boolean> {
-    if (this.auth.isWebmaster) {
-      return true;
-    }
-    const signedIn = await this.auth.isSignedIn;
-    if (!this.auth.isWebmaster) {
-      this.notify.error("Denied", "You must be a webmaster to access that page!");
-      this.router.navigate(["/"]);
-      return false;
-    }
-    return true;
+    ): Observable<boolean> {
+    return this.auth.isSignedIn.pipe(
+      take(1),
+      map(b => b && this.auth.isWebmaster),
+      tap(b => {
+        if (!b) {
+          this.notify.error("Denied", "You must be on the HQ Webmasters team to access that page!");
+          this.router.navigate(["/"]);
+          return false;
+        }
+      })
+    );
+  }
+
+  public canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+    ): Observable<boolean> {
+    return this.canActivate(route, state);
   }
 }

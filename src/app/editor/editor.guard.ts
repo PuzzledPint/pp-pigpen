@@ -1,40 +1,49 @@
-import { Injectable } from "@angular/core";
-import { take, tap, map } from "rxjs/operators";
-
+import { Injectable } from '@angular/core';
 import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  Router
-} from "@angular/router";
-import { Observable } from "rxjs";
+  Router,
+  CanActivateChild
+} from '@angular/router';
+import { Observable } from 'rxjs';
 
-import { UserService } from "../../services/user.service";
-import { NotifyService } from "../../services/notify.service";
+import { UserService } from '../../services/user.service';
+import { NotifyService } from '../../services/notify.service';
+import { map, tap, take } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
-export class EditorGuard implements CanActivate {
+
+export class EditorGuard implements CanActivate, CanActivateChild {
   constructor(
     private auth: UserService,
     private router: Router,
     private notify: NotifyService
-  ) {}
+  ) { }
 
-  public async canActivate(
+  public canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Promise<boolean> {
-    if (this.auth.isEditor) {
-      return true;
-    }
-    const signedIn = await this.auth.isSignedIn;
-    if (!this.auth.isEditor) {
-      this.notify.error("Denied", "You must be an editor to access that page!");
-      this.router.navigate(["/"]);
-      return false;
-    }
-    return true;
+    ): Observable<boolean> {
+    return this.auth.isSignedIn.pipe(
+      take(1),
+      map(b => b && this.auth.isEditor),
+      tap(b => {
+        if (!b) {
+          this.notify.error("Denied", "You must be on the HQ Editors team to access that page!");
+          this.router.navigate(["/"]);
+          return false;
+        }
+      })
+    );
+  }
+
+  public canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+    ): Observable<boolean> {
+    return this.canActivate(route, state);
   }
 }
