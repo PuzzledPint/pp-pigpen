@@ -98,9 +98,6 @@ const config = {
     EditPuzzleSetComponent,
     PuzzleSetsComponent,
     InfoComponent,
-
-    VariablesPipe,
-    RefToPuzzlePipe,
     PuzzleComponent,
     HintComponent,
     PuzzleFeedbackComponent,
@@ -108,6 +105,9 @@ const config = {
     InfoCardComponent,
     ProfileComponent,
     EmailButtonComponent,
+
+    VariablesPipe,
+    RefToPuzzlePipe,
   ],
   imports: [
     BrowserModule,

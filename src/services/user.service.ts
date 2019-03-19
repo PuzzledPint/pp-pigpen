@@ -25,7 +25,7 @@ export interface HQTeams {
   providedIn: "root"
 })
 export class UserService {
-  public isSignedIn: ReplaySubject<boolean> = new ReplaySubject<boolean>();
+  public isSignedIn: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
 
   public id = "";
   public name = "";
