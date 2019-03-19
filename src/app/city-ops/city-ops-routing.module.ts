@@ -7,7 +7,7 @@ import { CityOpsComponent } from "./city-ops.component";
 
 const routes: Routes = [
   {
-    path: "city-ops",
+    path: "",
     component: CityOpsComponent,
     canActivate: [CityOpsGuard],
     canActivateChild: [CityOpsGuard],

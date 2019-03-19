@@ -69,7 +69,6 @@ import { RefToPuzzlePipe } from "src/pipes/refToPuzzle.pipe";
 import { VariablesPipe } from '../pipes/variables.pipe';
 
 // Our Modules
-import { CityOpsModule } from "src/app/city-ops/city-ops.module";
 import { AppRoutingModule } from './app-routing.module';
 
 // Firebase credentials (okay to be public)
@@ -147,9 +146,6 @@ const config = {
     RatingModule,
     InputTextareaModule,
     PNGEditorModule,
-
-    // Our app
-    CityOpsModule,
 
     AppRoutingModule // must be last because of the catch-all
   ],

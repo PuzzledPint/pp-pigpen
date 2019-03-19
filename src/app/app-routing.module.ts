@@ -15,13 +15,14 @@ import { CommsComponent } from './comms/comms.component';
 import { CommsGuard } from './comms/comms.guard';
 import { InfoComponent } from './info/info.component';
 import { ProfileComponent } from './profile/profile.component';
-import { CityOpsComponent } from './city-ops/city-ops.component';
+import { CityOpsGuard } from "./city-ops/city-ops.guard";
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'testAll', component: TestAllComponent },
+  // Home
+  { path: '', component: HomeComponent, pathMatch: 'full' },
 
   // Protected
+  { path: 'city-ops', loadChildren:'./city-ops/city-ops.module#CityOpsModule', canLoad: [CityOpsGuard]},
   { path: 'editor', component: EditorComponent, canActivate: [EditorGuard] },
   { path: 'webmaster', component: WebmasterComponent,  canActivate: [WebmasterGuard] },
   { path: 'comms', component: CommsComponent, canActivate: [CommsGuard] },
@@ -30,6 +31,9 @@ const routes: Routes = [
   { path: 'playtesting', component: PlaytestingComponent },
   { path: 'info/:slug', component: InfoComponent },
   { path: 'info', component: InfoComponent },
+
+  // public as tester doesn't log in
+  { path: 'testAll', component: TestAllComponent },
 
   // profile
   { path: 'profile/:uid', component: ProfileComponent },
