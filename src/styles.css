@@ -3201,6 +3201,8 @@ body .ui-slidemenu .ui-menu-separator {
 }
 body .ui-tabmenu {
   border: 0 none;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 body .ui-tabmenu .ui-tabmenu-nav {
   padding: 0;

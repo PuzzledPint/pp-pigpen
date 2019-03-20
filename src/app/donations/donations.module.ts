@@ -10,6 +10,11 @@ import { MakeDonationComponent } from "./make-donation.component";
 import { ListDonationsComponent } from "./list-donations.component";
 import { DonationsRoutingModule } from "./donations-routing.module";
 import { DonationsComponent } from "./donations.component";
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { PanelModule } from 'primeng/panel';
+import { InputTextModule } from 'primeng/inputtext';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 // Our Components
 
@@ -30,6 +35,11 @@ import { DonationsComponent } from "./donations.component";
 
     // PrimeNG
     TabMenuModule,
+    ButtonModule,
+    CardModule,
+    PanelModule,
+    InputTextModule,
+    ProgressBarModule,
 
     // Our app
     DonationsRoutingModule
