@@ -8,10 +8,11 @@ import { NotifyService } from "./notify.service";
 import { Observable } from "rxjs";
 import { map, tap, shareReplay } from "rxjs/operators";
 import { Puzzle } from "./puzzle.service";
+import { Timestamp } from "@google-cloud/firestore";
 
 export interface PlaytestFeedbackAugmented extends FSPlaytestFeedback {
   userId: string;
-  lastChanged: Date;
+  lastChanged: Timestamp;
 }
 
 export class PlaytestFeedback {
@@ -23,15 +24,17 @@ export class PlaytestFeedback {
   public isDirty = false;
 
   public static get csvHeader(): string {
-    return "Puzzle, numPlaytesters, name, email, version, solved, solveMinutes, difficulty, fun, errors, visual, general";
+    return "Puzzle, lastUpdated, numPlaytesters, name, email, version, solved, solveMinutes, difficulty, fun, errors, visual, general";
   }
 
   public static makeCSVRow(puzzleName: string, pfa: PlaytestFeedbackAugmented) {
     const escErrors = pfa.errors.replace(/"/g, '""');
     const escVisual = pfa.visual.replace(/"/g, '""');
     const escGeneral = pfa.general.replace(/"/g, '""');
+    const lastDate = pfa.lastChanged.toDate();
+    const last = lastDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' }) + " " + lastDate.toLocaleTimeString();
     // tslint:disable-next-line
-    return `"${puzzleName}","${pfa.numPlaytesters}","${pfa.name}","${pfa.email}","${pfa.version}","${pfa.solved}","${pfa.solveMinutes}","${pfa.difficulty}","${pfa.fun}","${escErrors}","${escVisual}","${escGeneral}"`;
+    return `"${puzzleName}","${last}","${pfa.numPlaytesters}","${pfa.name}","${pfa.email}","${pfa.version}","${pfa.solved}","${pfa.solveMinutes}","${pfa.difficulty}","${pfa.fun}","${escErrors}","${escVisual}","${escGeneral}"`;
   }
 
   get numPlaytesters() {
