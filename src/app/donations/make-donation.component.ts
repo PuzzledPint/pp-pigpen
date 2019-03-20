@@ -1,5 +1,4 @@
 import { Component, OnInit, HostListener } from "@angular/core";
-import "stripe-checkout";
 import { AngularFireFunctions } from "@angular/fire/functions";
 import { environment } from "src/environments/environment";
 import { NotifyService } from "src/services/notify.service";
@@ -68,7 +67,7 @@ export class MakeDonationComponent implements OnInit {
   constructor(private aff: AngularFireFunctions, private ns: NotifyService) {}
 
   public ngOnInit() {
-    StripeCheckout.configure({
+    this.handler = StripeCheckout.configure({
       key: environment.stripe_publishable_key, // add key
       image: "/assets/icons/icon-128x128.png", // add PP logo
       locale: "auto",

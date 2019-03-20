@@ -1,7 +1,7 @@
 // Angular Libs
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
-import { AngularFireFunctions } from "@angular/fire/functions";
+import { AngularFireFunctionsModule } from "@angular/fire/functions";
 import { FormsModule } from "@angular/forms";
 
 // PrimeNG
@@ -26,7 +26,7 @@ import { DonationsComponent } from "./donations.component";
     FormsModule,
 
     // Firebase
-    AngularFireFunctions,
+    AngularFireFunctionsModule,
 
     // PrimeNG
     TabMenuModule,

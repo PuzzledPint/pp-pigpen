@@ -12,10 +12,6 @@
     "sourceMap": true,
     "strict": true,
     "target": "es5",
-    "types": ["cypress"],
-    "typeRoots": [
-      "node_modules/@types"
-    ],
     "lib": [ "es2018", "dom" ]
   }
 }
