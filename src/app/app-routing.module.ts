@@ -31,6 +31,7 @@ const routes: Routes = [
   { path: 'playtesting', component: PlaytestingComponent },
   { path: 'info/:slug', component: InfoComponent },
   { path: 'info', component: InfoComponent },
+  { path: 'donations', loadChildren:'./donations/donations.module#DonationsModule'},
 
   // public as tester doesn't log in
   { path: 'testAll', component: TestAllComponent },

@@ -45,6 +45,7 @@ export class UserService {
 
   constructor(public afAuth: AngularFireAuth, public af: AngularFirestore) {
     // get user updates
+    console.log("User service initialized");
     afAuth.user.subscribe(
       newFbUser => this.updateFbUser(newFbUser),
       err => {
