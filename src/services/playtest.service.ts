@@ -8,7 +8,7 @@ import { NotifyService } from "./notify.service";
 import { Observable } from "rxjs";
 import { map, tap, shareReplay } from "rxjs/operators";
 import { Puzzle } from "./puzzle.service";
-import { Timestamp } from "@google-cloud/firestore";
+import { Timestamp } from '@firebase/firestore-types';
 
 export interface PlaytestFeedbackAugmented extends FSPlaytestFeedback {
   userId: string;
