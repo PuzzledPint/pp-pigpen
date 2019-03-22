@@ -39,12 +39,3 @@ export class NotifyService {
     this.title.next(newTitle);
   }
 }
-
-export class AppErrorHandler implements ErrorHandler {
-  public handleError(error: string) {
-    if (isDevMode() && NotifyService.singleton) {
-      NotifyService.singleton.stickyAlert("Uncaught Exception", error);
-    }
-    console.error(error);
-  }
-}

@@ -5,12 +5,13 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
+import { SentryErrorHandler } from 'src/services/sentry.service';
+
 // Angular Fire Libs
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 // import { AngularFireStorageModule } from '@angular/fire/storage';
-
 
 // PrimeNG
 import { CardModule as PNGCardModule } from 'primeng/card';
@@ -60,9 +61,6 @@ import { InfoComponent } from './info/info.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ViewPuzzleFeedbackComponent } from "src/components/view-puzzle-feedback.component";
 import { EmailButtonComponent } from "src/components/email-button.component";
-
-// Our Services
-import { AppErrorHandler } from 'src/services/notify.service';
 
 // Our Pipes
 import { RefToPuzzlePipe } from "src/pipes/refToPuzzle.pipe";
@@ -149,7 +147,7 @@ const config = {
 
     AppRoutingModule // must be last because of the catch-all
   ],
-  providers: [MessageService, {provide: ErrorHandler, useClass: AppErrorHandler}],
+  providers: [MessageService, {provide: ErrorHandler, useClass: SentryErrorHandler}],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
