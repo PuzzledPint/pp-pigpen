@@ -28,7 +28,7 @@ import { PuzzleService, Puzzle } from "src/services/puzzle.service";
 
     <ng-template #noSetSelected><h1>No set selected</h1></ng-template>
 
-    <div *ngIf="(auth.isSignedIn | async); else notLoggedIn">
+    <div *ngIf="(us.isSignedIn | async); else notLoggedIn">
       <app-puzzle-sets [puzzleSets]="ps.playtestingSets"></app-puzzle-sets>
 
       <div
@@ -58,7 +58,7 @@ export class PlaytestingComponent implements OnInit {
   public accordianActive: number | undefined = undefined;
 
   constructor(
-    public auth: UserService,
+    public us: UserService,
     private ns: NotifyService,
     public ps: PuzzleService
   ) {}

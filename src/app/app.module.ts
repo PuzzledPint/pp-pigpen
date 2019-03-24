@@ -1,17 +1,8 @@
 // Angular Libs
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler } from '@angular/core';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
 
-import { SentryErrorHandler } from 'src/services/sentry.service';
-
-// Angular Fire Libs
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule } from '@angular/fire/auth';
 // import { AngularFireStorageModule } from '@angular/fire/storage';
+import { FormsModule } from '@angular/forms';
 
 // PrimeNG
 import { CardModule as PNGCardModule } from 'primeng/card';
@@ -45,7 +36,6 @@ import { HeaderComponent } from '../components/header.component';
 import { FooterComponent } from '../components/footer.component';
 import { SitewideAlertComponent } from '../components/sitewide-alert.component';
 import { TestAllComponent } from './test-all/test-all.component';
-import { environment } from '../environments/environment';
 import { HomeComponent } from '../components/home.component';
 import { EditorComponent } from './editor/editor.component';
 import { CommsComponent } from './comms/comms.component';
@@ -68,16 +58,8 @@ import { VariablesPipe } from '../pipes/variables.pipe';
 
 // Our Modules
 import { AppRoutingModule } from './app-routing.module';
+import { RootModule } from './root.module';
 
-// Firebase credentials (okay to be public)
-const config = {
-  apiKey: 'AIzaSyAjhlNnJzXejhVD_sJIP7q0nMNd84y9vnM',
-  authDomain: 'pp-pigpen.firebaseapp.com',
-  databaseURL: 'https://pp-pigpen.firebaseio.com',
-  projectId: 'pp-pigpen',
-  storageBucket: 'pp-pigpen.appspot.com',
-  messagingSenderId: '692886874617'
-};
 
 @NgModule({
   declarations: [
@@ -107,19 +89,8 @@ const config = {
     RefToPuzzlePipe,
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
+    RootModule,
     FormsModule,
-
-    // AngularFire
-    AngularFireModule.initializeApp(config),
-    AngularFireAuthModule, // auth
-    AngularFirestoreModule.enablePersistence(), // firestore
-    // AngularFireStorageModule,
-
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production
-    }), // storage
 
     // PrimeNG
     PNGCardModule,
@@ -147,7 +118,7 @@ const config = {
 
     AppRoutingModule // must be last because of the catch-all
   ],
-  providers: [MessageService, {provide: ErrorHandler, useClass: SentryErrorHandler}],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

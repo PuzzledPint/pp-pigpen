@@ -1,7 +1,6 @@
 // tslint:disable: max-line-length
 import { Component, OnInit } from "@angular/core";
 import { NotifyService } from "src/services/notify.service";
-import { UserService } from "src/services/user.service";
 import { Router, ActivatedRoute } from "@angular/router";
 
 class Info {
@@ -113,7 +112,6 @@ export class InfoComponent implements OnInit {
 
   constructor(
     private ns: NotifyService,
-    public us: UserService,
     private route: ActivatedRoute,
     private router: Router
   ) {

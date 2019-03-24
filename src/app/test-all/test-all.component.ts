@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { SentryService } from "src/services/sentry.service";
 
 @Component({
   selector: 'view-test-all',
   template: `
-    <p>
-      test-all works!
-    </p>
+    <button p-button (click)="testError()">Test Error Handling</button>
   `,
   styles: []
 })
 export class TestAllComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ss: SentryService) { }
 
   public ngOnInit() {
   }
 
+  public testError() {
+    this.ss.testError();
+  }
 }

@@ -10,6 +10,7 @@ import { User, auth } from "firebase/app";
 
 import { FSUserDoc } from "../models/fs-user-doc.model";
 import { ReplaySubject } from 'rxjs';
+import { SentryService } from "./sentry.service";
 
 export type AnyRole = keyof HQTeams;
 
@@ -43,7 +44,7 @@ export class UserService {
   // A user consists of two places:
   // Auth from firebase, and user profile.
 
-  constructor(public afAuth: AngularFireAuth, public af: AngularFirestore) {
+  constructor(public afAuth: AngularFireAuth, public af: AngularFirestore, private ss: SentryService) {
     // get user updates
     console.log("User service initialized");
     afAuth.user.subscribe(
@@ -76,6 +77,7 @@ export class UserService {
 
       this.GCCity = claims.GCCity;
       this.fsdoc = this.af.doc(`users/${newFbUser.uid}`);
+      this.ss.setUser(this.id, this.name, this.email, this.GCCity);
     } else {
       this.isEditor = false;
       this.isCityOps = false;
@@ -88,6 +90,7 @@ export class UserService {
       this.fsdoc = undefined;
     }
     console.log("Sending User Update: " + this.id);
+
     this.isSignedIn.next(!!newFbUser);
   }
 

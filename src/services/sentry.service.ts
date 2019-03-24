@@ -9,16 +9,36 @@ Sentry.init({
 });
 
 @Injectable()
-export class SentryErrorHandler implements ErrorHandler {
+export class SentryService implements ErrorHandler {
   constructor() {}
 
   public handleError(error: any) {
-    Sentry.captureException(error.originalError || error);
 
     if (isDevMode() && NotifyService.singleton) {
       NotifyService.singleton.stickyAlert("Uncaught Exception", error);
+    } else {
+      Sentry.captureException(error.originalError || error);
     }
-
     console.error(error);
+  }
+
+  public setUser(id: string, name: string, email: string, gcCity?: string) {
+    Sentry.addBreadcrumb({
+      category: 'auth',
+      message: 'Logged In',
+      level: Sentry.Severity.Info
+    });
+    Sentry.configureScope((scope) => {
+      scope.setUser({
+        "id": id,
+        "username": name,
+        "email": email,
+        "gcCity" : gcCity ? gcCity : "none"
+      });
+    });
+  }
+
+  public testError(): any {
+    Sentry.captureException(new Error("This is a test Error Message"));
   }
 }
