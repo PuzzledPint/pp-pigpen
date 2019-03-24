@@ -1,8 +1,18 @@
-// Angular Libs
-import { NgModule } from '@angular/core';
+// raw files
+import { environment } from '../environments/environment';
 
+// Angular
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FormsModule } from '@angular/forms';
+
+// Angular Fire Libs
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 // PrimeNG
 import { CardModule as PNGCardModule } from 'primeng/card';
@@ -60,6 +70,18 @@ import { VariablesPipe } from '../pipes/variables.pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { RootModule } from './root.module';
 
+// Our Services
+import { SentryService } from 'src/services/sentry.service';
+
+// Firebase credentials (okay to be public)
+const config = {
+  apiKey: 'AIzaSyAjhlNnJzXejhVD_sJIP7q0nMNd84y9vnM',
+  authDomain: 'pp-pigpen.firebaseapp.com',
+  databaseURL: 'https://pp-pigpen.firebaseio.com',
+  projectId: 'pp-pigpen',
+  storageBucket: 'pp-pigpen.appspot.com',
+  messagingSenderId: '692886874617'
+};
 
 @NgModule({
   declarations: [
@@ -89,7 +111,14 @@ import { RootModule } from './root.module';
     RefToPuzzlePipe,
   ],
   imports: [
-    RootModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    // AngularFire
+    AngularFireModule.initializeApp(config),
+    AngularFireAuthModule, // auth
+    AngularFirestoreModule.enablePersistence(), // firestore
+    // AngularFireStorageModule,
+
     FormsModule,
 
     // PrimeNG
@@ -116,9 +145,14 @@ import { RootModule } from './root.module';
     InputTextareaModule,
     PNGEditorModule,
 
+
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production
+    }), // storage
+
     AppRoutingModule // must be last because of the catch-all
   ],
-  providers: [MessageService],
+  providers: [MessageService, { provide: ErrorHandler, useClass: SentryService }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
