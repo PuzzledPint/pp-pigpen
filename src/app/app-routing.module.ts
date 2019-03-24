@@ -34,7 +34,7 @@ const routes: Routes = [
   { path: 'donations', loadChildren:'./donations/donations.module#DonationsModule'},
 
   // public as tester doesn't log in
-  { path: 'testAll', component: TestAllComponent },
+  { path: 'test-all', component: TestAllComponent },
 
   // profile
   { path: 'profile/:uid', component: ProfileComponent },

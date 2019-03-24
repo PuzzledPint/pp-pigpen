@@ -1,5 +1,5 @@
 import * as Sentry from "@sentry/browser";
-import { Injectable, ErrorHandler, NgModule, isDevMode } from "@angular/core";
+import { Injectable, ErrorHandler, isDevMode } from "@angular/core";
 import { NotifyService } from "./notify.service";
 import { ppPigpenVersion } from 'src/environments/version';
 
@@ -8,7 +8,9 @@ Sentry.init({
   release: "pp-pigpen:" + ppPigpenVersion.build,
 });
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class SentryService implements ErrorHandler {
   constructor() {}
 

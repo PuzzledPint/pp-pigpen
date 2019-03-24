@@ -1,6 +1,9 @@
 // raw files
 import { environment } from '../environments/environment';
 
+// Our Services
+import { SentryService } from 'src/services/sentry.service';
+
 // Angular
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -68,9 +71,6 @@ import { VariablesPipe } from '../pipes/variables.pipe';
 
 // Our Modules
 import { AppRoutingModule } from './app-routing.module';
-
-// Our Services
-import { SentryService } from 'src/services/sentry.service';
 
 // Firebase credentials (okay to be public)
 const config = {
@@ -143,8 +143,6 @@ const config = {
     RatingModule,
     InputTextareaModule,
     PNGEditorModule,
-
-
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }), // storage
