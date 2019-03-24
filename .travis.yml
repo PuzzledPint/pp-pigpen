@@ -21,7 +21,7 @@ before_script:
   - sed -ri "s/TRAVIS_BUILD_NUMBER/$TRAVIS_BUILD_NUMBER/" src/environments/version.ts
   - sed -ri "s/TRAVIS_COMMIT/$TRAVIS_COMMIT/" src/environments/version.ts
   - npm install -g @angular/cli
-#  - npm install @sentry/cli
+  - npm install @sentry/cli
   - npm install -g wait-on
   - cd functions && npm install
 
@@ -44,12 +44,13 @@ deploy:
   skip_cleanup: true
 
 #Don't think we need this with public source maps?
-#after_deploy:
-#  -  sentry-cli releases files #TRAVIS_BUILD_NUMBER upload-sourcemaps --ext ts --ext map /path/to/files
+after_deploy:
+  - sentry-cli releases new $TRAVIS_COMMIT
+  - sentry-cli releases set-commits --auto $TRAVIS_COMMIT
+  - sentry-cli releases files $TRAVIS_COMMIT upload-sourcemaps --rewrite dist/pp-pigpen
 
 notifications:
   webhooks:
   - https://us-central1-pp-pigpen.cloudfunctions.net/apiTravisDeploy
-  - https://sentry.io/api/hooks/release/builtin/1422082/202a0f527a776b2787ce1109a32bd90a88d0880678ede18cfc1ca0291d52cd91/
 
 

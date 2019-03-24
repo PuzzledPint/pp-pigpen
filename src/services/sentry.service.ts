@@ -5,7 +5,7 @@ import { ppPigpenVersion } from 'src/environments/version';
 
 Sentry.init({
   dsn: "https://70a6754621d847338ae94eb0ed2868c9@sentry.io/1422082",
-  release: "pp-pigpen:" + ppPigpenVersion.build,
+  release: ppPigpenVersion.commit,
 });
 
 @Injectable({
