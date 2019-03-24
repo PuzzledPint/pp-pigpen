@@ -68,7 +68,6 @@ import { VariablesPipe } from '../pipes/variables.pipe';
 
 // Our Modules
 import { AppRoutingModule } from './app-routing.module';
-import { RootModule } from './root.module';
 
 // Our Services
 import { SentryService } from 'src/services/sentry.service';
