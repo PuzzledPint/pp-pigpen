@@ -1,13 +1,17 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { InfoService, Info } from 'src/services/info.service';
-import { NotifyService } from 'src/services/notify.service';
+import { Component, OnInit } from '@angular/core';
+import { SentryService } from 'src/services/sentry.service';
+import { ppPigpenVersion } from 'src/environments/version';
 
 @Component({
   selector: 'app-footer',
   template: `
   <p data-cy="app-footer" class="footer">
-      {{ info.footer | variables }}
-    </p>
+  This site is © {{ year }} CC BY-NC-SA International by Puzzled Pint (Portland, OR, USA).
+  Please see our Privacy Policy (coming soon).
+  Website build #{{ build }}.
+  If you encounter any issues with this site, please <a (click)="errorReport()" style="cursor: pointer">send an error report</a> or
+  e-mail webmasters@puzzledpint.org
+  </p>
   `,
   styles: [`.footer{
     text-align:center;
@@ -19,11 +23,15 @@ import { NotifyService } from 'src/services/notify.service';
 })
 
 export class FooterComponent implements OnInit {
-  public info: Info;
+  public year = new Date().getFullYear().toString();
+  public build = ppPigpenVersion.build;
 
-  constructor(infoService: InfoService, private ns: NotifyService) {
-    this.info = infoService.getInfo();
+  constructor(private ss: SentryService) {
   }
 
-  public ngOnInit() {}
+  public ngOnInit() { }
+
+  public errorReport() {
+    this.ss.errorReport();
+  }
 }

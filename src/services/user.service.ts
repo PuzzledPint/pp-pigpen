@@ -50,10 +50,12 @@ export class UserService {
     afAuth.user.subscribe(
       newFbUser => this.updateFbUser(newFbUser),
       err => {
-        this.updateFbUser(null);
-        console.log("fbUser error: " + err);
+        // this.updateFbUser(null);  // don't change user state on error, just log it
+        ss.handleError(err);
+        console.log("Authentication Error: " + err);
       },
       () => {
+        ss.sendError("afAuth.user observable closed");
         this.updateFbUser(null);
         console.log("fbUser closed");
       }
@@ -89,16 +91,14 @@ export class UserService {
 
       this.fsdoc = undefined;
     }
-    console.log("Sending User Update: " + this.id);
 
     this.isSignedIn.next(!!newFbUser);
   }
 
-  public async signIn() {
-    await this.afAuth.auth.signOut();
-    return this.afAuth.auth
+  public signIn() {
+    this.afAuth.auth
       .signInWithPopup(new auth.GoogleAuthProvider())
-      .then(credential => {}); // need this?
+      .then(credential => this.updateFbUser(credential.user));
   }
 
   public signOut() {
