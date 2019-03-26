@@ -51,7 +51,6 @@ import { SitewideAlertComponent } from '../components/sitewide-alert.component';
 import { TestAllComponent } from './test-all/test-all.component';
 import { HomeComponent } from '../components/home.component';
 import { EditorComponent } from './editor/editor.component';
-import { CommsComponent } from './comms/comms.component';
 import { WebmasterComponent } from './webmaster/webmaster.component';
 import { PlaytestingComponent } from './playtesting/playtesting.component';
 import { UserAuthComponent } from '../components/user-auth.component';
@@ -92,7 +91,6 @@ const config = {
     TestAllComponent,
     HomeComponent,
     EditorComponent,
-    CommsComponent,
     WebmasterComponent,
     PlaytestingComponent,
     EditPuzzleSetComponent,

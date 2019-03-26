@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'city-ops', loadChildren:'./city-ops/city-ops.module#CityOpsModule', canLoad: [CityOpsGuard]},
   { path: 'editor', component: EditorComponent, canActivate: [EditorGuard] },
   { path: 'webmaster', component: WebmasterComponent,  canActivate: [WebmasterGuard] },
-  { path: 'comms', component: CommsComponent, canActivate: [CommsGuard] },
+  { path: 'comms', loadChildren:'./comms/comms.module#CommsModule', canLoad: [CommsGuard]},
 
   // public
   { path: 'playtesting', component: PlaytestingComponent },

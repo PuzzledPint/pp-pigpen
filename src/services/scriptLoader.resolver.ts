@@ -9,8 +9,10 @@ export interface IPreloadScriptResult { script: string; loaded: boolean; status:
 export class ScriptLoaderResolver implements Resolve<IPreloadScriptResult[]> {
   // Here import all dynamically js file
   private scripts: any = {
-    stripe: { loaded: false, src: "https://checkout.stripe.com/checkout.js" }
+    stripe: { loaded: false, src: "https://checkout.stripe.com/checkout.js" },
+    quill:  { loaded: false, src: "https://cdn.quilljs.com/1.3.6/quill.min.js", style: "https://cdn.quilljs.com/1.3.6/quill.snow.css" },
   };
+
   constructor() { }
   public load(...scripts: string[]) {
     const promises = scripts.map(script => this.loadScript(script));
@@ -21,6 +23,13 @@ export class ScriptLoaderResolver implements Resolve<IPreloadScriptResult[]> {
       if (this.scripts[name].loaded) {
         resolve({ script: name, loaded: true, status: 'Already Loaded' });
       } else {
+
+        if (this.scripts[name].style) {
+          const styleElement = document.createElement('link');
+          styleElement.href = this.scripts[name].style;
+          document.head.appendChild(styleElement);
+        }
+
         const script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = this.scripts[name].src;

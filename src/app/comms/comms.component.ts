@@ -11,9 +11,9 @@ import { InfoService, Info } from "src/services/info.service";
       </h3>
       <div class="p-col-12">
       <textarea pInputTextarea
-        [(ngModel)]="info.alertHeader"
+        [(ngModel)]="info!.alertHeader"
         [rows]="1" [cols]="80"
-        (blur)="info.save(ns)"
+        (blur)="info!.save(ns)"
       ></textarea>
       </div>
       <h3 class="p-col-12">
@@ -21,16 +21,16 @@ import { InfoService, Info } from "src/services/info.service";
       </h3>
       <div class="p-col-12">
       <textarea pInputTextarea
-        [(ngModel)]="info.footer"
+        [(ngModel)]="info!.footer"
         [rows]="2" [cols]="80"
-        (blur)="info.save(ns)"
+        (blur)="info!.save(ns)"
       ></textarea>
       </div>
       <p-toolbar class="p-col-12 p-lg-12">
         <div class="ui-toolbar-group-right">
           <p-button
             label="Save Website Info"
-            (click)="info.save(ns)"
+            (click)="info!.save(ns)"
           ></p-button>
         </div>
       </p-toolbar>

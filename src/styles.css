@@ -3,9 +3,6 @@
 @import url('../node_modules/primeicons/primeicons.css');
 @import url('../node_modules/primeflex/primeflex.css');
 
-@import url('../node_modules/quill/dist/quill.core.css');
-@import url('../node_modules/quill/dist/quill.snow.css');
-
 /* latin */
 @font-face {
   font-family: 'Indie Flower';
