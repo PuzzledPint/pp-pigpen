@@ -97,6 +97,7 @@ export class UserService {
   }
 
   public async signIn() {
+    this.ss.breadcrumb("Calling signInWithRedirect");
     const credential = this.afAuth.auth.signInWithRedirect(this.authProvider);
   }
 

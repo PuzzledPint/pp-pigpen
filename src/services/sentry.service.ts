@@ -60,4 +60,8 @@ export class SentryService implements ErrorHandler {
       labelSubmit: "Submit",
     });
   }
+
+  public breadcrumb(b: string) {
+    Sentry.captureMessage(b, Sentry.Severity.Debug);
+  }
 }
