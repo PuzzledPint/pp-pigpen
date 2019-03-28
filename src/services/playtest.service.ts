@@ -9,6 +9,7 @@ import { Observable } from "rxjs";
 import { map, tap, shareReplay } from "rxjs/operators";
 import { Puzzle } from "./puzzle.service";
 import { Timestamp } from '@firebase/firestore-types';
+import { SentryService } from "./sentry.service";
 
 export interface PlaytestFeedbackAugmented extends FSPlaytestFeedback {
   userId: string;
@@ -171,14 +172,14 @@ export class PlaytestFeedback {
 export class PlaytestService {
   public playtestCollection: AngularFirestoreCollection<FSPlaytestFeedback> | undefined;
 
-  constructor(private readonly af: AngularFirestore, private readonly us: UserService, private readonly ns: NotifyService) {
+  constructor(private readonly af: AngularFirestore, private readonly us: UserService, private readonly ns: NotifyService, private ss: SentryService) {
     us.isSignedIn.subscribe(
       (authenticated) => {
         if (authenticated) {
           if (us.fsdoc) {
             this.playtestCollection = us.fsdoc.collection<FSPlaytestFeedback>("playtestFeedback");
           } else {
-            ns.error("user document not found", "In Playtest Service");
+            ss.log("user document not found in Playtest Service", true);
           }
         } else {
           this.playtestCollection = undefined;
@@ -199,7 +200,7 @@ export class PlaytestService {
     const col = puzzle.afDoc.collection<PlaytestFeedbackAugmented>(`playtestFeedback`, ref => ref.orderBy("lastChanged"));
 
     return col.snapshotChanges().pipe(
-      tap(arr => console.log(`read ${arr.length} docs from puzzle/playtestFeedback collection`)),
+      tap(arr => this.ss.log(`read ${arr.length} docs from puzzle/playtestFeedback collection`)),
       map(
         actions =>
           actions.map(a => {

@@ -74,7 +74,7 @@ import { AppRoutingModule } from './app-routing.module';
 // Firebase credentials (okay to be public)
 const config = {
   apiKey: 'AIzaSyAjhlNnJzXejhVD_sJIP7q0nMNd84y9vnM',
-  authDomain: 'pp-pigpen.firebaseapp.com',
+  authDomain: 'puzzledpint.org',
   databaseURL: 'https://pp-pigpen.firebaseio.com',
   projectId: 'pp-pigpen',
   storageBucket: 'pp-pigpen.appspot.com',

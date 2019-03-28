@@ -17,21 +17,17 @@ export class NotifyService {
     NotifyService.singleton = this;
   }
 
-  public error(title: string, desc: string) {
-    this.messageService.add({
-      severity: "error",
-      summary: title,
-      detail: desc
-    });
-  }
-
-  public stickyAlert(title: string, desc: string) {
+  public error(title: string, desc: string, sticky=false) {
     this.messageService.add({
       severity: "error",
       summary: title,
       detail: desc,
-      sticky: true
+      sticky: sticky
     });
+  }
+
+  public stickyError(title: string, desc: string) {
+    this.error(title, desc, true);
   }
 
   public setTitle(newTitle: string) {

@@ -23,18 +23,13 @@ class Info {
       <div class="p-xl-3 p-lg-4 p-md-6 p-sm-6">
         <div *ngFor="let i of staticInfos">
           <div *ngIf="i.slug !== selected.slug">
-            <app-info-card
-              [title]="i.title"
-              [text]="i.teaser"
-              [buttonText]="i.buttonText"
-              [link]="'/info/' + i.slug"
-            ></app-info-card>
+            <app-info-card [title]="i.title" [text]="i.teaser" [buttonText]="i.buttonText" [link]="'/info/' + i.slug"></app-info-card>
           </div>
         </div>
       </div>
     </div>
   `,
-  styles: []
+  styles: [],
 })
 export class InfoComponent implements OnInit {
   public selected: Info = new Info();
@@ -60,7 +55,14 @@ export class InfoComponent implements OnInit {
       answers.</p>
       <p><a routerLink="/standings">Standings</a> will be posted every month, but the goal
       of Puzzled Pint is for everyone to <strong>have fun!</strong>
-  `
+  `,
+    },
+    {
+      title: "Privacy Policy",
+      teaser: `Coming Soon.`,
+      buttonText: "More",
+      slug: "privacy-policy",
+      fulltext: `<p>We don't share your info with third parties</p>`,
     },
     {
       title: "Starting up your city",
@@ -106,15 +108,11 @@ export class InfoComponent implements OnInit {
 <h3>How do I find out more?</h3>
 <p>E-mail <a href="mailto:gamecontrol@puzzledpint.com">gamecontrol@puzzledpint.com</a>. We'll schedule a time to group video-chat with you and any co-conspirators you might have. If you don't, we'll try to help put out the word that your city needs another volunteer.</p>
 <p>We encourage all new cities to have at least two GC members before they start organizing official events. In the meantime, definitely feel free to run a <strong>Puzzled Pint Party</strong> (see above for details)!</p>
-<p> </p>`
-    }
+<p> </p>`,
+    },
   ];
 
-  constructor(
-    private ns: NotifyService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {
+  constructor(private ns: NotifyService, private route: ActivatedRoute, private router: Router) {
     this.setSelected("about");
   }
 

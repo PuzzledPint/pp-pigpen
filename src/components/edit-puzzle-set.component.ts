@@ -4,6 +4,7 @@ import { NotifyService } from "src/services/notify.service";
 import { Observable, Subscription } from "rxjs";
 import { DocumentReference } from "@angular/fire/firestore";
 import { SelectItem } from "primeng/api";
+import { SentryService } from "src/services/sentry.service";
 
 @Component({
   selector: "app-edit-puzzle-set",
@@ -281,7 +282,7 @@ export class EditPuzzleSetComponent implements OnInit, OnDestroy {
   private spsSub: Subscription;
   private spSub: Subscription;
 
-  constructor(public ps: PuzzleService, private ns: NotifyService) {
+  constructor(public ps: PuzzleService, private ns: NotifyService, private ss: SentryService) {
     this.spsSub = ps.selectedPuzzleSet.subscribe(newSPS => {
       if (newSPS) {
         newSPS.subscribe(newPS => {
@@ -355,8 +356,9 @@ export class EditPuzzleSetComponent implements OnInit, OnDestroy {
     if (errors["notUnique"]) {
       return "Already in use.";
     }
-    console.log(errors);
-    return "Unknown validation error";
+    const ret = "Unknown validation error: " + errors;
+    this.ss.log(ret, true);
+    return ret;
   }
 
   public puzzleSelectionChanged() {

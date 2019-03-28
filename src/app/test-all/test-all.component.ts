@@ -16,6 +16,6 @@ export class TestAllComponent implements OnInit {
   }
 
   public testError() {
-    this.ss.sendError();
+    this.ss.log("This is a test message", true);
   }
 }

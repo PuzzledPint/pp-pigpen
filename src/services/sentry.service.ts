@@ -14,7 +14,7 @@ export class SentryService implements ErrorHandler {
 
   public handleError(error: any) {
     if (isDevMode() && NotifyService.singleton) {
-      NotifyService.singleton.stickyAlert("Uncaught Exception", error);
+      NotifyService.singleton.stickyError("Uncaught Exception", error);
     } else {
       Sentry.captureException(error.originalError || error);
     }
@@ -40,8 +40,14 @@ export class SentryService implements ErrorHandler {
     });
   }
 
-  public sendError(msg?: string): any {
-    Sentry.captureException(new Error(msg ? msg : "This is a test Error Message"));
+  public log(msg: string, logToSentry = false): any {
+    if (isDevMode()) {
+      NotifyService.singleton.stickyError("LOG", msg);
+      console.log(msg);
+    }
+    if(logToSentry) {
+      Sentry.captureMessage(msg, Sentry.Severity.Log);
+    }
   }
 
   public errorReport() {

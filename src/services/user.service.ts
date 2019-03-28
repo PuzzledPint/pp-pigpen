@@ -44,20 +44,21 @@ export class UserService {
   // A user consists of two places:
   // Auth from firebase, and user profile.
 
+  private readonly authProvider: auth.GoogleAuthProvider;
+
   constructor(public afAuth: AngularFireAuth, public af: AngularFirestore, private ss: SentryService) {
+    this.authProvider = new auth.GoogleAuthProvider();
+
     // get user updates
-    console.log("User service initialized");
     afAuth.user.subscribe(
       newFbUser => this.updateFbUser(newFbUser),
       err => {
         // this.updateFbUser(null);  // don't change user state on error, just log it
         ss.handleError(err);
-        console.log("Authentication Error: " + err);
       },
       () => {
-        ss.sendError("afAuth.user observable closed");
+        ss.log("afAuth.user observable closed",true);
         this.updateFbUser(null);
-        console.log("fbUser closed");
       }
     );
   }
@@ -95,10 +96,8 @@ export class UserService {
     this.isSignedIn.next(!!newFbUser);
   }
 
-  public signIn() {
-    this.afAuth.auth
-      .signInWithPopup(new auth.GoogleAuthProvider())
-      .then(credential => this.updateFbUser(credential.user));
+  public async signIn() {
+    const credential = this.afAuth.auth.signInWithRedirect(this.authProvider);
   }
 
   public signOut() {

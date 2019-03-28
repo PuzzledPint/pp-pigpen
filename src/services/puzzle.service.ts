@@ -13,6 +13,8 @@ import { FSPuzzle } from "src/models/fs-puzzle.model";
 import { Util } from './util';
 import { PlaytestService, PlaytestFeedback } from "./playtest.service";
 import { saveAs } from "file-saver";
+import { NotifyService } from './notify.service';
+import { SentryService } from "./sentry.service";
 
 export interface PuzzleSet extends FSPuzzleSet { afDoc: AngularFirestoreDocument<FSPuzzleSet>; }
 export interface Puzzle extends FSPuzzle { afDoc: AngularFirestoreDocument<FSPuzzle>; }
@@ -34,10 +36,10 @@ export class PuzzleService {
   private puzzlesCollection: AngularFirestoreCollection<FSPuzzle>;
 
 
-  constructor(private readonly af: AngularFirestore, private pts: PlaytestService) {
+  constructor(private readonly af: AngularFirestore, private pts: PlaytestService, private ss: SentryService) {
     this.puzzleSetsCollection = af.collection<FSPuzzleSet>("puzzleSets");
     this.puzzleSets = this.puzzleSetsCollection.snapshotChanges().pipe(
-      tap(arr => console.log(`read ${arr.length} docs from puzzleSets collection`)),
+      tap(arr => ss.log(`read ${arr.length} docs from puzzleSets collection`)),
       map(actions => actions.map(
         a => {
           const afDoc: AngularFirestoreDocument<FSPuzzleSet> = af.doc(a.payload.doc.ref);

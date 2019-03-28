@@ -10,10 +10,6 @@ export class Util {
   public static fromFS<T, K extends T>(afDoc: AngularFirestoreDocument<T>): Observable<K> {
     const obs: Observable<T | undefined> = afDoc.valueChanges();
     return obs.pipe(
-      tap(
-        doc => {
-          if (doc) { console.log("firestore read:", doc); }
-        }),
       map(fs => { return { afDoc, ...fs } as unknown as K; }),
       shareReplay(1)
     );
