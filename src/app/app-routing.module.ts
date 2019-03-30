@@ -6,7 +6,7 @@ import { CommsGuard } from './comms/comms.guard';
 import { EditorGuard } from './editor/editor.guard';
 import { ShowrunnerGuard } from './showrunner/showrunner.guard';
 import { WebmasterGuard } from './webmaster/webmaster.guard';
-import { HomeComponent } from 'src/components/home.component';
+import { HomeComponent } from 'src/components/root/home.component';
 import { NotFoundResolver } from './not-found.resolver';
 
 const routes: Routes = [

@@ -7,6 +7,7 @@ import {
   transition,
   animate
 } from "@angular/animations";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: "app-header",
@@ -75,10 +76,18 @@ import {
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   public title = "";
+  private titlesub: Subscription | undefined;
 
   constructor(private ns: NotifyService) {
-    ns.title.subscribe(newTitle => this.title = newTitle);
   }
 
-  public ngOnInit() {}
+  public ngOnInit() {
+    this.titlesub = this.ns.title.subscribe(newTitle => this.title = newTitle);
+  }
+
+  public ngOnDestroy() {
+    if (this.titlesub) {
+      this.titlesub.unsubscribe();
+    }
+  }
 }
