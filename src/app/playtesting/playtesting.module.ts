@@ -7,9 +7,10 @@ import { FormsModule } from "@angular/forms";
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
+import { AccordionModule } from 'primeng/accordion';
 
 // shared
-import { SharedPuzzleModule } from '../../components/puzzle/shared-puzzle.module
+import { SharedPuzzleModule } from 'src/components/puzzle/shared-puzzle.module';
 
 // Our Components
 import { PlaytestingComponent } from './playtesting.component';
@@ -20,6 +21,9 @@ import { CheckboxModule } from "primeng/checkbox";
 import { RatingModule } from 'primeng/rating';
 import { HintComponent } from "./hint.component";
 import { PuzzleComponent } from "./puzzle.component";
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
+import { CardModule } from "primeng/card";
 
 @NgModule({
   declarations: [
@@ -32,14 +36,18 @@ import { PuzzleComponent } from "./puzzle.component";
     // Angular
     CommonModule,
     FormsModule,
-    FieldsetModule,
-    CheckboxModule,
-    RatingModule,
 
     // PrimeNG
-    ToolbarModule,
-    ButtonModule,
+    AccordionModule,
+    CardModule,
     InputTextModule,
+    FieldsetModule,
+    ButtonModule,
+    ToolbarModule,
+    CheckboxModule,
+    RatingModule,
+    MessageModule,
+    MessagesModule,
 
     // Our app
     SharedPuzzleModule,

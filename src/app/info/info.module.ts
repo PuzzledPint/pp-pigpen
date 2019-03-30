@@ -1,5 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+
+import { CardModule } from "primeng/card";
+
+import { SharedInfoCardModule } from "src/components/info-card/shared-info-card.module";
+
 import { InfoComponent } from "./info.component";
 import { InfoRoutingModule } from "./info-routing.module";
 
@@ -14,11 +19,13 @@ import { InfoRoutingModule } from "./info-routing.module";
     CommonModule,
 
     // PrimeNG
+    CardModule,
 
     // Our app
-    InfoRoutingModule
+    SharedInfoCardModule,
+    InfoRoutingModule,
   ],
   providers: [],
-  bootstrap: []
+  bootstrap: [],
 })
 export class InfoModule {}

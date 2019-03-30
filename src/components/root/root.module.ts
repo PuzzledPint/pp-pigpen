@@ -16,11 +16,13 @@ import { HomeComponent } from "./home.component";
 import { HeaderComponent } from './header.component';
 import { UserAuthComponent } from "./user-auth.component";
 import { SitewideAlertComponent } from "./sitewide-alert.component";
-import { InfoCardComponent } from "./info-card.component";
 import { FooterComponent } from './footer.component';
 
 // Our Pipes
-import { VariablesPipe } from "src/pipes/variables.pipe";
+import { VariablesPipe } from "./variables.pipe";
+
+// Shared Modules
+import { SharedInfoCardModule } from '../info-card/shared-info-card.module';
 
 @NgModule({
   imports: [
@@ -34,6 +36,17 @@ import { VariablesPipe } from "src/pipes/variables.pipe";
     MessagesModule,
     MessageModule,
     ToastModule,
+
+    SharedInfoCardModule,
+  ],
+  exports: [
+    FooterComponent,
+    HeaderComponent,
+    SitewideAlertComponent,
+    UserAuthComponent,
+    HomeComponent,
+
+    VariablesPipe,
   ],
   declarations: [
     FooterComponent,
@@ -41,7 +54,6 @@ import { VariablesPipe } from "src/pipes/variables.pipe";
     SitewideAlertComponent,
     UserAuthComponent,
     HomeComponent,
-    InfoCardComponent,
 
     VariablesPipe,
   ]

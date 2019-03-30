@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { TestAllComponent } from "./test-all.component";
 import { TestAllRoutingModule } from "./test-all-routing.module";
 
-// Our Components
+// Our modules
 import { CityOpsModule } from "../city-ops/city-ops.module";
 import { CommsModule } from "../comms/comms.module";
 import { DonationsModule } from '../donations/donations.module';
@@ -13,6 +13,8 @@ import { PlaytestingModule } from '../playtesting/playtesting.module';
 import { ProfileModule } from '../profile/profile.module';
 import { ShowrunnerModule } from '../showrunner/showrunner.module';
 import { WebmasterModule } from '../webmaster/webmaster.module';
+import { SharedPuzzleModule } from "src/components/puzzle/shared-puzzle.module";
+
 
 @NgModule({
   declarations: [
@@ -29,6 +31,9 @@ import { WebmasterModule } from '../webmaster/webmaster.module';
     ProfileModule,
     ShowrunnerModule,
     WebmasterModule,
+
+    // Shared
+    SharedPuzzleModule,
 
     // Our app
     TestAllRoutingModule
