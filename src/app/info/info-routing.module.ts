@@ -3,9 +3,8 @@ import { Routes, RouterModule } from "@angular/router";
 import { InfoComponent } from './info.component';
 
 const routes: Routes = [
-  {
-    path: "",
-    component: InfoComponent,
+  { path: "", component: InfoComponent },
+  { path: ":slug", component: InfoComponent },
 //    resolve: {
 //      preloadScripts: ScriptLoaderResolver
 //    },
@@ -14,10 +13,9 @@ const routes: Routes = [
 //    },
 //    canActivate: [EditorGuard],
 //    canActivateChild: [EditorGuard],
-    children: [
-      { path: ":slug", component: InfoComponent },
-    ],
-  },
+    // children: [
+    //   { path: ":slug", component: InfoComponent },
+    // ],
 ];
 
 @NgModule({
