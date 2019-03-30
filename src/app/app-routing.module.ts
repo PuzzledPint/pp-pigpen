@@ -23,18 +23,18 @@ const routes: Routes = [
 
   // Protected
   { path: 'city-ops', loadChildren:'./city-ops/city-ops.module#CityOpsModule', canLoad: [CityOpsGuard]},
-  { path: 'editor', component: EditorComponent, canActivate: [EditorGuard] },
-  { path: 'webmaster', component: WebmasterComponent,  canActivate: [WebmasterGuard] },
   { path: 'comms', loadChildren:'./comms/comms.module#CommsModule', canLoad: [CommsGuard]},
+  { path: 'editor', loadChildren:'./editor/editor.module#EditorModule', canLoad: [EditorGuard]},
+  { path: 'showrunner', loadChildren:'./showrunner/showrunner.module#ShowrunnerModule', canLoad: [ShowrunnerGuard]},
+  { path: 'webmaster', loadChildren:'./webmaster/webmaster.module#WebmasterModule', canLoad: [WebmasterGuard]},
 
   // public
-  { path: 'playtesting', component: PlaytestingComponent },
-  { path: 'info/:slug', component: InfoComponent },
-  { path: 'info', component: InfoComponent },
+  { path: 'playtesting', loadChildren:'./playtesting/playtesting.module#PlaytestingModule'},
   { path: 'donations', loadChildren:'./donations/donations.module#DonationsModule'},
+  { path: 'info', loadChildren:'./info/info.module#InfoModule'},
 
   // public as tester doesn't log in
-  { path: 'test-all', component: TestAllComponent },
+  { path: 'test-all', loadChildren:'./test-all/test-all.module#TestAllModule'},
 
   // profile
   { path: 'profile/:uid', component: ProfileComponent },

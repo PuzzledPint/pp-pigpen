@@ -1,25 +1,22 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { CommsComponent } from './comms.component';
+import { PlaytestingComponent } from './playtesting.component';
 import { ScriptLoaderResolver } from 'src/services/scriptLoader.resolver';
-import { CommsGuard } from './comms.guard';
 
 const routes: Routes = [
   {
     path: "",
-    component: CommsComponent,
+    component: PlaytestingComponent,
     resolve: {
       preloadScripts: ScriptLoaderResolver
     },
     data: {
       preloadScripts: ["quill"]
     },
-    canActivate: [CommsGuard],
-//    canActivateChild: [CommsGuard],
-//    children: [
+    children: [
 //      { path: "make", component: MakeDonationComponent },
 //      { path: "list", component: ListDonationsComponent }
-//    ],
+    ],
   },
 ];
 
@@ -27,4 +24,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CommsRoutingModule { }
+export class PlaytestingRoutingModule { }

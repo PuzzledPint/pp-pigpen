@@ -1,25 +1,22 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { CommsComponent } from './comms.component';
+import { WebmasterComponent } from './webmaster.component';
 import { ScriptLoaderResolver } from 'src/services/scriptLoader.resolver';
-import { CommsGuard } from './comms.guard';
 
 const routes: Routes = [
   {
     path: "",
-    component: CommsComponent,
-    resolve: {
-      preloadScripts: ScriptLoaderResolver
-    },
-    data: {
-      preloadScripts: ["quill"]
-    },
-    canActivate: [CommsGuard],
-//    canActivateChild: [CommsGuard],
-//    children: [
+    component: WebmasterComponent,
+//     resolve: {
+//       preloadScripts: ScriptLoaderResolver
+//     },
+//     data: {
+//       preloadScripts: ["quill"]
+//     },
+//     children: [
 //      { path: "make", component: MakeDonationComponent },
 //      { path: "list", component: ListDonationsComponent }
-//    ],
+//     ],
   },
 ];
 
@@ -27,4 +24,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CommsRoutingModule { }
+export class WebmasterRoutingModule { }

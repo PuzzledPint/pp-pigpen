@@ -19,7 +19,7 @@ import { map, tap, take } from 'rxjs/operators';
   providedIn: 'root'
 })
 
-export class EditorGuard implements CanActivate, CanActivateChild, CanLoad {
+export class ShowrunnerGuard implements CanActivate, CanActivateChild, CanLoad {
 constructor(private auth: UserService, private router: Router, private notify: NotifyService) {}
 
 public canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
@@ -37,10 +37,10 @@ public canLoad(route: Route, segments: UrlSegment[]): boolean | Observable<boole
 private hasAccess() {
   return this.auth.isSignedIn.pipe(
     take(1),
-    map(b => b && this.auth.isEditor),
+    map(b => b && this.auth.isShowrunner),
     tap(b => {
       if (!b) {
-        this.notify.error("Denied", "You must be on the HQ Editors team to access that page!");
+        this.notify.error("Denied", "You must be a Showrunner to access that page!");
         this.router.navigate(["/"]);
         return false;
       }
