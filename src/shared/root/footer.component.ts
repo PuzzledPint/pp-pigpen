@@ -6,7 +6,7 @@ import { ppPigpenVersion } from 'src/environments/version';
   selector: 'app-footer',
   template: `
   <p data-cy="app-footer" class="footer">
-  This site is © {{ year }} CC BY-NC-SA International by Puzzled Pint (Portland, OR, USA).
+  This site is © {{ year }} CC BY-NC-SA International 4.0 by Puzzled Pint (Portland, OR, USA).
   Please see our Privacy Policy (coming soon).
   Website build #{{ build }}.
   If you encounter any issues with this site, please <a (click)="errorReport()" style="cursor: pointer">send an error report</a> or

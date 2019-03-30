@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 @Component({
   selector: "app-puzzle-sets",
   template: `
-    <p-carousel [value]="puzzleSets | async" numVisible="5"
+    <p-carousel [value]="puzzleSets | async"
       headerText="Select Puzzle Set">
       <ng-template let-set pTemplate="set">
         <div
