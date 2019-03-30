@@ -1,21 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from './auth.guard';
-
-import { TestAllComponent } from './test-all/test-all.component';
-import { EditorComponent } from './editor/editor.component';
+import { CityOpsGuard } from "./city-ops/city-ops.guard";
+import { CommsGuard } from './comms/comms.guard';
 import { EditorGuard } from './editor/editor.guard';
-import { WebmasterComponent } from './webmaster/webmaster.component';
+import { ShowrunnerGuard } from './showrunner/showrunner.guard';
 import { WebmasterGuard } from './webmaster/webmaster.guard';
-import { PlaytestingComponent } from './playtesting/playtesting.component';
 import { HomeComponent } from 'src/components/home.component';
 import { NotFoundResolver } from './not-found.resolver';
-import { CommsComponent } from './comms/comms.component';
-import { CommsGuard } from './comms/comms.guard';
-import { InfoComponent } from './info/info.component';
-import { ProfileComponent } from './profile/profile.component';
-import { CityOpsGuard } from "./city-ops/city-ops.guard";
 
 const routes: Routes = [
   // Home
@@ -37,8 +29,7 @@ const routes: Routes = [
   { path: 'test-all', loadChildren:'./test-all/test-all.module#TestAllModule'},
 
   // profile
-  { path: 'profile/:uid', component: ProfileComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', loadChildren:'./profile/profile.module#ProfileModule'},
 
   // Catch all
   { path: '**', component: HomeComponent, resolve: {void: NotFoundResolver}}

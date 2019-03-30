@@ -9,8 +9,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { AngularFireStorageModule } from '@angular/fire/storage';
-import { FormsModule } from '@angular/forms';
 
 // Angular Fire Libs
 import { AngularFireModule } from '@angular/fire';

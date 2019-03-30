@@ -1,6 +1,5 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { NotifyService } from "src/services/notify.service";
-import { BehaviorSubject } from "rxjs";
 import {
   trigger,
   state,
@@ -74,7 +73,7 @@ import {
     ])
   ]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   public title = "";
 
   constructor(private ns: NotifyService) {

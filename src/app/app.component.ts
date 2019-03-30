@@ -1,5 +1,4 @@
-import { Component, ViewEncapsulation, OnInit, isDevMode } from "@angular/core";
-import { UserService } from "src/services/user.service";
+import { Component, OnInit } from "@angular/core";
 import { faderAnimation } from "./animations";
 
 @Component({
@@ -37,12 +36,9 @@ import { faderAnimation } from "./animations";
   animations: [faderAnimation]
 })
 export class AppComponent implements OnInit {
-  constructor(private auth: UserService) {}
   public ngOnInit(): void {
-    if (isDevMode()) {
-      // firebase.firestore.setLogLevel('debug');
-    }
   }
+
   public safe(o: { isActivated: any; activatedRoute: any }) {
     return o.isActivated ? o.activatedRoute : "";
   }
