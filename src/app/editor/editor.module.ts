@@ -17,14 +17,14 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 
 // shared
-import { SharedPuzzleModule } from 'src/components/puzzle/shared-puzzle.module';
+import { SharedPuzzleModule } from 'src/shared/puzzle/shared-puzzle.module';
 
 // Our Components
 import { EditorComponent } from './editor.component';
 import { EditorRoutingModule } from './editor-routing.module';
-import { EditPuzzleSetComponent } from "./edit-puzzle-set.component";
-import { ViewPuzzleFeedbackComponent } from "./view-puzzle-feedback.component";
-import { EmailButtonComponent } from "./email-button.component";
+import { EditPuzzleSetComponent } from "./components/edit-puzzle-set.component";
+import { ViewPuzzleFeedbackComponent } from "./components/view-puzzle-feedback.component";
+import { EmailButtonComponent } from "./components/email-button.component";
 import { CardModule } from "primeng/card";
 import { CheckboxModule } from "primeng/checkbox";
 

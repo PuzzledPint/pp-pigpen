@@ -10,17 +10,17 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { AccordionModule } from 'primeng/accordion';
 
 // shared
-import { SharedPuzzleModule } from 'src/components/puzzle/shared-puzzle.module';
+import { SharedPuzzleModule } from 'src/shared/puzzle/shared-puzzle.module';
 
 // Our Components
 import { PlaytestingComponent } from './playtesting.component';
 import { PlaytestingRoutingModule } from './playtesting-routing.module';
-import { PuzzleFeedbackComponent } from "./puzzle-feedback.component";
+import { PuzzleFeedbackComponent } from "./components/puzzle-feedback.component";
 import { FieldsetModule } from "primeng/fieldset";
 import { CheckboxModule } from "primeng/checkbox";
 import { RatingModule } from 'primeng/rating';
-import { HintComponent } from "./hint.component";
-import { PuzzleComponent } from "./puzzle.component";
+import { HintComponent } from "./components/hint.component";
+import { PuzzleComponent } from "./components/puzzle.component";
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { CardModule } from "primeng/card";

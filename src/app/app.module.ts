@@ -22,7 +22,7 @@ import { AppComponent } from './app.component';
 
 // Our Modules
 import { AppRoutingModule } from './app-routing.module';
-import { RootModule } from "src/components/root/root.module";
+import { RootModule } from "src/shared/root/root.module";
 
 // Firebase credentials (okay to be public)
 const config = {

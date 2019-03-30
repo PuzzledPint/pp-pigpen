@@ -8,8 +8,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
 // Our Components
 import { CityOpsRoutingModule } from "./city-ops-routing.module";
 import { CityOpsComponent } from "./city-ops.component";
-import { RosterComponent } from "./roster.component";
-import { CitiesComponent } from './cities.component';
+import { RosterComponent } from "./components/roster.component";
+import { CitiesComponent } from './components/cities.component';
 
 
 @NgModule({

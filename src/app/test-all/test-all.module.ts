@@ -13,7 +13,8 @@ import { PlaytestingModule } from '../playtesting/playtesting.module';
 import { ProfileModule } from '../profile/profile.module';
 import { ShowrunnerModule } from '../showrunner/showrunner.module';
 import { WebmasterModule } from '../webmaster/webmaster.module';
-import { SharedPuzzleModule } from "src/components/puzzle/shared-puzzle.module";
+import { SharedPuzzleModule } from "src/shared/puzzle/shared-puzzle.module";
+import { SharedInfoCardModule } from "src/shared/info-card/shared-info-card.module";
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { SharedPuzzleModule } from "src/components/puzzle/shared-puzzle.module";
 
     // Shared
     SharedPuzzleModule,
+    SharedInfoCardModule,
 
     // Our app
     TestAllRoutingModule

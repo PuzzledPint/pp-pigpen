@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { ListDonationsComponent } from "./list-donations.component";
-import { MakeDonationComponent } from "./make-donation.component";
+import { ListDonationsComponent } from "./components/list-donations.component";
+import { MakeDonationComponent } from "./components/make-donation.component";
 import { DonationsComponent } from './donations.component';
 import { ScriptLoaderResolver } from 'src/services/scriptLoader.resolver';
 

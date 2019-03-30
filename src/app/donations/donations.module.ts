@@ -6,8 +6,8 @@ import { FormsModule } from "@angular/forms";
 
 // PrimeNG
 import { TabMenuModule } from 'primeng/tabmenu';
-import { MakeDonationComponent } from "./make-donation.component";
-import { ListDonationsComponent } from "./list-donations.component";
+import { MakeDonationComponent } from "./components/make-donation.component";
+import { ListDonationsComponent } from "./components/list-donations.component";
 import { DonationsRoutingModule } from "./donations-routing.module";
 import { DonationsComponent } from "./donations.component";
 import { ButtonModule } from 'primeng/button';

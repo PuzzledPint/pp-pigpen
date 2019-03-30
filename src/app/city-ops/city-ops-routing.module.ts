@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { CityOpsGuard } from "./city-ops.guard";
-import { RosterComponent } from "./roster.component";
-import { CitiesComponent } from "./cities.component";
+import { RosterComponent } from "./components/roster.component";
+import { CitiesComponent } from "./components/cities.component";
 import { CityOpsComponent } from "./city-ops.component";
 
 const routes: Routes = [

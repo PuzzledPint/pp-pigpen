@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 
 import { CardModule } from "primeng/card";
 
-import { SharedInfoCardModule } from "src/components/info-card/shared-info-card.module";
+import { SharedInfoCardModule } from "src/shared/info-card/shared-info-card.module";
 
 import { InfoComponent } from "./info.component";
 import { InfoRoutingModule } from "./info-routing.module";
