@@ -3,13 +3,13 @@ import { AngularFirestore, AngularFirestoreDocument, DocumentReference, AngularF
 
 import { FSPlaytestFeedback } from "../models/fs-playtest-feedback.model";
 import { UserService } from "./user.service";
-import { Util } from "./util";
 import { NotifyService } from "./notify.service";
 import { Observable } from "rxjs";
 import { map, tap, shareReplay } from "rxjs/operators";
 import { Puzzle } from "./puzzle.service";
 import { Timestamp } from '@firebase/firestore-types';
 import { SentryService } from "./sentry.service";
+import { numToString } from 'src/shared/conversion-utils';
 
 export interface PlaytestFeedbackAugmented extends FSPlaytestFeedback {
   userId: string;
@@ -39,7 +39,7 @@ export class PlaytestFeedback {
   }
 
   get numPlaytesters() {
-    return Util.numToString(this.inner.numPlaytesters);
+    return numToString(this.inner.numPlaytesters);
   }
   set numPlaytesters(s: string) {
     const i = +s;
@@ -63,7 +63,7 @@ export class PlaytestFeedback {
   }
 
   get solveMinutes() {
-    return Util.numToString(this.inner.solveMinutes);
+    return numToString(this.inner.solveMinutes);
   }
   set solveMinutes(s: string) {
     const i = +s;

@@ -6,7 +6,7 @@ import { Puzzle, PuzzleService } from "src/services/puzzle.service";
 import { DatePipe } from "@angular/common";
 
 @Component({
-  selector: "app-view-puzzle-feedback",
+  selector: "app-editor-view-puzzle-feedback",
   template: `
     <p-fieldset [legend]="fieldSetName()" [toggleable]="true" [transitionOptions]="'200ms'" [collapsed]="true">
       <p-fieldset legend="Filters" [toggleable]="true" [transitionOptions]="'200ms'" [collapsed]="true">
@@ -80,7 +80,7 @@ import { DatePipe } from "@angular/common";
                   </p-dropdown>
                   <p-button label="Add Notes"></p-button>
                   <div class="ui-toolbar-group-right">
-                    <app-email-button [subject]="'Question about your feedback on ' + puzzle?.name" [toEmail]="report.email"></app-email-button>
+                    <app-editor-email-button [subject]="'Question about your feedback on ' + puzzle?.name" [toEmail]="report.email"></app-editor-email-button>
                   </div>
                 </p-footer>
               </p-card>

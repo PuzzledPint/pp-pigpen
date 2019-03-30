@@ -39,7 +39,7 @@ import { NotifyService } from "src/services/notify.service";
 // declare var StripeCheckout: StripeCheckoutStatic;
 
 @Component({
-  selector: "app-make-donation",
+  selector: "app-donations-make",
   template: `
     <div class="p-grid">
       <p-card header="Make a One-Time Donation to Puzzled Pint" styleClass="ui-card-shadow">
@@ -63,7 +63,7 @@ import { NotifyService } from "src/services/notify.service";
   `,
   styles: [],
 })
-export class MakeDonationComponent implements OnInit {
+export class DonationsMakeComponent implements OnInit {
   private handler: StripeCheckoutHandler | undefined;
   public confirmation: any;
   public processing = false;

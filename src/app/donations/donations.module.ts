@@ -6,8 +6,8 @@ import { FormsModule } from "@angular/forms";
 
 // PrimeNG
 import { TabMenuModule } from 'primeng/tabmenu';
-import { MakeDonationComponent } from "./components/make-donation.component";
-import { ListDonationsComponent } from "./components/list-donations.component";
+import { DonationsMakeComponent } from "./components/make.component";
+import { DonationsListComponent } from "./components/list.component";
 import { DonationsRoutingModule } from "./donations-routing.module";
 import { DonationsComponent } from "./donations.component";
 import { ButtonModule } from 'primeng/button';
@@ -21,8 +21,8 @@ import { ProgressBarModule } from 'primeng/progressbar';
 
 @NgModule({
   declarations: [
-    MakeDonationComponent,
-    ListDonationsComponent,
+    DonationsMakeComponent,
+    DonationsListComponent,
     DonationsComponent
   ],
   imports: [

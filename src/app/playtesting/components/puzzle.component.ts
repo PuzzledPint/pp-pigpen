@@ -3,7 +3,7 @@ import { Puzzle } from "src/services/puzzle.service";
 import { Observable } from "rxjs";
 
 @Component({
-  selector: "app-puzzle",
+  selector: "app-playtesting-puzzle",
   template: `
     <div *ngIf="(puzzle | async) as puz; else noPuzzle">
       <a href="{{ puz.pdf }}" target="_blank"><button pButton type="button" icon="pi pi-download" class="ui-button-success" label="Download the puzzle"></button></a>
@@ -14,7 +14,7 @@ import { Observable } from "rxjs";
         [collapsed]="true"
       >
         <div *ngFor="let hint of puz.hints">
-          <app-hint [hint]="hint"></app-hint>
+          <app-playtesting-hint [hint]="hint"></app-playtesting-hint>
         </div>
       </p-fieldset>
     </div>

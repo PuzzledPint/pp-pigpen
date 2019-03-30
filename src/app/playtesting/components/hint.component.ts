@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { FSHint } from "src/models/fs-hint.model";
 
 @Component({
-  selector: "app-hint",
+  selector: "app-playtesting-hint",
   template: `
     <div class="p-grid">
       <p-button

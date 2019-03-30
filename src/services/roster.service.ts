@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore, DocumentReference, AngularFirestoreDocument } from "@angular/fire/firestore";
 import { FSRosterEntry } from "src/models/fs-roster-entry.model";
-import { Util } from "./util";
 import { InternalNgModuleRef } from "@angular/core/src/linker/ng_module_factory";
+import { isEmailValid } from 'src/shared/validation-utils';
 
 // export interface FSPermissions {
 //   active: boolean;
@@ -62,7 +62,7 @@ export class RosterEntry {
   set gmail(s: string) {
     this.dirty(s, this.inner.gmail);
     this.inner.gmail = s;
-    this.gmail_error = Util.isEmailValid(s) ? "" : "invalid gmail address";
+    this.gmail_error = isEmailValid(s) ? "" : "invalid gmail address";
   }
   get start() {
     return this.inner.start;

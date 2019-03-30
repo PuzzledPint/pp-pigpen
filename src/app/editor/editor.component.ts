@@ -14,7 +14,7 @@ import { PuzzleService } from "src/services/puzzle.service";
         ></p-button>
       </div>
     </p-toolbar>
-    <app-edit-puzzle-set></app-edit-puzzle-set>
+    <app-editor-edit-puzzle-set></app-editor-edit-puzzle-set>
   `,
   styles: []
 })

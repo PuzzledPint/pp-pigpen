@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: "app-list-donations",
+  selector: "app-donations-list",
   template:      `Cities`
     // <p-table [value]="" (onEditComplete)="save()">
     //   <ng-template pTemplate="caption">
@@ -46,7 +46,7 @@ import { Component, OnInit } from "@angular/core";
   ,
   styles: [],
 })
-export class ListDonationsComponent implements OnInit {
+export class DonationsListComponent implements OnInit {
   constructor() {}
 
   public ngOnInit() {}

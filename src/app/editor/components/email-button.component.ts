@@ -3,7 +3,7 @@ import { UserService } from "src/services/user.service";
 import { HttpParams } from "@angular/common/http";
 
 @Component({
-  selector: "app-email-button",
+  selector: "app-editor-email-button",
   template: `
     <a href="{{ url() }}" target="_blank">
       <p-button label="Email {{ toEmail }}"></p-button>

@@ -7,7 +7,7 @@ import { SelectItem } from "primeng/api";
 import { SentryService } from "src/services/sentry.service";
 
 @Component({
-  selector: "app-edit-puzzle-set",
+  selector: "app-editor-edit-puzzle-set",
   template: `
     <div *ngIf="selectedPuzzleSet">
       <form (ngSubmit)="savePuzzleSet()" #puzzleSetForm="ngForm">
@@ -263,7 +263,7 @@ import { SentryService } from "src/services/sentry.service";
           </div>
         </p-fieldset>
       </form>
-      <app-view-puzzle-feedback></app-view-puzzle-feedback>
+      <app-editor-view-puzzle-feedback></app-editor-view-puzzle-feedback>
     </div>
   `,
   styles: []

@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { ListDonationsComponent } from "./components/list-donations.component";
-import { MakeDonationComponent } from "./components/make-donation.component";
+import { DonationsListComponent } from "./components/list.component";
+import { DonationsMakeComponent } from "./components/make.component";
 import { DonationsComponent } from './donations.component';
 import { ScriptLoaderResolver } from 'src/services/scriptLoader.resolver';
 
@@ -16,8 +16,8 @@ const routes: Routes = [
       preloadScripts: ["stripe"]
     },
     children: [
-      { path: "make", component: MakeDonationComponent },
-      { path: "list", component: ListDonationsComponent }
+      { path: "make", component: DonationsMakeComponent },
+      { path: "list", component: DonationsListComponent }
     ],
   },
 ];

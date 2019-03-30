@@ -10,11 +10,12 @@ import { map, tap, shareReplay, filter } from "rxjs/operators";
 
 import { FSPuzzleSet } from "src/models/fs-puzzle-set.model";
 import { FSPuzzle } from "src/models/fs-puzzle.model";
-import { Util } from './util';
 import { PlaytestService, PlaytestFeedback } from "./playtest.service";
 import { saveAs } from "file-saver";
 import { NotifyService } from './notify.service';
 import { SentryService } from "./sentry.service";
+import { fromFS } from 'src/shared/firestore-utils';
+import { nextAsPromise } from 'src/shared/rxjs-utils';
 
 export interface PuzzleSet extends FSPuzzleSet { afDoc: AngularFirestoreDocument<FSPuzzleSet>; }
 export interface Puzzle extends FSPuzzle { afDoc: AngularFirestoreDocument<FSPuzzle>; }
@@ -34,7 +35,6 @@ export class PuzzleService {
   public selectedPuzzle = this._selectedPuzzle.asObservable();
 
   private puzzlesCollection: AngularFirestoreCollection<FSPuzzle>;
-
 
   constructor(private readonly af: AngularFirestore, private pts: PlaytestService, private ss: SentryService) {
     this.puzzleSetsCollection = af.collection<FSPuzzleSet>("puzzleSets");
@@ -76,7 +76,7 @@ export class PuzzleService {
         polaroid: "/assets/images/nopolaroid.png",
         month: new Date().getFullYear() + "-01",
         puzzleRefs: []
-      }).then(docRef => this._selectedPuzzleSet.next(Util.fromFS<FSPuzzleSet, PuzzleSet>(this.af.doc(docRef))));
+      }).then(docRef => this._selectedPuzzleSet.next(fromFS<FSPuzzleSet, PuzzleSet>(this.af.doc(docRef))));
   }
 
   public addPuzzle(): Promise<DocumentReference> {
@@ -101,7 +101,7 @@ export class PuzzleService {
   }
 
   public selectPuzzleSet(set: PuzzleSet) {
-    this._selectedPuzzleSet.next(Util.fromFS(set.afDoc));
+    this._selectedPuzzleSet.next(fromFS(set.afDoc));
   }
 
   public selectPuzzle(puzzle: Puzzle | undefined) {
@@ -115,7 +115,7 @@ export class PuzzleService {
 
   public getPuzzle(ref: DocumentReference): Observable<Puzzle> {
     const doc = this.af.doc<FSPuzzle>(ref);
-    return Util.fromFS<FSPuzzle, Puzzle>(doc);
+    return fromFS<FSPuzzle, Puzzle>(doc);
   }
 
   public async downloadFeedback(sps: PuzzleSet) {
@@ -126,8 +126,8 @@ export class PuzzleService {
     const replacer = (key: string, value: any) => (value === null ? "" : value); // specify how you want to handle null values here
 
     for (const puzzleRef of sps.puzzleRefs) {
-      const puzzle = await Util.single(this.getPuzzle(puzzleRef));
-      const feedback = await Util.single(this.pts.getPlaytestFeedbackAugmented(puzzle));
+      const puzzle = await nextAsPromise(this.getPuzzle(puzzleRef));
+      const feedback = await nextAsPromise(this.pts.getPlaytestFeedbackAugmented(puzzle));
 
       if (emitHeader) {
         emitHeader = false;

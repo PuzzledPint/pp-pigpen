@@ -44,8 +44,8 @@ import { PuzzleService, Puzzle } from "src/services/puzzle.service";
         <p-accordion [activeIndex]="accordianActive">
           <div *ngFor="let puzzleRef of puzzleSet.puzzleRefs; let i = index">
             <p-accordionTab [header]="toTitle(puzzleRef | refToPuzzle | async)">
-              <app-puzzle [puzzle]="puzzleRef | refToPuzzle"></app-puzzle>
-              <app-puzzle-feedback [puzzleRef]="puzzleRef" (saved)="onSaved(i)"></app-puzzle-feedback>
+              <app-playtesting-puzzle [puzzle]="puzzleRef | refToPuzzle"></app-playtesting-puzzle>
+              <app-playtesting-puzzle-feedback [puzzleRef]="puzzleRef" (saved)="onSaved(i)"></app-playtesting-puzzle-feedback>
             </p-accordionTab>
           </div>
         </p-accordion>

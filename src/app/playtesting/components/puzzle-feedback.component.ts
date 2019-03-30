@@ -4,7 +4,7 @@ import { PlaytestFeedback, PlaytestService } from "src/services/playtest.service
 import { NotifyService } from "src/services/notify.service";
 
 @Component({
-  selector: "app-puzzle-feedback",
+  selector: "app-playtesting-puzzle-feedback",
   template: `
     <p-fieldset legend="Your Feedback" [toggleable]="true" [transitionOptions]="'200ms'" [collapsed]="true">
       <div *ngIf="puzzleRef && puzzleFeedback; else noFeedback" class="p-grid">
