@@ -14,16 +14,6 @@ import { SentryService } from "./sentry.service";
 import { noSideEffects } from "@angular/core/src/util";
 import { NotifyService } from './notify.service';
 
-export type AnyRole = keyof HQTeams;
-
-export interface HQTeams {
-  Editor: boolean;
-  CityOps: boolean;
-  Comms: boolean;
-  Webmaster: boolean;
-  Showrunner: boolean;
-}
-
 @Injectable({
   providedIn: "root"
 })

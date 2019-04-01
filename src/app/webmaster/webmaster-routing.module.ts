@@ -1,27 +1,14 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { WebmasterComponent } from './webmaster.component';
-import { ScriptLoaderResolver } from 'src/services/scriptLoader.resolver';
+import { WebmasterComponent } from "./webmaster.component";
 
 const routes: Routes = [
-  {
-    path: "",
-    component: WebmasterComponent,
-//     resolve: {
-//       preloadScripts: ScriptLoaderResolver
-//     },
-//     data: {
-//       preloadScripts: ["quill"]
-//     },
-//     children: [
-//      { path: "make", component: MakeDonationComponent },
-//      { path: "list", component: ListDonationsComponent }
-//     ],
-  },
+  { path: "", component: WebmasterComponent },
+  { path: ":tab", component: WebmasterComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class WebmasterRoutingModule { }
+export class WebmasterRoutingModule {}

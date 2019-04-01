@@ -22,8 +22,13 @@ import { SharedInfoCardModule } from "src/shared/info-card/shared-info-card.modu
     TestAllComponent
   ],
   imports: [
+    // Our app
+    TestAllRoutingModule,
+
     // Angular
     CommonModule,
+
+    // Ours
     CityOpsModule,
     DonationsModule,
     EditorModule,
@@ -37,8 +42,6 @@ import { SharedInfoCardModule } from "src/shared/info-card/shared-info-card.modu
     SharedPuzzleModule,
     SharedInfoCardModule,
 
-    // Our app
-    TestAllRoutingModule
   ],
   providers: [],
   bootstrap: []

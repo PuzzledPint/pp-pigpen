@@ -1165,7 +1165,7 @@ body p-togglebutton.ng-dirty.ng-invalid .ui-button {
 }
 
 body .ui-button {
-  margin: 0;
+  margin: 3px;
   color: #ffffff;
   background-color: #007ad9;
   border: 1px solid #007ad9;

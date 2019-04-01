@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { CityOpsGuard } from "./city-ops/city-ops.guard";
@@ -37,7 +37,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { enableTracing: isDevMode() })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
