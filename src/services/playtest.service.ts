@@ -180,6 +180,7 @@ export class PlaytestService {
             this.playtestCollection = us.fsdoc.collection<FSPlaytestFeedback>("playtestFeedback");
           } else {
             ss.log("user document not found in Playtest Service", true);
+            ns.error("Error Accessing Profile", "Sorry!  An known error occured accessing your profile.  The webmaster has been notified.");
           }
         } else {
           this.playtestCollection = undefined;

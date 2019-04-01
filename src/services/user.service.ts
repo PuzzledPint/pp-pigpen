@@ -11,6 +11,8 @@ import { User, auth } from "firebase/app";
 import { FSUserDoc } from "../models/fs-user-doc.model";
 import { ReplaySubject } from 'rxjs';
 import { SentryService } from "./sentry.service";
+import { noSideEffects } from "@angular/core/src/util";
+import { NotifyService } from './notify.service';
 
 export type AnyRole = keyof HQTeams;
 
@@ -46,7 +48,7 @@ export class UserService {
 
   private readonly authProvider: auth.GoogleAuthProvider;
 
-  constructor(public afAuth: AngularFireAuth, public af: AngularFirestore, private ss: SentryService) {
+  constructor(public afAuth: AngularFireAuth, public af: AngularFirestore, private ss: SentryService, private ns: NotifyService) {
     this.authProvider = new auth.GoogleAuthProvider();
 
     // get user updates
@@ -55,6 +57,7 @@ export class UserService {
       err => {
         // this.updateFbUser(null);  // don't change user state on error, just log it
         ss.handleError(err);
+        ns.error("Unknown Autentication Error", "Sorry! An unexepcted error occurred.  The webmaster has been notified.");
       },
       () => {
         ss.log("afAuth.user observable closed",true);
