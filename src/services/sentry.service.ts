@@ -25,11 +25,7 @@ export class SentryService implements ErrorHandler {
     this.user.name = name;
     this.user.email = email;
 
-    Sentry.addBreadcrumb({
-      category: "auth",
-      message: "Logged In",
-      level: Sentry.Severity.Info,
-    });
+    this.breadcrumb("auth", "Logged in", Sentry.Severity.Info);
     Sentry.configureScope(scope => {
       scope.setUser({
         id: id,
@@ -61,7 +57,11 @@ export class SentryService implements ErrorHandler {
     });
   }
 
-  public breadcrumb(b: string) {
-    Sentry.captureMessage(b, Sentry.Severity.Debug);
+  public breadcrumb(category: string, message: string, level=Sentry.Severity.Debug) {
+    Sentry.addBreadcrumb({
+      category: category,
+      message: message,
+      level: level,
+    });
   }
 }
