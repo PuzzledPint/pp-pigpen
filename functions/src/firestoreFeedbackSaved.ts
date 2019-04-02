@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 
 const fs = admin.firestore();
 
-export const apiFeedbackSaved = functions.firestore
+export const firestoreFeedbackSaved = functions.firestore
   .document("users/{userId}/playtestFeedback/{puzzleId}")
   .onWrite((snapshot, context) => {
     if (!snapshot || !snapshot.after) return Promise.reject("No snapshot data");

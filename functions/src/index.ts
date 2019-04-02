@@ -2,8 +2,10 @@ import * as admin from 'firebase-admin';
 
 admin.initializeApp();
 
-export { apiFeedbackSaved } from './apiFeedbackSaved';
-export { apiResetUserPerms } from './apiResetUserPerms';
-export { apiTravisDeploy } from './apiTravisDeploy';
+export { authNewUser } from './authNewUser';
 
-export { functionNewUser } from './functionNewUser';
+export { firestoreFeedbackSaved } from './firestoreFeedbackSaved';
+export { firestoreUpdateClaims } from './firestoreUpdateClaims';
+
+export { httpsTravisDeploy } from './httpsTravisDeploy';
+
