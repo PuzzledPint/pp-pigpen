@@ -7,16 +7,6 @@ const routes: Routes = [
   {
     path: "",
     component: PlaytestingComponent,
-    resolve: {
-      preloadScripts: ScriptLoaderResolver
-    },
-    data: {
-      preloadScripts: ["quill"]
-    },
-    children: [
-//      { path: "make", component: MakeDonationComponent },
-//      { path: "list", component: ListDonationsComponent }
-    ],
   },
 ];
 
