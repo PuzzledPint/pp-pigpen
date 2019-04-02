@@ -8,7 +8,7 @@ import { FSUserClaimsEntry } from "src/models/fs-admin-permissions";
   template: `
     <button p-button (click)="testError()">Test Error Handling</button>
 
-    <app-webmaster-permissions (save)="SavePermissions()" [userClaims]="userClaims"></app-webmaster-permissions>
+    <app-webmaster-permissions (save)="SavePermissions()" (add)="AddUserClaim()" [userClaims]="userClaims"></app-webmaster-permissions>
   `,
   styles: []
 })
@@ -36,4 +36,8 @@ export class TestAllComponent implements OnInit {
   }
 
   public SavePermissions() { this.ns.error("Saved", "Permissions"); }
+
+  public AddUserClaim() {
+    this.userClaims.push({ uid: "", email: "@puzzledpint.org", Editor: false, CityOps: false, Comms: false, Showrunner: false, Webmaster: false });
+  }
 }

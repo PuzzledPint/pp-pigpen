@@ -9,7 +9,7 @@ import { WebmasterService } from "src/services/webmaster.service";
     <p-tabView [activeIndex]="tab">
       <p-tabPanel header="Set Admin Permissions">
         <div *ngIf="ws.permissions; else loading">
-          <app-webmaster-permissions (save)="SavePermissions()" [userClaims]="ws.permissions!.userClaims"></app-webmaster-permissions>
+          <app-webmaster-permissions (save)="savePermissions()" (add)="addUserClaim()" [userClaims]="ws.permissions!.userClaims"></app-webmaster-permissions>
         </div>
       </p-tabPanel>
       <p-tabPanel header="Other">
@@ -46,7 +46,12 @@ export class WebmasterComponent implements OnInit, OnDestroy {
     this.routeSub.unsubscribe();
   }
 
-  public SavePermissions() {
+  public savePermissions() {
     this.ws.savePermissions();
   }
+
+  public addUserClaim() {
+    this.ws.addUserClaim();
+  }
+
 }

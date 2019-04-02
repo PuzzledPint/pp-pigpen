@@ -40,24 +40,26 @@ import { FSUserClaimsEntry } from "src/models/fs-admin-permissions";
           </td>
         </tr>
     </table>
-    <p-button label="Add Row" (onClick)="AddRow()"></p-button>
-    <p-button label="Save" (onClick)="doSave($event)"></p-button>
+    <p-button label="Add Row" (onClick)="handleAdd()"></p-button>
+    <p-button label="Save" (onClick)="handleSave()"></p-button>
   `,
   styles: [],
 })
 export class PermissionsComponent implements OnInit {
   @Input() public userClaims!: FSUserClaimsEntry[];
   @Output() public save = new EventEmitter();
+  @Output() public add = new EventEmitter();
 
   constructor() { }
 
   public ngOnInit() { }
 
-  public AddRow() {
-    this.userClaims.push({ uid: "", email: "@puzzledpint.org", Editor: false, CityOps: false, Comms: false, Showrunner: false, Webmaster: false });
-  }
-
-  public doSave(event: Event) {
+  public handleSave() {
     this.save.emit();
   }
+
+  public handleAdd() {
+    this.add.emit();
+  }
+
 }

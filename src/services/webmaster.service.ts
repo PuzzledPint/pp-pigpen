@@ -29,4 +29,13 @@ export class WebmasterService {
       this.ss.log("Permissions Object wasn't initialized");
     }
   }
+
+  public addUserClaim() {
+    if (this.permissions) {
+      this.permissions.userClaims.push({ uid: "", email: "@puzzledpint.org", Editor: false, CityOps: false, Comms: false, Showrunner: false, Webmaster: false });
+    } else {
+      this.ss.log("Permissions Object wasn't initialized");
+    }
+  }
+
 }
