@@ -15,7 +15,7 @@ export const httpsTravisDeploy = functions.https.onRequest((request, response) =
   if (!request) return response.status(500).send("No valid request found");
   console.log("request valid");
 
-  console.log("travisSignature = " + request.headers.travisSignature);
+  console.log("travisSignature = " + request.headers.signature);
   const travisSignature = Buffer.from(request.headers.signature as string, 'base64');
   console.log("travisSignatureBuffer = " + travisSignature);
   if (!travisSignature) return response.status(500).send("No authorization signature header found.");
@@ -30,7 +30,7 @@ export const httpsTravisDeploy = functions.https.onRequest((request, response) =
   console.log("payload raw = "+ body.payload);
 
   let verifier = crypto.createVerify('sha1');
-  verifier = verifier.update(body.payload);
+  verifier = verifier.update(payload);
   const status = verifier.verify(travisPublicKey, travisSignature);
   if (!status) {
     return response.status(500).send("Signature verification failed.");
