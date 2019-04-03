@@ -18,12 +18,12 @@ export const firestoreUpdateClaims = functions.firestore.document("webmaster/per
   for (const claim of userClaims) {
     if (!claim.uid) {
       // try to lookup by email
-      const existingUser = await admin.auth().getUserByEmail(claim.email);
-      if (existingUser) {
+      try {
+        const existingUser = await admin.auth().getUserByEmail(claim.email);
         claim.uid = existingUser.uid;
         dirty = true;
-      } else {
-        console.log(claim.email + ": User Not found");
+      } catch (error) {
+        console.log(claim.email + ": User Not found.  Reason=" + error);
       }
     }
   }
@@ -36,11 +36,13 @@ export const firestoreUpdateClaims = functions.firestore.document("webmaster/per
     // clean list, Set permissions
     for (const claim of userClaims) {
       if (claim.uid) {
-        const existingUser = await admin.auth().getUser(claim.uid);
-        if (existingUser) {
+        try {
+          const existingUser = await admin.auth().getUser(claim.uid);
           console.log("Existing Claims: " + JSON.stringify(existingUser.customClaims));
           // TODO: set GCCity before passing before passing
           updateUserClaims(existingUser, claim);
+        } catch (error) {
+          console.log("Not updating user " + claim.uid + " Reason=" + error);
         }
       }
     }
