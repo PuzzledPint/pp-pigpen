@@ -15,12 +15,12 @@ export const httpsTravisDeploy = functions.https.onRequest((request, response) =
   if (!request) return response.status(500).send("No valid request found");
   console.log("request valid");
 
-  const travisSignature = request.headers['signature'] as string;
+  const travisSignature = request.headers['Signature'] as string;
   if (!travisSignature) return response.status(500).send("No authorization signature header found.");
-  console.log("found signature");
+  console.log("travisSignature = " + travisSignature);
 
   const travisSignatureBuffer = Buffer.from(travisSignature, 'base64');
-  console.log("mapped to buffer");
+  console.log("travisSignatureBuffer = " + travisSignatureBuffer);
 
   const body = request.body;
   if (!body) return response.status(500).send("No valid body found");
@@ -29,7 +29,9 @@ export const httpsTravisDeploy = functions.https.onRequest((request, response) =
   const verifier = crypto.createVerify('sha1');
   verifier.update(body.payload);
   const status = verifier.verify(travisPublicKey, travisSignatureBuffer);
-  if(!status) return response.status(500).send("Signature verification failed.");
+  if (!status) {
+    return response.status(500).send("Signature verification failed.");
+  }
 
   const payload = JSON.parse(body.payload);
   if (!payload) return response.status(500).send("No valid payload found");
