@@ -14,29 +14,32 @@ export const httpsTravisDeploy = functions.https.onRequest((request, response) =
 
   if (!request) return response.status(500).send("No valid request found");
   console.log("request valid");
-  console.log(request.headers);
 
-  const travisSignature = request.headers.Signature;
+  console.log("travisSignature = " + request.headers.travisSignature);
+  const travisSignature = Buffer.from(request.headers.signature as string, 'base64');
+  console.log("travisSignatureBuffer = " + travisSignature);
   if (!travisSignature) return response.status(500).send("No authorization signature header found.");
-  console.log("travisSignature = " + travisSignature);
-
-  const travisSignatureBuffer = Buffer.from(travisSignature.length ? travisSignature[0] : travisSignature as string, 'base64');
-  console.log("travisSignatureBuffer = " + travisSignatureBuffer);
 
   const body = request.body;
   if (!body) return response.status(500).send("No valid body found");
-  console.log("body valid  = "+JSON.stringify(body));
+  console.log("body JS  = " + JSON.stringify(body));
 
-  const verifier = crypto.createVerify('sha1');
-  verifier.update(body.payload);
-  const status = verifier.verify(travisPublicKey, travisSignatureBuffer);
+  const payload = JSON.parse(body.payload);
+  if (!payload) return response.status(500).send("No valid payload found");
+   console.log("payload JS = " + payload);
+  console.log("payload raw = "+ body.payload);
+
+  let verifier = crypto.createVerify('sha1');
+  verifier = verifier.update(body.payload);
+  const status = verifier.verify(travisPublicKey, travisSignature);
   if (!status) {
     return response.status(500).send("Signature verification failed.");
   }
 
-  const payload = JSON.parse(body.payload);
-  if (!payload) return response.status(500).send("No valid payload found");
-  console.log("payload valid  = "+JSON.stringify(payload));
+  if (payload.status) {
+    console.log("Build ended in error, ignoring: " + payload.status);
+    return response.status(200).send("Ignoring failed build");
+  }
 
   if (!payload.number || (payload.number.length > 4) ) return response.status(500).send("No valid build number found");
   const build = payload.number;
