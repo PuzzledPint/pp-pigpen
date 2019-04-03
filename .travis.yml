@@ -51,6 +51,6 @@ after_deploy:
 
 notifications:
   webhooks:
-  - https://us-central1-pp-pigpen.cloudfunctions.net/apiTravisDeploy
+  - https://us-central1-pp-pigpen.cloudfunctions.net/httpsTravisDeploy
 
 

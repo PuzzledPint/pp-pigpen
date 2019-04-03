@@ -10,6 +10,8 @@ export interface UserClaim {
   Editor: boolean;
   Showrunner: boolean;
   Webmaster: boolean;
+
+  GCCity: string;
 }
 
 export async function updateUserClaims(user: UserRecord, claim: UserClaim) {

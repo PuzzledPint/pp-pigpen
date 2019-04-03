@@ -39,6 +39,7 @@ export const firestoreUpdateClaims = functions.firestore.document("webmaster/per
         const existingUser = await admin.auth().getUser(claim.uid);
         if (existingUser) {
           console.log("Existing Claims: " + JSON.stringify(existingUser.customClaims));
+          // TODO: set GCCity before passing before passing
           updateUserClaims(existingUser, claim);
         }
       }
