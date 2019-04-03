@@ -6,7 +6,16 @@ const fs = admin.firestore();
 
 // Captured 4/2/2019 - Will need to be refreshed if revoked.
 // tslint:disable-next-line
-const travisPublicKey = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvtjdLkS+FP+0fPC09j25\ny/PiuYDDivIT86COVedvlElk99BBYTrqNaJybxjXbIZ1Q6xFNhOY+iTcBr4E1zJu\ntizF3Xi0V9tOuP/M8Wn4Y/1lCWbQKlWrNQuqNBmhovF4K3mDCYswVbpgTmp+JQYu\nBm9QMdieZMNry5s6aiMA9aSjDlNyedvSENYo18F+NYg1J0C0JiPYTxheCb4optr1\n5xNzFKhAkuGs4XTOA5C7Q06GCKtDNf44s/CVE30KODUxBi0MCKaxiXw/yy55zxX2\n/YdGphIyQiA5iO1986ZmZCLLW8udz9uhW5jUr3Jlp9LbmphAC61bVSf4ou2YsJaN\n0QIDAQAB\n-----END PUBLIC KEY-----";
+const travisPublicKey =
+`-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvtjdLkS+FP+0fPC09j25
+y/PiuYDDivIT86COVedvlElk99BBYTrqNaJybxjXbIZ1Q6xFNhOY+iTcBr4E1zJu
+tizF3Xi0V9tOuP/M8Wn4Y/1lCWbQKlWrNQuqNBmhovF4K3mDCYswVbpgTmp+JQYu
+Bm9QMdieZMNry5s6aiMA9aSjDlNyedvSENYo18F+NYg1J0C0JiPYTxheCb4optr1
+5xNzFKhAkuGs4XTOA5C7Q06GCKtDNf44s/CVE30KODUxBi0MCKaxiXw/yy55zxX2
+/YdGphIyQiA5iO1986ZmZCLLW8udz9uhW5jUr3Jlp9LbmphAC61bVSf4ou2YsJaN
+0QIDAQAB
+-----END PUBLIC KEY-----`;
 
 export const httpsTravisDeploy = functions.https.onRequest((request, response) => {
   // See https://docs.travis-ci.com/user/notifications/#configuring-webhook-notifications for request body (POST)
@@ -27,10 +36,12 @@ export const httpsTravisDeploy = functions.https.onRequest((request, response) =
   const payload = JSON.parse(body.payload);
   if (!payload) return response.status(500).send("No valid payload found");
    console.log("payload JS = " + payload);
-  console.log("payload raw = "+ body.payload);
+   console.log("payload raw = "+ body.payload);
+  const payloadDecode = decodeURI(body.payload);
+  console.log("payload DU = " + payloadDecode);
 
   let verifier = crypto.createVerify('sha1');
-  verifier = verifier.update(payload);
+  verifier = verifier.update(payloadDecode);
   const status = verifier.verify(travisPublicKey, travisSignature);
   if (!status) {
     return response.status(500).send("Signature verification failed.");
