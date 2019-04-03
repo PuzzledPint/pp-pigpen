@@ -9,3 +9,4 @@ export { firestoreUpdateClaims } from './firestoreUpdateClaims';
 
 export { httpsTravisDeploy } from './httpsTravisDeploy';
 
+export { storageImageToWebp } from './storageImageToWebp';
