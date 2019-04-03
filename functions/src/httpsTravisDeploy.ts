@@ -14,12 +14,13 @@ export const httpsTravisDeploy = functions.https.onRequest((request, response) =
 
   if (!request) return response.status(500).send("No valid request found");
   console.log("request valid");
+  console.log(request.headers);
 
-  const travisSignature = request.headers['Signature'] as string;
+  const travisSignature = request.headers.Signature;
   if (!travisSignature) return response.status(500).send("No authorization signature header found.");
   console.log("travisSignature = " + travisSignature);
 
-  const travisSignatureBuffer = Buffer.from(travisSignature, 'base64');
+  const travisSignatureBuffer = Buffer.from(travisSignature.length ? travisSignature[0] : travisSignature as string, 'base64');
   console.log("travisSignatureBuffer = " + travisSignatureBuffer);
 
   const body = request.body;
