@@ -59,10 +59,10 @@ export class InfoComponent implements OnInit {
     },
     {
       title: "Privacy Policy",
-      teaser: `Coming Soon.`,
+      teaser: ``,
       buttonText: "More",
       slug: "privacy-policy",
-      fulltext: `<p>We don't share your info with third parties</p>`,
+      fulltext: `Available <a href="https://app.termly.io/document/privacy-policy/db4a74aa-5d29-4b53-b346-e7385576dcf2" target="_blank">here</a>`,
     },
     {
       title: "Starting up your city",

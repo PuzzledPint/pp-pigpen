@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { faderAnimation } from "./animations";
+import { AnalyticsService } from 'src/services/analytics.service';
 
 @Component({
   selector: "view-root",
@@ -36,6 +37,11 @@ import { faderAnimation } from "./animations";
   animations: [faderAnimation]
 })
 export class AppComponent implements OnInit {
+
+  constructor(private as: AnalyticsService) {
+    as.appStart();
+  }
+
   public ngOnInit(): void {
   }
 
