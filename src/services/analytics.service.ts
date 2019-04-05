@@ -1,4 +1,4 @@
-import { Injectable, isDevMode, PLATFORM_ID } from "@angular/core";
+import { Injectable, isDevMode, PLATFORM_ID, Inject } from "@angular/core";
 import { ppPigpenVersion } from "src/environments/version";
 import { SentryService } from "./sentry.service";
 import { isPlatformBrowser } from "@angular/common";
@@ -31,8 +31,8 @@ interface GACommand {
 export class AnalyticsService {
   private readonly queue = new ReplaySubject<GACommand>(10);
 
-  constructor(private ss: SentryService, private router: Router) {
-    if (isPlatformBrowser(PLATFORM_ID) || isDevMode()) {
+  constructor(private ss: SentryService, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(platformId)) {
         this.init();
     }
   }
