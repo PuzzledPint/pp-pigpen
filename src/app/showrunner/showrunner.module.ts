@@ -6,22 +6,19 @@ import { CommonModule } from "@angular/common";
 
 // Our Components
 import { ShowrunnerComponent } from './showrunner.component';
-import { ShowrunnerRoutingModule } from './showrunner-routing.module';
 
 @NgModule({
   declarations: [
     ShowrunnerComponent
   ],
+  exports: [ShowrunnerComponent],
   imports: [
     // Angular
     CommonModule,
 
     // PrimeNG
-
-    // Our app
-    ShowrunnerRoutingModule
   ],
   providers: [],
   bootstrap: []
 })
-export class ShowrunnerModule {}
+export class ShowrunnerModule { }

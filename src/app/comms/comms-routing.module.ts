@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { CommsComponent } from './comms.component';
 import { ScriptLoaderResolver } from 'src/services/scriptLoader.resolver';
 import { CommsGuard } from './comms.guard';
+import { CommsModule } from './comms.module';
 
 const routes: Routes = [
   {
@@ -24,7 +25,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  imports: [CommsModule, RouterModule.forChild(routes)],
 })
 export class CommsRoutingModule { }

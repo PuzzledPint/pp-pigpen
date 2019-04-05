@@ -6,10 +6,10 @@ import { CommonModule } from "@angular/common";
 import { TabMenuModule } from 'primeng/tabmenu';
 
 // Our Components
-import { CityOpsRoutingModule } from "./city-ops-routing.module";
 import { CityOpsComponent } from "./city-ops.component";
 import { RosterComponent } from "./components/roster.component";
 import { CitiesComponent } from './components/cities.component';
+import { RouterModule } from "@angular/router";
 
 
 @NgModule({
@@ -21,12 +21,15 @@ import { CitiesComponent } from './components/cities.component';
   imports: [
     // Angular
     CommonModule,
+    RouterModule,
 
     // PrimeNG
     TabMenuModule,
-
-    // Our app
-    CityOpsRoutingModule,
+  ],
+  exports: [
+    CityOpsComponent,
+    RosterComponent,
+    CitiesComponent
   ],
   providers: [],
   bootstrap: []

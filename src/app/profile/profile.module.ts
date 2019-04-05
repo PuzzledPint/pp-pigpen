@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { ProfileComponent } from "./profile.component";
-import { ProfileRoutingModule } from "./profile-routing.module";
 import { CardModule } from "primeng/card";
+import { RouterModule } from "@angular/router";
 
 // Angular Libs
 
@@ -10,15 +10,14 @@ import { CardModule } from "primeng/card";
   declarations: [
     ProfileComponent
   ],
+  exports: [ProfileComponent],
   imports: [
     // Angular
     CommonModule,
+    RouterModule,
 
     // PrimeNG
     CardModule,
-
-    // Our app
-    ProfileRoutingModule
   ],
   providers: [],
   bootstrap: []

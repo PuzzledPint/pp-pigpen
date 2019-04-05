@@ -1,21 +1,27 @@
 // Angular Libs
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 
 // Our Components
 import { WebmasterComponent } from './webmaster.component';
-import { WebmasterRoutingModule } from './webmaster-routing.module';
 import { PermissionsComponent } from "./components/permissions.component";
 
 // PrimeNG
-import { TabViewModule } from 'primeng/tabview';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from "primeng/inputtext";
 import { ButtonModule } from "primeng/button";
+import { TabMenuModule } from 'primeng/tabmenu';
+import { WebmasterService } from "src/services/webmaster.service";
+import { WebmasterServiceImpl } from "src/services/webmaster.service.impl";
 
 @NgModule({
   declarations: [
+    WebmasterComponent,
+    PermissionsComponent,
+  ],
+  exports: [
     WebmasterComponent,
     PermissionsComponent,
   ],
@@ -23,20 +29,14 @@ import { ButtonModule } from "primeng/button";
     // Angular
     CommonModule,
     FormsModule,
+    RouterModule,
 
     // PrimeNG
-    TabViewModule,
+    TabMenuModule,
     InputTextModule,
     CheckboxModule,
     ButtonModule,
-
-    // Our app
-    WebmasterRoutingModule
   ],
-  exports: [
-    PermissionsComponent
-  ],
-  providers: [],
   bootstrap: []
 })
 export class WebmasterModule {}

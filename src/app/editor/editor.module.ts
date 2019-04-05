@@ -21,7 +21,6 @@ import { SharedPuzzleModule } from 'src/shared/puzzle/shared-puzzle.module';
 
 // Our Components
 import { EditorComponent } from './editor.component';
-import { EditorRoutingModule } from './editor-routing.module';
 import { EditPuzzleSetComponent } from "./components/edit-puzzle-set.component";
 import { ViewPuzzleFeedbackComponent } from "./components/view-puzzle-feedback.component";
 import { EmailButtonComponent } from "./components/email-button.component";
@@ -34,6 +33,9 @@ import { CheckboxModule } from "primeng/checkbox";
     EditPuzzleSetComponent,
     ViewPuzzleFeedbackComponent,
     EmailButtonComponent,
+  ],
+  exports: [
+    EditorComponent,
   ],
   imports: [
     // Angular
@@ -57,7 +59,6 @@ import { CheckboxModule } from "primeng/checkbox";
 
     // Our app
     SharedPuzzleModule,
-    EditorRoutingModule
   ],
   providers: [],
   bootstrap: []

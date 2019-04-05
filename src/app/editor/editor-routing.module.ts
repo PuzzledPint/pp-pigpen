@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { EditorComponent } from './editor.component';
 import { EditorGuard } from './editor.guard';
+import { EditorModule } from './editor.module';
 
 const routes: Routes = [
   {
@@ -23,7 +24,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  imports: [EditorModule, RouterModule.forChild(routes)],
 })
 export class EditorRoutingModule { }

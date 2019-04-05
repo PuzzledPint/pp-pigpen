@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FSUserClaimsEntry } from "src/models/fs-admin-permissions";
+import { WebmasterService } from "src/services/webmaster.service";
 
 @Component({
   selector: "app-webmaster-permissions",
@@ -16,7 +17,7 @@ import { FSUserClaimsEntry } from "src/models/fs-admin-permissions";
         <th>Webmaster</th>
       </tr>
 
-        <tr *ngFor="let row of userClaims; let i = index">
+        <tr *ngFor="let row of ws.permissions?.userClaims; let i = index">
           <td>
             <i>{{ row.uid }}</i>
           </td>
@@ -40,26 +41,13 @@ import { FSUserClaimsEntry } from "src/models/fs-admin-permissions";
           </td>
         </tr>
     </table>
-    <p-button label="Add Row" (onClick)="handleAdd()"></p-button>
-    <p-button label="Save" (onClick)="handleSave()"></p-button>
+    <p-button label="Add Row" (onClick)="ws.addUserClaim()"></p-button>
+    <p-button label="Save" (onClick)="ws.savePermissions()"></p-button>
   `,
   styles: [],
 })
 export class PermissionsComponent implements OnInit {
-  @Input() public userClaims!: FSUserClaimsEntry[];
-  @Output() public save = new EventEmitter();
-  @Output() public add = new EventEmitter();
-
-  constructor() { }
+  constructor(public ws: WebmasterService) { }
 
   public ngOnInit() { }
-
-  public handleSave() {
-    this.save.emit();
-  }
-
-  public handleAdd() {
-    this.add.emit();
-  }
-
 }

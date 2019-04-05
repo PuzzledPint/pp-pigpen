@@ -8,22 +8,21 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AccordionModule } from 'primeng/accordion';
+import { FieldsetModule } from "primeng/fieldset";
+import { CheckboxModule } from "primeng/checkbox";
+import { RatingModule } from 'primeng/rating';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
+import { CardModule } from "primeng/card";
 
 // shared
 import { SharedPuzzleModule } from 'src/shared/puzzle/shared-puzzle.module';
 
 // Our Components
 import { PlaytestingComponent } from './playtesting.component';
-import { PlaytestingRoutingModule } from './playtesting-routing.module';
 import { PuzzleFeedbackComponent } from "./components/puzzle-feedback.component";
-import { FieldsetModule } from "primeng/fieldset";
-import { CheckboxModule } from "primeng/checkbox";
-import { RatingModule } from 'primeng/rating';
 import { HintComponent } from "./components/hint.component";
 import { PuzzleComponent } from "./components/puzzle.component";
-import { MessageModule } from 'primeng/message';
-import { MessagesModule } from 'primeng/messages';
-import { CardModule } from "primeng/card";
 
 @NgModule({
   declarations: [
@@ -31,6 +30,9 @@ import { CardModule } from "primeng/card";
     PuzzleFeedbackComponent,
     HintComponent,
     PuzzleComponent,
+  ],
+  exports: [
+    PlaytestingComponent
   ],
   imports: [
     // Angular
@@ -51,7 +53,6 @@ import { CardModule } from "primeng/card";
 
     // Our app
     SharedPuzzleModule,
-    PlaytestingRoutingModule
   ],
   providers: [],
   bootstrap: []

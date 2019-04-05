@@ -4,6 +4,7 @@ import { DonationsListComponent } from "./components/list.component";
 import { DonationsMakeComponent } from "./components/make.component";
 import { DonationsComponent } from './donations.component';
 import { ScriptLoaderResolver } from 'src/services/scriptLoader.resolver';
+import { DonationsModule } from './donations.module';
 
 const routes: Routes = [
   {
@@ -23,7 +24,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  imports: [DonationsModule, RouterModule.forChild(routes)],
 })
 export class DonationsRoutingModule { }

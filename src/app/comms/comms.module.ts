@@ -10,7 +10,6 @@ import { ToolbarModule } from 'primeng/toolbar';
 
 // Our Components
 import { CommsComponent } from './comms.component';
-import { CommsRoutingModule } from './comms-routing.module';
 
 @NgModule({
   declarations: [
@@ -25,9 +24,9 @@ import { CommsRoutingModule } from './comms-routing.module';
     ToolbarModule,
     ButtonModule,
     InputTextModule,
-
-    // Our app
-    CommsRoutingModule
+  ],
+  exports: [
+    CommsComponent
   ],
   providers: [],
   bootstrap: []

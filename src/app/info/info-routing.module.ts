@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { InfoComponent } from './info.component';
+import { InfoModule } from './info.module';
 
 const routes: Routes = [
   { path: "", component: InfoComponent },
@@ -19,7 +20,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  imports: [InfoModule, RouterModule.forChild(routes)],
 })
 export class InfoRoutingModule { }

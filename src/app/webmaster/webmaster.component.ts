@@ -1,57 +1,23 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs";
+import { Component, OnInit } from "@angular/core";
 import { WebmasterService } from "src/services/webmaster.service";
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: "view-webmaster",
   template: `
-    <p-tabView [activeIndex]="tab">
-      <p-tabPanel header="Set Admin Permissions">
-        <div *ngIf="ws.permissions; else loading">
-          <app-webmaster-permissions (save)="savePermissions()" (add)="addUserClaim()" [userClaims]="ws.permissions!.userClaims"></app-webmaster-permissions>
-        </div>
-      </p-tabPanel>
-      <p-tabPanel header="Other">
-        <ng-template pTemplate="content">
-          Lazy Loaded Content
-        </ng-template>
-      </p-tabPanel>
-    </p-tabView>
-    <ng-template #loading>Loading...</ng-template>
+  <p-tabMenu [model]="items"></p-tabMenu>
+  <router-outlet>
   `,
   styles: [],
 })
-export class WebmasterComponent implements OnInit, OnDestroy {
-  public tab = 0;
-  private routeSub!: Subscription;
+export class WebmasterComponent implements OnInit {
+  public items: MenuItem[] | undefined;
 
-  constructor(private route: ActivatedRoute, public ws: WebmasterService) {}
+  constructor(public ws: WebmasterService) {}
 
   public ngOnInit() {
-    this.routeSub = this.route.paramMap.subscribe(params => {
-      switch (params.get("tab")) {
-        case "permissions": {
-          this.tab = 0;
-          break;
-        }
-        default: {
-          this.tab = 0;
-        }
-      }
-    });
+    this.items = [
+      { label: "Permissions", icon: "fa fa-users", routerLink: ["permissions"] },
+    ];
   }
-
-  public ngOnDestroy() {
-    this.routeSub.unsubscribe();
-  }
-
-  public savePermissions() {
-    this.ws.savePermissions();
-  }
-
-  public addUserClaim() {
-    this.ws.addUserClaim();
-  }
-
 }

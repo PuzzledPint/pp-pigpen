@@ -8,13 +8,13 @@ import { FormsModule } from "@angular/forms";
 import { TabMenuModule } from 'primeng/tabmenu';
 import { DonationsMakeComponent } from "./components/make.component";
 import { DonationsListComponent } from "./components/list.component";
-import { DonationsRoutingModule } from "./donations-routing.module";
 import { DonationsComponent } from "./donations.component";
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { RouterModule } from '@angular/router';
 
 // Our Components
 
@@ -25,10 +25,16 @@ import { ProgressBarModule } from 'primeng/progressbar';
     DonationsListComponent,
     DonationsComponent
   ],
+  exports: [
+    DonationsMakeComponent,
+    DonationsListComponent,
+    DonationsComponent
+  ],
   imports: [
     // Angular
     CommonModule,
     FormsModule,
+    RouterModule,
 
     // Firebase
     AngularFireFunctionsModule,
@@ -40,9 +46,6 @@ import { ProgressBarModule } from 'primeng/progressbar';
     PanelModule,
     InputTextModule,
     ProgressBarModule,
-
-    // Our app
-    DonationsRoutingModule
   ],
   providers: [],
   bootstrap: []

@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { ShowrunnerComponent } from './showrunner.component';
+import { ShowrunnerModule } from './showrunner.module';
 
 const routes: Routes = [
   {
@@ -20,7 +21,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  imports: [ShowrunnerModule, RouterModule.forChild(routes)],
 })
 export class ShowrunnerRoutingModule { }
