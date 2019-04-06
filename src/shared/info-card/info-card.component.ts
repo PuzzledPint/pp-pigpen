@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, OnInit, Input, Inject } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: "app-info-card",
   template: `
-    <div style="padding:5px;margin-bottom:0px">
+    <div (click)="click()">
       <p-card
         header="{{ title }}"
         subheader="{{ subtitle }}"
@@ -14,32 +15,29 @@ import { Router } from "@angular/router";
           <img src="{{ imageUrl }}" />
         </p-header>
         <span>{{ text }}</span>
-        <p-footer *ngIf="buttonText">
-          <div class="ui-toolbar-group-right">
-          <button
-            pButton
-            type="button"
-            label="{{ buttonText }}"
-            class="ui-button-primary"
-            [routerLink]="link"
-            routerLinkActive="active"
-          ></button>
-          </div>
-        </p-footer>
       </p-card>
     </div>
   `,
-  styles: []
+  styles: ["div { padding:5px;margin-bottom:0px; cursor: pointer }"]
 })
 export class InfoCardComponent implements OnInit {
   @Input() public title: string | undefined;
   @Input() public subtitle: string | undefined;
   @Input() public imageUrl: string | undefined;
   @Input() public text: string | undefined;
-  @Input() public buttonText: string | undefined;
   @Input() public link: string | undefined;
 
-  constructor(private r: Router) {}
+  constructor(private r: Router, @Inject(DOCUMENT) private document: any) { }
 
-  public ngOnInit() {}
+  public ngOnInit() { }
+
+  public click() {
+    if (!this.link) return;
+    if (this.link.startsWith("http") || this.link.startsWith("www")) {
+      document.location.href = this.link;
+    } else {
+      // router link
+      this.r.navigate([this.link]);
+    }
+  }
 }
