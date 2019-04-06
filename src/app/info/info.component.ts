@@ -17,12 +17,12 @@ class Info {
   selector: "app-info",
   template: `
     <div class="p-grid">
-      <div class="p-xl-9 p-lg-9 p-md-12 p-sm-12" [@activeAnimation]="selected.slug">
-        <p-card #activeSlug [header]="selected.title" styleClass="ui-card-shadow">
-          <span [innerHTML]="selected.fulltext"></span>
+      <div class="p-xl-9 p-lg-9 p-md-12 p-sm-12" [@activeAnimation]="selected?.slug">
+        <p-card #activeSlug [header]="selected?.title" styleClass="ui-card-shadow">
+          <span [innerHTML]="selected?.fulltext"></span>
         </p-card>
       </div>
-      <div class="p-xl-3 p-lg-3 p-md-12 p-sm-12" [@listAnimation]="selected.slug">
+      <div class="p-xl-3 p-lg-3 p-md-12 p-sm-12" [@listAnimation]="selected?.slug">
       <div *ngFor="let i of staticInfos" class="p-col-12">
       <app-info-card [title]="i.title" [text]="i.teaser" [link]="'/info/' + i.slug"></app-info-card>
       </div>
