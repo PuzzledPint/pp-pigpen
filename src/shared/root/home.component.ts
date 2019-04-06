@@ -7,7 +7,7 @@ import { UserService } from "src/services/user.service";
   template: `
     <div class="p-grid">
       <div class="p-xl-3 p-lg-4 p-md-6 p-sm-12">
-        <app-info-card title="What is Puzzled Pint?" text="Everything you wanted to know about Puzzled Pint can be found in our information section" link="/info"></app-info-card>
+        <app-info-card title="What is Puzzled Pint?" text="Everything you wanted to know about Puzzled Pint can be found in our information section" link="/info/about"></app-info-card>
       </div>
 
       <div class="p-xl-3 p-lg-4 p-md-6 p-sm-12">
