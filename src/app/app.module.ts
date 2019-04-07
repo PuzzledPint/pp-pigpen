@@ -44,7 +44,7 @@ const config = {
     // AngularFire
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule, // auth
-    //AngularFirestoreModule.enablePersistence(), // firestore
+    AngularFirestoreModule, // firestore
     // AngularFireStorageModule,
 
     // PrimeNG

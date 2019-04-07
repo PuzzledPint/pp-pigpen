@@ -46,10 +46,15 @@ export class AnalyticsService {
     this.ss.breadcrumb("AnalyticsService", "Loading Analytics");
     script.onload = () => {
       if (!window.ga) {
-        this.ss.log("GA was null");
+        this.ss.log("GA was null", true);
+      } else {
+        this.queue.subscribe(
+          gaitem => {
+            window.ga(gaitem.command, ...gaitem.args);
+          }
+        );
+        this.ss.breadcrumb("AnalyticsService", "Analytics Loaded");
       }
-      this.queue.subscribe(ga => window.ga(ga.command, ...ga.args));
-      this.ss.breadcrumb("AnalyticsService", "Analytics Loaded");
     };
     script.onerror = (error: any) => this.ss.handleError;
     document.head.appendChild(script);
