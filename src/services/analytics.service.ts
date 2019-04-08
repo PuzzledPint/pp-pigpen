@@ -81,7 +81,7 @@ export class AnalyticsService {
       }
     });
 
-    this.ga(GACommands.Send, 'event', 'application', 'start', ppPigpenVersion.build);
+    this.ga(GACommands.Send, 'event', 'build', ppPigpenVersion.build);
   }
 }
 
