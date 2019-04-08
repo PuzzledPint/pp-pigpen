@@ -1,4 +1,4 @@
-import { Injectable, isDevMode, PLATFORM_ID, Inject } from "@angular/core";
+import { Injectable, PLATFORM_ID, Inject } from "@angular/core";
 import { ppPigpenVersion } from "src/environments/version";
 import { SentryService } from "./sentry.service";
 import { isPlatformBrowser } from "@angular/common";
@@ -80,6 +80,8 @@ export class AnalyticsService {
         this.ga(GACommands.Send, 'pageview');
       }
     });
+
+    this.ga(GACommands.Send, 'event', 'application', 'start', ppPigpenVersion.build);
   }
 }
 
