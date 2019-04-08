@@ -8,14 +8,14 @@ import {
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { map, tap, shareReplay, filter } from "rxjs/operators";
 
-import { FSPuzzleSet } from "src/models/fs-puzzle-set.model";
-import { FSPuzzle } from "src/models/fs-puzzle.model";
+import { FSPuzzleSet } from "./fs-puzzle-set.model";
+import { FSPuzzle } from "./fs-puzzle.model";
 import { PlaytestService, PlaytestFeedback } from "./playtest.service";
 import { saveAs } from "file-saver";
-import { NotifyService } from './notify.service';
-import { SentryService } from "./sentry.service";
-import { fromFS } from 'src/shared/firestore-utils';
-import { nextAsPromise } from 'src/shared/rxjs-utils';
+import { NotifyService } from '../root/notify.service';
+import { SentryService } from "../root/sentry.service";
+import { fromFS } from '../root/firestore.util';
+import { nextAsPromise } from '../root/rxjs.utils';
 
 export interface PuzzleSet extends FSPuzzleSet { afDoc: AngularFirestoreDocument<FSPuzzleSet>; }
 export interface Puzzle extends FSPuzzle { afDoc: AngularFirestoreDocument<FSPuzzle>; }

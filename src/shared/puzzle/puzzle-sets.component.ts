@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, Input } from "@angular/core";
-import { PuzzleService, PuzzleSet } from "src/services/puzzle.service";
 import { Observable } from "rxjs";
+import { PuzzleSet, PuzzleService } from './puzzle.service';
 
 @Component({
   selector: "app-puzzle-sets",

@@ -1,9 +1,9 @@
 
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from "@angular/router";
-import { NotifyService } from "src/services/notify.service";
+import { NotifyService } from "src/shared/root/notify.service";
 import { Observable } from "rxjs";
-import { SentryService } from "src/services/sentry.service";
+import { SentryService } from "src/shared/root/sentry.service";
 
 @Injectable({providedIn: 'root'})
 export class NotFoundResolver implements Resolve<void> {

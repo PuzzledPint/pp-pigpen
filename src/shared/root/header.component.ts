@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { NotifyService } from "src/services/notify.service";
+import { NotifyService } from "src/shared/root/notify.service";
 import {
   trigger,
   state,

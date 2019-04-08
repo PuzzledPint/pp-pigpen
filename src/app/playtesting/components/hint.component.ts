@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { FSHint } from "src/models/fs-hint.model";
+import { FSHint } from 'src/shared/puzzle/fs-hint.model';
 
 @Component({
   selector: "app-playtesting-hint",

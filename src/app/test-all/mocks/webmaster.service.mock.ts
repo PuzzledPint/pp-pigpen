@@ -1,9 +1,7 @@
-import { WebmasterService } from "src/services/webmaster.service";
-
-import { FSAdminPermissions } from "src/models/fs-admin-permissions";
-
-import { NotifyService } from "src/services/notify.service";
+import { NotifyService } from "src/shared/root/notify.service";
 import { Injectable } from "@angular/core";
+import { FSAdminPermissions } from 'src/app/webmaster/fs-admin-permissions';
+import { WebmasterService } from 'src/app/webmaster/webmaster.service';
 
 @Injectable()
 export class WebmasterServiceMock implements WebmasterService {

@@ -2,7 +2,7 @@
 import { environment } from '../environments/environment';
 
 // Our Services
-import { SentryService } from 'src/services/sentry.service';
+import { SentryService } from 'src/shared/root/sentry.service';
 
 // Angular
 import { BrowserModule } from '@angular/platform-browser';

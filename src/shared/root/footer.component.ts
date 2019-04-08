@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SentryService } from 'src/services/sentry.service';
+import { SentryService } from 'src/shared/root/sentry.service';
 import { ppPigpenVersion } from 'src/environments/version';
 
 @Component({

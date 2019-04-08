@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from "@angular/core";
 import { AngularFireFunctions } from "@angular/fire/functions";
 import { environment } from "src/environments/environment";
-import { NotifyService } from "src/services/notify.service";
+import { NotifyService } from "src/shared/root/notify.service";
 
 // interface StripeCheckoutStatic {
 //   configure(options: StripeCheckoutOptions): StripeCheckoutHandler;

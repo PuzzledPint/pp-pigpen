@@ -3,9 +3,8 @@ import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from "@angular/fire/firestore";
-
-import { FSInfo } from "../models/fs-info.model";
-import { NotifyService } from "./notify.service";
+import { FSInfo } from './fs-info.model';
+import { NotifyService } from 'src/shared/root/notify.service';
 
 export class Info {
   public inner: FSInfo;

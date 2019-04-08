@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChildren, QueryList, ElementRef } from "@angular/core";
-import { UserService } from "src/services/user.service";
-import { NotifyService } from "src/services/notify.service";
-import { PuzzleService, Puzzle } from "src/services/puzzle.service";
+import { NotifyService } from "src/shared/root/notify.service";
+import { PuzzleService, Puzzle } from "src/shared/puzzle/puzzle.service";
+import { UserService } from 'src/shared/root/user.service';
 
 @Component({
   selector: "view-playtesting",

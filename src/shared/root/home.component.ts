@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { NotifyService } from "src/services/notify.service";
-import { UserService } from "src/services/user.service";
+import { NotifyService } from "src/shared/root/notify.service";
+import { UserService } from './user.service';
 
 @Component({
   selector: "app-home",

@@ -13,8 +13,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from "primeng/inputtext";
 import { ButtonModule } from "primeng/button";
 import { TabMenuModule } from 'primeng/tabmenu';
-import { WebmasterService } from "src/services/webmaster.service";
-import { WebmasterServiceImpl } from "src/services/webmaster.service.impl";
+import { WebmasterService } from "./webmaster.service";
+import { WebmasterServiceImpl } from "./webmaster.service.impl";
 
 @NgModule({
   declarations: [

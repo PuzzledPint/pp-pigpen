@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Puzzle } from "src/services/puzzle.service";
 import { Observable } from "rxjs";
+import { Puzzle } from 'src/shared/puzzle/puzzle.service';
 
 @Component({
   selector: "app-playtesting-puzzle",

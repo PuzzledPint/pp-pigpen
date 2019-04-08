@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore, DocumentReference, AngularFirestoreDocument } from "@angular/fire/firestore";
-import { FSRosterEntry } from "src/models/fs-roster-entry.model";
 import { InternalNgModuleRef } from "@angular/core/src/linker/ng_module_factory";
-import { isEmailValid } from 'src/shared/validation-utils';
+import { FSRosterEntry } from './models/fs-roster-entry.model';
+import { isEmailValid } from 'src/shared/root/validation.util';
 
 // export interface FSPermissions {
 //   active: boolean;

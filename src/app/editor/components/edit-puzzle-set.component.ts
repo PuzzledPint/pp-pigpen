@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { PuzzleService, PuzzleSet, Puzzle } from "src/services/puzzle.service";
-import { NotifyService } from "src/services/notify.service";
+import { NotifyService } from "src/shared/root/notify.service";
 import { Observable, Subscription } from "rxjs";
 import { DocumentReference } from "@angular/fire/firestore";
 import { SelectItem } from "primeng/api";
-import { SentryService } from "src/services/sentry.service";
+import { SentryService } from "src/shared/root/sentry.service";
+import { PuzzleSet, PuzzleService, Puzzle } from 'src/shared/puzzle/puzzle.service';
 
 @Component({
   selector: "app-editor-edit-puzzle-set",

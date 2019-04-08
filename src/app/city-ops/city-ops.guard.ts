@@ -2,9 +2,9 @@ import { Injectable } from "@angular/core";
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanActivateChild, CanLoad, Route, UrlSegment } from "@angular/router";
 import { Observable } from "rxjs";
 
-import { UserService } from "../../services/user.service";
-import { NotifyService } from "../../services/notify.service";
+import { NotifyService } from "src/shared/root/notify.service";
 import { map, tap, take } from "rxjs/operators";
+import { UserService } from 'src/shared/root/user.service';
 
 @Injectable({
   providedIn: "root",

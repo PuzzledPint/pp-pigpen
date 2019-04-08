@@ -1,8 +1,8 @@
 import { WebmasterService } from './webmaster.service';
 import { AngularFirestoreDocument, AngularFirestore } from "@angular/fire/firestore";
-import { FSAdminPermissions } from "src/models/fs-admin-permissions";
-import { NotifyService } from "./notify.service";
-import { SentryService } from "./sentry.service";
+import { FSAdminPermissions } from "./fs-admin-permissions";
+import { NotifyService } from "src/shared/root/notify.service";
+import { SentryService } from "src/shared/root/sentry.service";
 import { Injectable } from '@angular/core';
 
 @Injectable()

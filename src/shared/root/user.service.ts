@@ -8,11 +8,11 @@ import {
 
 import { User, auth } from "firebase/app";
 
-import { FSUserDoc } from "../models/fs-user-doc.model";
 import { ReplaySubject } from 'rxjs';
 import { SentryService } from "./sentry.service";
 import { noSideEffects } from "@angular/core/src/util";
 import { NotifyService } from './notify.service';
+import { FSUserDoc } from './fs-user-doc.model';
 
 @Injectable({
   providedIn: "root"

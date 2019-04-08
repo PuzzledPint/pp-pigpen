@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { faderAnimation } from "./animations";
-import { AnalyticsService } from 'src/services/analytics.service';
+import { AnalyticsService } from 'src/shared/root/analytics.service';
 
 @Component({
   selector: "view-root",

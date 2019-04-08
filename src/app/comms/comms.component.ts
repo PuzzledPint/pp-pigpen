@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { NotifyService } from "src/services/notify.service";
-import { InfoService, Info } from "src/services/info.service";
+import { NotifyService } from "src/shared/root/notify.service";
+import { Info, InfoService } from '../info/info.service';
 
 @Component({
   selector: "view-comms",

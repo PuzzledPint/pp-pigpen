@@ -7,7 +7,7 @@ import { EditorGuard } from './editor/editor.guard';
 import { ShowrunnerGuard } from './showrunner/showrunner.guard';
 import { WebmasterGuard } from './webmaster/webmaster.guard';
 import { HomeComponent } from 'src/shared/root/home.component';
-import { NotFoundResolver } from 'src/services/not-found.resolver';
+import { NotFoundResolver } from 'src/shared/root/not-found.resolver';
 
 const routes: Routes = [
   // Home

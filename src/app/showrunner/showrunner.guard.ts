@@ -11,8 +11,8 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { UserService } from '../../services/user.service';
-import { NotifyService } from '../../services/notify.service';
+import { UserService } from 'src/shared/root/user.service';
+import { NotifyService } from 'src/shared/root/notify.service';
 import { map, tap, take } from 'rxjs/operators';
 
 @Injectable({

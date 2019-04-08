@@ -1,6 +1,6 @@
 // tslint:disable: max-line-length
 import { Component, OnInit, SecurityContext } from "@angular/core";
-import { NotifyService } from "src/services/notify.service";
+import { NotifyService } from "src/shared/root/notify.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { trigger, state, transition, animate, style, query, stagger, keyframes } from '@angular/animations';
 import { DomSanitizer } from "@angular/platform-browser";

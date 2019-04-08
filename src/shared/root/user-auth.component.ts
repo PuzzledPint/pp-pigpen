@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { UserService } from "src/services/user.service";
 import { MenuItem } from "primeng/api";
-import { NotifyService } from "src/services/notify.service";
+import { NotifyService } from "src/shared/root/notify.service";
 import { Router } from "@angular/router";
+import { UserService } from './user.service';
 
 @Component({
   selector: "app-user-auth",

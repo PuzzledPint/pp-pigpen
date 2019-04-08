@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { SentryService } from "src/services/sentry.service";
-import { NotifyService } from "src/services/notify.service";
+import { SentryService } from "src/shared/root/sentry.service";
+import { NotifyService } from "src/shared/root/notify.service";
 
 @Component({
   selector: 'view-test-all',

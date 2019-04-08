@@ -13,8 +13,8 @@ import { FormsModule } from '@angular/forms';
 
 // Primeng
 import { WebmasterServiceMock } from "./mocks/webmaster.service.mock";
-import { WebmasterService } from "../../services/webmaster.service";
 import { WebmasterModule } from "../webmaster/webmaster.module";
+import { WebmasterService } from '../webmaster/webmaster.service';
 
 @NgModule({
   declarations: [

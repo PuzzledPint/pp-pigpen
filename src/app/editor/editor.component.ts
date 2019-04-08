@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { NotifyService } from "src/services/notify.service";
-import { PuzzleService } from "src/services/puzzle.service";
+import { NotifyService } from "src/shared/root/notify.service";
+import { PuzzleService } from 'src/shared/puzzle/puzzle.service';
 
 @Component({
   selector: "view-editor",

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { UserService } from "src/services/user.service";
 import { HttpParams } from "@angular/common/http";
+import { UserService } from 'src/shared/root/user.service';
 
 @Component({
   selector: "app-editor-email-button",

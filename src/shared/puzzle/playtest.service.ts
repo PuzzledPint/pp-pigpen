@@ -1,15 +1,15 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore, AngularFirestoreDocument, DocumentReference, AngularFirestoreCollection } from "@angular/fire/firestore";
 
-import { FSPlaytestFeedback } from "../models/fs-playtest-feedback.model";
-import { UserService } from "./user.service";
-import { NotifyService } from "./notify.service";
 import { Observable } from "rxjs";
 import { map, tap, shareReplay } from "rxjs/operators";
 import { Puzzle } from "./puzzle.service";
 import { Timestamp } from '@firebase/firestore-types';
-import { SentryService } from "./sentry.service";
-import { numToString } from 'src/shared/conversion-utils';
+import { FSPlaytestFeedback } from './fs-playtest-feedback.model';
+import { numToString } from '../root/conversion.util';
+import { NotifyService } from '../root/notify.service';
+import { UserService } from '../root/user.service';
+import { SentryService } from '../root/sentry.service';
 
 export interface PlaytestFeedbackAugmented extends FSPlaytestFeedback {
   userId: string;

@@ -1,8 +1,8 @@
 // tslint:disable: max-line-length
 import { Component, OnInit } from "@angular/core";
-import { NotifyService } from "src/services/notify.service";
-import { UserService } from "src/services/user.service";
+import { NotifyService } from "src/shared/root/notify.service";
 import { Router, ActivatedRoute } from "@angular/router";
+import { UserService } from 'src/shared/root/user.service';
 
 class Info {
   public title = "";

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { WebmasterService } from "src/services/webmaster.service";
 import { MenuItem } from 'primeng/api';
+import { WebmasterService } from './webmaster.service';
 
 @Component({
   selector: "view-webmaster",

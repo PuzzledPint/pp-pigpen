@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from "@angular/core";
-import { PlaytestFeedbackAugmented, PlaytestService } from "src/services/playtest.service";
-import { NotifyService } from "src/services/notify.service";
+import { NotifyService } from "src/shared/root/notify.service";
 import { Observable, Subscription } from "rxjs";
-import { Puzzle, PuzzleService } from "src/services/puzzle.service";
 import { DatePipe } from "@angular/common";
+import { Puzzle, PuzzleService } from 'src/shared/puzzle/puzzle.service';
+import { PlaytestFeedbackAugmented, PlaytestService } from 'src/shared/puzzle/playtest.service';
 
 @Component({
   selector: "app-editor-view-puzzle-feedback",

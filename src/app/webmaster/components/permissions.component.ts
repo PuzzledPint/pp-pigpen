@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { FSUserClaimsEntry } from "src/models/fs-admin-permissions";
-import { WebmasterService } from "src/services/webmaster.service";
+import { WebmasterService } from '../webmaster.service';
 
 @Component({
   selector: "app-webmaster-permissions",

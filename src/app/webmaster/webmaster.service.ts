@@ -1,4 +1,4 @@
-import { FSAdminPermissions } from 'src/models/fs-admin-permissions';
+import { FSAdminPermissions } from './fs-admin-permissions';
 
 export abstract class WebmasterService {
   public permissions: FSAdminPermissions | undefined;

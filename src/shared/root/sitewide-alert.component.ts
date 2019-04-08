@@ -1,8 +1,7 @@
 import { Component, OnInit, AfterViewInit } from "@angular/core";
-import { InfoService, Info } from "src/services/info.service";
 import { Observable } from "rxjs";
-import { FSInfo } from "src/models/fs-info.model";
-import { NotifyService } from "src/services/notify.service";
+import { NotifyService } from "src/shared/root/notify.service";
+import { Info, InfoService } from 'src/app/info/info.service';
 
 @Component({
   selector: "app-sitewide-alert",

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { DocumentReference } from "@angular/fire/firestore";
-import { PlaytestFeedback, PlaytestService } from "src/services/playtest.service";
-import { NotifyService } from "src/services/notify.service";
+import { PlaytestFeedback, PlaytestService } from "src/shared/puzzle/playtest.service";
+import { NotifyService } from "src/shared/root/notify.service";
 
 @Component({
   selector: "app-playtesting-puzzle-feedback",
